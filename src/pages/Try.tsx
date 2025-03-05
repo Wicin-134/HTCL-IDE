@@ -1,28 +1,7 @@
 
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import Interpreter from "@/components/Interpreter";
 import Layout from "@/components/Layout";
 
 const Try = () => {
-  const location = useLocation();
-  const [initialCode, setInitialCode] = useState<string | null>(null);
-  
-  useEffect(() => {
-    // Check for code in URL parameters
-    const params = new URLSearchParams(location.search);
-    const codeParam = params.get("code");
-    
-    // Check for code in location state (from examples page)
-    const stateCode = location.state?.code;
-    
-    if (codeParam) {
-      setInitialCode(codeParam);
-    } else if (stateCode) {
-      setInitialCode(stateCode);
-    }
-  }, [location]);
-
   return (
     <Layout>
       <div className="container px-4 py-16">
@@ -34,7 +13,9 @@ const Try = () => {
         </div>
         
         <div className="max-w-5xl mx-auto">
-          <Interpreter initialCode={initialCode} />
+          <div className="p-8 border rounded-lg shadow-sm bg-card text-center">
+            <p className="text-2xl text-muted-foreground">add interpreter here</p>
+          </div>
         </div>
       </div>
     </Layout>
