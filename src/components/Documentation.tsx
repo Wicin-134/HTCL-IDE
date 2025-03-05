@@ -90,11 +90,11 @@ const Documentation = () => {
                   </thead>
                   <tbody>
                     <tr className="border-b">
-                      <td className="py-2 px-4 font-mono">&gt;</td>
+                      <td className="py-2 px-4 font-mono">{'>'}</td>
                       <td className="py-2 px-4">Move the pointer to the right</td>
                     </tr>
                     <tr className="border-b">
-                      <td className="py-2 px-4 font-mono">&lt;</td>
+                      <td className="py-2 px-4 font-mono">{'<'}</td>
                       <td className="py-2 px-4">Move the pointer to the left</td>
                     </tr>
                     <tr className="border-b">
@@ -176,7 +176,7 @@ const Documentation = () => {
                   The classic first program, outputting "Hello, World!".
                 </p>
                 <div className="bg-card p-4 rounded-md border font-mono text-sm overflow-x-auto">
-                  +++++++++[>++++++++<-]>++++++++++[>++++++++++<-]>+++++.>+++++++++[>+++++++++++<-]>+.+++++++..+++.>++++[>+++++++++++<-]>-.------------.<<<<+++++++++++++++.>>.+++.------.--------.>>+.
+                  +++++++++[{'>'}++++++++{'<'}-]{'>'}++++++++++[{'>'}++++++++++{'<'}-]{'>'}+++++.{'>'}+++++++++[{'>'}+++++++++++{'<'}-]{'>'}+.+++++++..+++.{'>'}++++[{'>'}+++++++++++{'<'}-]{'>'}-.------------.{'<'}{'<'}{'<'}{'<'}+++++++++++++++.{'>'}{'>'}.+++.------.--------.{'>'}{'>'}{'+.'} 
                 </div>
               </div>
               
@@ -186,7 +186,7 @@ const Documentation = () => {
                   A simple program that counts from 1 to 10 and prints each number.
                 </p>
                 <div className="bg-card p-4 rounded-md border font-mono text-sm overflow-x-auto">
-                  ++++++++++[>!<-]
+                  ++++++++++[{'>'}!{'<'}-]
                 </div>
               </div>
               
@@ -206,7 +206,7 @@ const Documentation = () => {
                   This program adds 3 and 5, then outputs the result (8).
                 </p>
                 <div className="bg-card p-4 rounded-md border font-mono text-sm overflow-x-auto">
-                  +++>+++++<[>+<-]>!
+                  +++{'>'}+++++{'<'}[{'>'}+{'<'}-]{'>'}!
                 </div>
               </div>
               
@@ -216,7 +216,7 @@ const Documentation = () => {
                   A demonstration of the memory visualization feature using the ? command.
                 </p>
                 <div className="bg-card p-4 rounded-md border font-mono text-sm overflow-x-auto">
-                  +++>++>+<?<?<?
+                  +++{'>'}++{'>'}+{'<'}?{'<'}?{'<'}?
                 </div>
               </div>
               
@@ -253,7 +253,7 @@ const Documentation = () => {
               </p>
               <div className="bg-card p-4 rounded-md border font-mono text-sm overflow-x-auto">
                 {/* x in cell 0, y in cell 1, result in cell 2 */}
-                >++++>+++<<[>[>+>+<<-]>>[<<+>>-]<<<-]>>!
+                {'>'}++++{'>'}+++{'<'}{'<'}[{'>'}[{'>'}+{'>'}+{'<'}{'<'}-]{'>'}{'>'}{'>'}{'<'}{'<'}+{'>'}{'>'}-]{'<'}{'<'}{'<'}-]{'>'}{'>'}{'>'}!
               </div>
               <p className="mt-2 text-muted-foreground">
                 This multiplies 4 × 3 = 12 and prints the result.
@@ -282,12 +282,12 @@ const Documentation = () => {
               
               <h4 className="font-medium mt-4">2. Move a value (cell 0 to cell 1, zeroing cell 0)</h4>
               <div className="bg-card p-4 rounded-md border font-mono text-sm overflow-x-auto mt-2">
-                [>+<-]
+                [{'>'}+{'<'}-]
               </div>
               
               <h4 className="font-medium mt-4">3. Copy a value (cell 0 to cells 1 and 2)</h4>
               <div className="bg-card p-4 rounded-md border font-mono text-sm overflow-x-auto mt-2">
-                [>+>+<<-]>>[<<+>>-]
+                [{'>'}+{'>'}+{'<'}{'<'}-]{'>'}{'>'}{'>'}{'<'}{'<'}+{'>'}{'>'}-]
               </div>
               
               <h3 className="text-lg font-medium mt-6">Memory Management Patterns</h3>
