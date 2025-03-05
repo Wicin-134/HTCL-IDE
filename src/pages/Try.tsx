@@ -1,5 +1,6 @@
 
 import Layout from "@/components/Layout";
+import InterfuckInterpreter from "@/components/InterfuckInterpreter";
 
 const Try = () => {
   return (
@@ -12,10 +13,8 @@ const Try = () => {
           </p>
         </div>
         
-        <div className="max-w-5xl mx-auto">
-          <div className="p-8 border rounded-lg shadow-sm bg-card text-center">
-            <p className="text-2xl text-muted-foreground">add interpreter here</p>
-          </div>
+        <div className="max-w-6xl mx-auto">
+          <InterfuckInterpreter />
         </div>
       </div>
     </Layout>
