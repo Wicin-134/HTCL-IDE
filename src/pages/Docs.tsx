@@ -1,5 +1,4 @@
 
-import Documentation from "@/components/Documentation";
 import Layout from "@/components/Layout";
 
 const Docs = () => {
@@ -14,7 +13,9 @@ const Docs = () => {
         </div>
         
         <div className="max-w-4xl mx-auto">
-          <Documentation />
+          <div className="p-8 border rounded-lg shadow-sm bg-card text-center">
+            <p className="text-2xl text-muted-foreground">Documentation will be available soon</p>
+          </div>
         </div>
       </div>
     </Layout>
