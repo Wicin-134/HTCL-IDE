@@ -3,12 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Code, BookText, Play, MessageCircle, Menu, X } from "lucide-react";
+
 interface NavItemProps {
   to: string;
   icon: React.ReactNode;
   label: string;
   exact?: boolean;
 }
+
 const NavItem = ({
   to,
   icon,
@@ -25,9 +27,11 @@ const NavItem = ({
       <span>{label}</span>
     </Link>;
 };
+
 interface LayoutProps {
   children: React.ReactNode;
 }
+
 const Layout = ({
   children
 }: LayoutProps) => {
@@ -87,15 +91,14 @@ const Layout = ({
       <footer className="border-t py-6 md:py-8">
         <div className="container flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <div>
-            <p>© {new Date().getFullYear()} Interfuck. All rights reserved.</p>
+            <p>2025 Interfuck</p>
           </div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-foreground transition-colors">Terms</a>
-            
-            <a href="#" className="hover:text-foreground transition-colors">Contact</a>
+            <a href="https://discord.gg/4VbEjuSF" className="hover:text-foreground transition-colors">Contact</a>
           </div>
         </div>
       </footer>
     </div>;
 };
+
 export default Layout;
