@@ -187,8 +187,7 @@ PLEASE DO :1.  // This is also a comment
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Command Format</h3>
                   <div className="bg-secondary/20 p-2 rounded-md mt-2">
-                    <pre className="font-mono text-sm">PLEASE DO :1.  // Create a new Dataling
-5               // The value is on the next line</pre>
+                    <pre className="font-mono text-sm">PLEASE DO :1.  // Create a new Dataling                // The value is on the next line</pre>
                   </div>
                 </div>
               </div>
