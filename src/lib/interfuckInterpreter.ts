@@ -39,11 +39,12 @@ export class Databer {
   private datalings: number[] = [];
 
   // Dodaje nowy Dataling z podaną wartością
-  addDataling(value: number): void {
+  addDataling(value: number): number {
     if (typeof value !== 'number' || isNaN(value)) {
       throw new Error("Stupid error: Dataling value must be numeric");
     }
     this.datalings.push(value);
+    return this.datalings.length - 1; // Return the index of the newly added dataling
   }
 
   // Usuwa Dataling o określonym indeksie
@@ -147,8 +148,8 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
           if (nextLine && /^-?\d+$/.test(nextLine)) {
             const value = Number(nextLine);
             if (!isNaN(value)) {
-              databer.addDataling(value);
-              output.push(`Created Dataling with value: ${value}`);
+              const index = databer.addDataling(value);
+              output.push(`Created Dataling with value: ${value} at index ${index}`);
               i++; // Przesuwamy wskaźnik, aby pominąć linię wartości
             } else {
               throw new Error(`Stupid error: Value "${nextLine}" is not numeric`);

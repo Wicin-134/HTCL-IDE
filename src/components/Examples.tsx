@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -145,13 +144,11 @@ PLEASE DO :1.
 PLEASE CALL :4.
 PLEASE BREACH :5.
 PLEASE DO :1.
-8
+3
 PLEASE DO :1.
-16
+26
 PLEASE DO :1.
-16
-PLEASE DO :1.
-5
+6
 PLEASE CALL :4.
 PLEASE EXIT :6.`,
       level: "beginner" as const,
@@ -225,7 +222,7 @@ PLEASE DO :1.
 PLEASE DO :1.
 8
 PLEASE CALL :4.
-PLEASE DONT :2. 2
+PLEASE DONT :2. 0
 PLEASE CALL :4.
 PLEASE EXIT :6.`,
       level: "intermediate" as const,

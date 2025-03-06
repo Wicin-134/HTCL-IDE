@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -37,11 +36,9 @@ const InterfuckInterpreter: React.FC = () => {
   const [error, setError] = useState<string | undefined>();
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
-  // Handle code from location state (from example cards)
   useEffect(() => {
     if (location.state && location.state.code) {
       setCode(location.state.code);
-      // Clear the browser history state to avoid persisting the code on refresh
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
@@ -88,9 +85,57 @@ const InterfuckInterpreter: React.FC = () => {
     toast.success("Code copied to clipboard");
   };
 
+  const extractDatalings = (output: string[]): { index: number; value: number }[] => {
+    const datalings: { index: number; value: number }[] = [];
+    const creationPattern = /Created Dataling with value: (\d+) at index (\d+)/;
+    const updatePattern = /Updated Dataling at index (\d+) with value: (\d+)/;
+    const removalPattern = /Removed Dataling at index: (\d+)/;
+    const clearPattern = /All Datalings removed from Databer/;
+    
+    for (const line of output) {
+      const createMatch = line.match(creationPattern);
+      if (createMatch) {
+        datalings.push({ 
+          index: parseInt(createMatch[2]), 
+          value: parseInt(createMatch[1]) 
+        });
+        continue;
+      }
+      
+      const updateMatch = line.match(updatePattern);
+      if (updateMatch) {
+        const index = parseInt(updateMatch[1]);
+        const value = parseInt(updateMatch[2]);
+        const existingIndex = datalings.findIndex(d => d.index === index);
+        if (existingIndex !== -1) {
+          datalings[existingIndex].value = value;
+        }
+        continue;
+      }
+      
+      const removeMatch = line.match(removalPattern);
+      if (removeMatch) {
+        const index = parseInt(removeMatch[1]);
+        const existingIndex = datalings.findIndex(d => d.index === index);
+        if (existingIndex !== -1) {
+          datalings.splice(existingIndex, 1);
+        }
+        continue;
+      }
+      
+      if (line.match(clearPattern)) {
+        datalings.length = 0;
+        continue;
+      }
+    }
+    
+    return datalings;
+  };
+
+  const currentDatalings = extractDatalings(output);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* Code Editor */}
       <Card className="overflow-hidden">
         <CardHeader className="pb-2">
           <CardTitle className="flex justify-between items-center">
@@ -128,7 +173,6 @@ const InterfuckInterpreter: React.FC = () => {
         </CardFooter>
       </Card>
 
-      {/* Output */}
       <Card>
         <CardHeader className="pb-2">
           <CardTitle>Output</CardTitle>
@@ -161,7 +205,27 @@ const InterfuckInterpreter: React.FC = () => {
         )}
       </Card>
 
-      {/* Action Reference */}
+      <Card className="md:col-span-2">
+        <CardHeader>
+          <CardTitle>Current Datalings</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap gap-4">
+            {currentDatalings.length > 0 ? (
+              currentDatalings.map((dataling, i) => (
+                <div key={i} className="border rounded-md p-3 bg-secondary/20 w-20 h-20 flex flex-col items-center justify-center">
+                  <div className="text-xs text-muted-foreground mb-1">Index {dataling.index}</div>
+                  <div className="font-mono text-xl font-bold">{dataling.value}</div>
+                  <div className="text-xs mt-1">{convertToChar(dataling.value)}</div>
+                </div>
+              ))
+            ) : (
+              <div className="text-muted-foreground">No datalings in memory</div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
       <Card className="md:col-span-2">
         <CardHeader>
           <CardTitle>INTERFUCK Action Reference</CardTitle>
@@ -196,7 +260,6 @@ const InterfuckInterpreter: React.FC = () => {
         </CardContent>
       </Card>
 
-      {/* Character Conversion Reference */}
       <Card className="md:col-span-2">
         <CardHeader>
           <CardTitle>Character Conversion Reference</CardTitle>
