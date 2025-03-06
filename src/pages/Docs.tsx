@@ -590,20 +590,14 @@ PLEASE EXIT :6.`}
                     complex operations. Comments start with <code className="font-mono bg-secondary/20 px-1 rounded">//</code>.
                   </li>
                   
-                  <li>
-                    <strong>Organize Code:</strong> Group related commands together and separate different 
-                    sections of your program with blank lines.
-                  </li>
+                  
                   
                   <li>
                     <strong>Be Mindful of Indices:</strong> When removing Datalings, remember that all subsequent 
                     Datalings' indices will shift. Plan your operations accordingly.
                   </li>
                   
-                  <li>
-                    <strong>Use CALL for Debugging:</strong> Insert <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CALL :4.</code> commands 
-                    at strategic points to verify the state of your Databer during development.
-                  </li>
+                  
                   
                   <li>
                     <strong>Always Include EXIT:</strong> Always end your program with <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> to 
