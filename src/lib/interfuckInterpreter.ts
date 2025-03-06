@@ -75,13 +75,13 @@ export class Databer {
       return "";
     }
     
+    // Updated to only return the characters (only for values 1-27)
     return this.datalings.map(value => {
-      // Konwersja wartości na znaki, jeśli są w zakresie 1-27
       if (value >= 1 && value <= 27) {
-        return `${value} (${convertToChar(value)})`;
+        return convertToChar(value);
       }
       return value.toString();
-    }).join(", ");
+    }).join("");
   }
 
   // Usuwa wszystkie Datalings

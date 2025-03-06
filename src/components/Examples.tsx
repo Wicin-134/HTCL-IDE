@@ -75,55 +75,201 @@ const Examples = () => {
     {
       title: "Hello World",
       description: "The classic first program, outputting 'Hello, World!'",
-      code: "+++++++++[>++++++++<-]>++++++++++[>++++++++++<-]>+++++.>+++++++++[>+++++++++++<-]>+.+++++++..+++.>++++[>+++++++++++<-]>-.------------.<<<<+++++++++++++++.>>.+++.------.--------.>>+.",
+      code: `PLEASE DO :1.
+9
+PLEASE DO :1.
+6
+PLEASE DO :1.
+13
+PLEASE DO :1.
+13
+PLEASE DO :1.
+16
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
       level: "beginner" as const,
     },
     {
-      title: "Counter to 10",
-      description: "A simple program that counts from 1 to 10 and prints each number",
-      code: "++++++++++[>!<-]",
+      title: "Hello Programmer",
+      description: "Displays a greeting to the programmer",
+      code: `PLEASE DO :1.
+9
+PLEASE DO :1.
+6
+PLEASE DO :1.
+13
+PLEASE DO :1.
+13
+PLEASE DO :1.
+16
+PLEASE DO :1.
+1
+PLEASE DO :1.
+17
+PLEASE DO :1.
+19
+PLEASE DO :1.
+16
+PLEASE DO :1.
+8
+PLEASE DO :1.
+19
+PLEASE DO :1.
+2
+PLEASE DO :1.
+14
+PLEASE DO :1.
+14
+PLEASE DO :1.
+6
+PLEASE DO :1.
+19
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
       level: "beginner" as const,
     },
     {
-      title: "Cat Program",
-      description: "A program that echoes input characters (like Unix 'cat')",
-      code: ",[-.,]",
+      title: "Clear and Reset",
+      description: "Shows how to create values and then clear them",
+      code: `PLEASE DO :1.
+9
+PLEASE DO :1.
+10
+PLEASE CALL :4.
+PLEASE BREACH :5.
+PLEASE DO :1.
+3
+PLEASE DO :1.
+20
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
       level: "beginner" as const,
     },
     {
-      title: "Simple Addition",
-      description: "This program adds two numbers and outputs the result",
-      code: "+++>+++++<[>+<-]>!",
-      level: "beginner" as const,
-    },
-    {
-      title: "Multiplication",
-      description: "Multiplies two numbers using a nested loop approach",
-      code: ">++++>+++<<[>[>+>+<<-]>>[<<+>>-]<<<-]>>!",
+      title: "Value Updates",
+      description: "Shows how to update existing values",
+      code: `PLEASE DO :1.
+3
+PLEASE DO :1.
+12
+PLEASE CALL :4.
+PLEASE LET :3. 0
+16
+PLEASE LET :3. 1
+6
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
       level: "intermediate" as const,
     },
     {
-      title: "Debug Test",
-      description: "Demonstrates memory inspection with the debug command",
-      code: "+++>++>+<?<?<?",
-      level: "beginner" as const,
-    },
-    {
-      title: "ASCII Art",
-      description: "Outputs a simple ASCII art pattern using characters",
-      code: "++++++++[>++++>++++++++>++++++++>+<<<<-]>++.>+.>--.>++++++++++++++.",
+      title: "Delete Specific Values",
+      description: "Demonstrates deleting specific datalings from a sequence",
+      code: `PLEASE DO :1.
+2
+PLEASE DO :1.
+3
+PLEASE DO :1.
+4
+PLEASE DO :1.
+5
+PLEASE DO :1.
+6
+PLEASE CALL :4.
+PLEASE DONT :2. 2
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
       level: "intermediate" as const,
     },
     {
-      title: "Division",
-      description: "A complex algorithm implementing integer division",
-      code: "++++++>++++><<[>>[>+>+<<-]>[-<+>]<<-]>>>!",
+      title: "Building Words",
+      description: "Builds the word 'code' letter by letter",
+      code: `PLEASE DO :1.
+4
+PLEASE CALL :4.
+PLEASE DO :1.
+16
+PLEASE CALL :4.
+PLEASE DO :1.
+5
+PLEASE CALL :4.
+PLEASE DO :1.
+6
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
+      level: "beginner" as const,
+    },
+    {
+      title: "Sequential Operations",
+      description: "Performs a series of operations on the data",
+      code: `PLEASE DO :1.
+20
+PLEASE DO :1.
+21
+PLEASE DO :1.
+2
+PLEASE DO :1.
+19
+PLEASE DO :1.
+21
+PLEASE CALL :4.
+PLEASE DONT :2. 3
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
+      level: "intermediate" as const,
+    },
+    {
+      title: "Complex Sequence",
+      description: "Creates and manipulates a more complex sequence of values",
+      code: `PLEASE DO :1.
+9
+PLEASE DO :1.
+6
+PLEASE DO :1.
+13
+PLEASE DO :1.
+13
+PLEASE DO :1.
+16
+PLEASE CALL :4.
+PLEASE BREACH :5.
+PLEASE DO :1.
+24
+PLEASE DO :1.
+16
+PLEASE DO :1.
+19
+PLEASE DO :1.
+13
+PLEASE DO :1.
+5
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
       level: "advanced" as const,
     },
     {
-      title: "Fibonacci Sequence",
-      description: "Generates and outputs the first 10 Fibonacci numbers",
-      code: "+>+<[>[>+>+<<-]>>[<<+>>-]<<<-]>>[>!>+<<-]",
+      title: "Interactive Example",
+      description: "Shows a variety of Interfuck commands in action",
+      code: `PLEASE DO :1.
+10
+PLEASE DO :1.
+15
+PLEASE DO :1.
+21
+PLEASE DO :1.
+6
+PLEASE DO :1.
+19
+PLEASE DO :1.
+2
+PLEASE DO :1.
+4
+PLEASE DO :1.
+21
+PLEASE CALL :4.
+PLEASE LET :3. 2
+22
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
       level: "advanced" as const,
     },
   ];
