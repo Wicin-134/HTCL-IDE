@@ -1,6 +1,40 @@
 
 // Interpreter for the INTERFUCK programming language
 
+// Funkcja konwersji liczby na znak
+export function convertToChar(value: number): string {
+  switch (value) {
+    case 1: return ' ';
+    case 2: return 'a';
+    case 3: return 'b';
+    case 4: return 'c';
+    case 5: return 'd';
+    case 6: return 'e';
+    case 7: return 'f';
+    case 8: return 'g';
+    case 9: return 'h';
+    case 10: return 'i';
+    case 11: return 'j';
+    case 12: return 'k';
+    case 13: return 'l';
+    case 14: return 'm';
+    case 15: return 'n';
+    case 16: return 'o';
+    case 17: return 'p';
+    case 18: return 'q';
+    case 19: return 'r';
+    case 20: return 's';
+    case 21: return 't';
+    case 22: return 'u';
+    case 23: return 'v';
+    case 24: return 'w';
+    case 25: return 'x';
+    case 26: return 'y';
+    case 27: return 'z';
+    default: return value.toString();
+  }
+}
+
 // Reprezentacja Databer - główny kontener danych
 export class Databer {
   private datalings: number[] = [];
@@ -37,7 +71,17 @@ export class Databer {
 
   // Zwraca wszystkie wartości Datalings jako string
   getValues(): string {
-    return this.datalings.join(", ");
+    if (this.datalings.length === 0) {
+      return "";
+    }
+    
+    return this.datalings.map(value => {
+      // Konwersja wartości na znaki, jeśli są w zakresie 1-27
+      if (value >= 1 && value <= 27) {
+        return `${value} (${convertToChar(value)})`;
+      }
+      return value.toString();
+    }).join(", ");
   }
 
   // Usuwa wszystkie Datalings
@@ -78,22 +122,17 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
       
       // PLEASE DO :1. - Tworzy Dataling
       if (line.startsWith('PLEASE DO :1.')) {
-        output.push("Enter value for new Dataling: ...");
-        // Szukamy wartości po ". . ." w kolejnej linii
-        if (i + 1 < lines.length && lines[i + 1].includes('. . .')) {
-          const valuePart = lines[i + 1].split('. . .')[1]?.trim();
-          if (valuePart) {
-            const value = Number(valuePart);
-            if (!isNaN(value)) {
-              databer.addDataling(value);
-              output.push(`Created Dataling with value: ${value}`);
-            } else {
-              throw new Error(`Stupid error: Value "${valuePart}" is not numeric`);
-            }
+        const valueMatch = line.match(/PLEASE DO :1\.\s*(-?\d+)/);
+        if (valueMatch && valueMatch[1]) {
+          const value = Number(valueMatch[1]);
+          if (!isNaN(value)) {
+            databer.addDataling(value);
+            output.push(`Created Dataling with value: ${value}`);
+          } else {
+            throw new Error(`Stupid error: Value "${valueMatch[1]}" is not numeric`);
           }
-          i++; // Przesuwamy się do następnej linii, ponieważ już ją przetworzyliśmy
         } else {
-          throw new Error("Stupid error: Expected value input after PLEASE DO :1.");
+          throw new Error("Stupid error: Expected numeric value after PLEASE DO :1.");
         }
       }
       // PLEASE DONT :2. - Usuwa Dataling
@@ -109,29 +148,18 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
       }
       // PLEASE LET :3. - Edytuje wartość Dataling
       else if (line.startsWith('PLEASE LET :3.')) {
-        const indexMatch = line.match(/:3\.\s*(\d+)/);
-        if (indexMatch && indexMatch[1]) {
-          const index = Number(indexMatch[1]);
-          
-          output.push(`Enter new value for Dataling at index ${index}: ...`);
-          // Szukamy wartości po ". . ." w kolejnej linii
-          if (i + 1 < lines.length && lines[i + 1].includes('. . .')) {
-            const valuePart = lines[i + 1].split('. . .')[1]?.trim();
-            if (valuePart) {
-              const value = Number(valuePart);
-              if (!isNaN(value)) {
-                databer.updateDataling(index, value);
-                output.push(`Updated Dataling at index ${index} with value: ${value}`);
-              } else {
-                throw new Error(`Stupid error: Value "${valuePart}" is not numeric`);
-              }
-            }
-            i++; // Przesuwamy się do następnej linii, ponieważ już ją przetworzyliśmy
+        const match = line.match(/PLEASE LET :3\.\s*(\d+)\s+(-?\d+)/);
+        if (match && match[1] && match[2]) {
+          const index = Number(match[1]);
+          const value = Number(match[2]);
+          if (!isNaN(value)) {
+            databer.updateDataling(index, value);
+            output.push(`Updated Dataling at index ${index} with value: ${value}`);
           } else {
-            throw new Error(`Stupid error: Expected value input after PLEASE LET :3. ${index}`);
+            throw new Error(`Stupid error: Value "${match[2]}" is not numeric`);
           }
         } else {
-          throw new Error("Stupid error: PLEASE LET :3. requires an index");
+          throw new Error("Stupid error: PLEASE LET :3. requires an index and a value");
         }
       }
       // PLEASE CALL :4. - Wyświetla wartości Databer

@@ -3,23 +3,20 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Play, Trash, Copy, Save, RotateCcw } from "lucide-react";
+import { Play, Trash, Copy, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
-import { interpretInterfuck } from "@/lib/interfuckInterpreter";
+import { interpretInterfuck, convertToChar } from "@/lib/interfuckInterpreter";
 
 const EXAMPLE_CODE = `// Przykładowy program INTERFUCK
 // Tworzy dwa Datalings, wyświetla je, aktualizuje wartość i wyświetla ponownie
 
-PLEASE DO :1.
-. . . 42
+PLEASE DO :1. 42
 
-PLEASE DO :1.
-. . . 7
+PLEASE DO :1. 7
 
 PLEASE CALL :4.
 
-PLEASE LET :3. 1
-. . . 99
+PLEASE LET :3. 1 99
 
 PLEASE CALL :4.
 
@@ -158,16 +155,16 @@ const InterfuckInterpreter: React.FC = () => {
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             <div className="p-3 border rounded-md bg-secondary/10">
-              <div className="font-mono font-bold mb-1">PLEASE DO :1.</div>
-              <div className="text-sm">Creates a Dataling and lets you give it a value</div>
+              <div className="font-mono font-bold mb-1">PLEASE DO :1. [value]</div>
+              <div className="text-sm">Creates a Dataling with the specified value</div>
             </div>
             <div className="p-3 border rounded-md bg-secondary/10">
               <div className="font-mono font-bold mb-1">PLEASE DONT :2. [index]</div>
               <div className="text-sm">Deletes the Dataling at the specified index</div>
             </div>
             <div className="p-3 border rounded-md bg-secondary/10">
-              <div className="font-mono font-bold mb-1">PLEASE LET :3. [index]</div>
-              <div className="text-sm">Lets you edit the value of the Dataling at the specified index</div>
+              <div className="font-mono font-bold mb-1">PLEASE LET :3. [index] [value]</div>
+              <div className="text-sm">Updates the value of the Dataling at the specified index</div>
             </div>
             <div className="p-3 border rounded-md bg-secondary/10">
               <div className="font-mono font-bold mb-1">PLEASE CALL :4.</div>
@@ -181,6 +178,23 @@ const InterfuckInterpreter: React.FC = () => {
               <div className="font-mono font-bold mb-1">PLEASE EXIT :6.</div>
               <div className="text-sm">Exits the interpreter</div>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Tabela konwersji cyfr na znaki */}
+      <Card className="md:col-span-2">
+        <CardHeader>
+          <CardTitle>Character Conversion Reference</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2">
+            {Array.from({ length: 27 }, (_, i) => i + 1).map(num => (
+              <div key={num} className="p-2 border rounded-md text-center">
+                <div className="font-mono font-bold">{num}</div>
+                <div className="text-sm">'{convertToChar(num)}'</div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
