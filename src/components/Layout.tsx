@@ -7,7 +7,7 @@ import {
   Code, 
   BookText, 
   Play, 
-  Github,
+  Discord,
   Menu,
   X
 } from "lucide-react";
@@ -74,14 +74,14 @@ const Layout = ({ children }: LayoutProps) => {
             <NavItem to="/docs" icon={<BookText />} label="Documentation" />
             
             <a 
-              href="https://github.com" 
+              href="https://discord.gg/4VbEjuSF" 
               target="_blank" 
               rel="noopener noreferrer"
               className="ml-2"
             >
               <Button variant="outline" size="sm" className="gap-2">
-                <Github size={16} />
-                <span>GitHub</span>
+                <Discord size={16} />
+                <span>Discord</span>
               </Button>
             </a>
           </nav>
@@ -105,14 +105,14 @@ const Layout = ({ children }: LayoutProps) => {
             <NavItem to="/docs" icon={<BookText />} label="Documentation" />
             
             <a 
-              href="https://github.com" 
+              href="https://discord.gg/4VbEjuSF" 
               target="_blank" 
               rel="noopener noreferrer"
               className="mt-2"
             >
               <Button variant="outline" size="sm" className="w-full gap-2 justify-center">
-                <Github size={16} />
-                <span>GitHub</span>
+                <Discord size={16} />
+                <span>Discord</span>
               </Button>
             </a>
           </nav>

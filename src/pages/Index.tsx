@@ -1,3 +1,4 @@
+
 import Hero from "@/components/Hero";
 import Examples from "@/components/Examples";
 import Layout from "@/components/Layout";
@@ -60,7 +61,7 @@ const Index = () => {
               <FeatureCard
                 icon={<BookText size={24} />}
                 title="Polite Syntax"
-                description="Commands start with 'PLEASE', followed by the action on one line and its value on the next line, making code structure clear and courteous."
+                description="Commands start with 'PLEASE', followed by the action, with values provided on separate lines, making code structure clear and courteous."
               />
               <FeatureCard
                 icon={<Database size={24} />}

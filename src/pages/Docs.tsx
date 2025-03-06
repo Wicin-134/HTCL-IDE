@@ -1,3 +1,4 @@
+
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -62,7 +63,7 @@ const Docs = () => {
               <div className="space-y-4">
                 <p>
                   INTERFUCK uses a unique syntax where commands start with "PLEASE" followed by an action. 
-                  Each command's value is specified on the next line, making the code structure clear and easy to read.
+                  Each command's value is specified on the next line (not on the same line), making the code structure clear and easy to read.
                   Comments start with // and continue to the end of the line.
                 </p>
                 
@@ -71,7 +72,7 @@ const Docs = () => {
                   <div className="space-y-2">
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO :1.</code> - Creates a new Dataling. The value is specified on the next line</p>
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DONT :2. [index]</code> - Removes the Dataling at the specified index</p>
-                    <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE LET :3. [index] [value]</code> - Updates the value of the Dataling at the specified index</p>
+                    <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE LET :3. [index]</code> - Updates the value of the Dataling at the specified index. The new value is specified on the next line</p>
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CALL :4.</code> - Prints all values stored in the Databer</p>
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE BREACH :5.</code> - Removes all Datalings from the Databer</p>
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> - Exits the interpreter</p>
@@ -156,14 +157,18 @@ const Docs = () => {
                 <div className="bg-secondary/20 p-3 rounded-md">
                   <pre className="font-mono text-sm whitespace-pre-wrap">
 {`// Create two Datalings
-PLEASE DO :1. 8
-PLEASE DO :1. 5
+PLEASE DO :1.
+8
+
+PLEASE DO :1.
+5
                     
 // Display the Databer contents
 PLEASE CALL :4.
                     
 // Update the first Dataling
-PLEASE LET :3. 0 12
+PLEASE LET :3. 0
+12
                     
 // Display the updated Databer
 PLEASE CALL :4.
@@ -179,11 +184,20 @@ PLEASE EXIT :6.`}
                 <div className="bg-secondary/20 p-3 rounded-md">
                   <pre className="font-mono text-sm whitespace-pre-wrap">
 {`// This program spells "hello"
-PLEASE DO :1. 9  // h
-PLEASE DO :1. 6  // e
-PLEASE DO :1. 13 // l
-PLEASE DO :1. 13 // l
-PLEASE DO :1. 16 // o
+PLEASE DO :1.  // h
+9
+
+PLEASE DO :1.  // e
+6
+
+PLEASE DO :1.  // l
+13
+
+PLEASE DO :1.  // l
+13
+
+PLEASE DO :1.  // o
+16
                     
 // Display the Databer contents
 PLEASE CALL :4.

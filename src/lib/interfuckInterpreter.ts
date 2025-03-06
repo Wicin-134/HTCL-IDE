@@ -115,7 +115,7 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
 
   try {
     // Dzielimy kod na linie
-    const lines = code.split('\n').map(line => line.trim()).filter(line => line);
+    const lines = code.split('\n').map(line => line.trim());
 
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
@@ -131,17 +131,29 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
       
       // PLEASE DO :1. - Tworzy Dataling
       if (line.startsWith('PLEASE DO :1.')) {
-        const valueMatch = line.match(/PLEASE DO :1\.\s*(-?\d+)/);
-        if (valueMatch && valueMatch[1]) {
-          const value = Number(valueMatch[1]);
-          if (!isNaN(value)) {
-            databer.addDataling(value);
-            output.push(`Created Dataling with value: ${value}`);
+        // Szukamy wartości w następnej linii
+        if (i + 1 < lines.length) {
+          let nextLine = lines[i + 1].trim();
+          
+          // Usuwamy komentarze z linii wartości
+          if (nextLine.includes('//')) {
+            nextLine = nextLine.split('//')[0].trim();
+          }
+          
+          if (nextLine && /^-?\d+$/.test(nextLine)) {
+            const value = Number(nextLine);
+            if (!isNaN(value)) {
+              databer.addDataling(value);
+              output.push(`Created Dataling with value: ${value}`);
+              i++; // Przesuwamy wskaźnik, aby pominąć linię wartości
+            } else {
+              throw new Error(`Stupid error: Value "${nextLine}" is not numeric`);
+            }
           } else {
-            throw new Error(`Stupid error: Value "${valueMatch[1]}" is not numeric`);
+            throw new Error(`Stupid error: Expected numeric value in the next line after PLEASE DO :1.`);
           }
         } else {
-          throw new Error("Stupid error: Expected numeric value after PLEASE DO :1.");
+          throw new Error("Stupid error: Missing value after PLEASE DO :1.");
         }
       }
       // PLEASE DONT :2. - Usuwa Dataling
@@ -157,18 +169,36 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
       }
       // PLEASE LET :3. - Edytuje wartość Dataling
       else if (line.startsWith('PLEASE LET :3.')) {
-        const match = line.match(/PLEASE LET :3\.\s*(\d+)\s+(-?\d+)/);
-        if (match && match[1] && match[2]) {
+        const match = line.match(/PLEASE LET :3\.\s*(\d+)/);
+        if (match && match[1]) {
           const index = Number(match[1]);
-          const value = Number(match[2]);
-          if (!isNaN(value)) {
-            databer.updateDataling(index, value);
-            output.push(`Updated Dataling at index ${index} with value: ${value}`);
+          
+          // Szukamy wartości w następnej linii
+          if (i + 1 < lines.length) {
+            let nextLine = lines[i + 1].trim();
+            
+            // Usuwamy komentarze z linii wartości
+            if (nextLine.includes('//')) {
+              nextLine = nextLine.split('//')[0].trim();
+            }
+            
+            if (nextLine && /^-?\d+$/.test(nextLine)) {
+              const value = Number(nextLine);
+              if (!isNaN(value)) {
+                databer.updateDataling(index, value);
+                output.push(`Updated Dataling at index ${index} with value: ${value}`);
+                i++; // Przesuwamy wskaźnik, aby pominąć linię wartości
+              } else {
+                throw new Error(`Stupid error: Value "${nextLine}" is not numeric`);
+              }
+            } else {
+              throw new Error(`Stupid error: Expected numeric value in the next line after PLEASE LET :3.`);
+            }
           } else {
-            throw new Error(`Stupid error: Value "${match[2]}" is not numeric`);
+            throw new Error("Stupid error: Missing value after PLEASE LET :3.");
           }
         } else {
-          throw new Error("Stupid error: PLEASE LET :3. requires an index and a value");
+          throw new Error("Stupid error: PLEASE LET :3. requires an index");
         }
       }
       // PLEASE CALL :4. - Wyświetla wartości Databer
