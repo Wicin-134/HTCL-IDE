@@ -1,10 +1,7 @@
-
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 const Docs = () => {
-  return (
-    <Layout>
+  return <Layout>
       <div className="container px-4 py-16">
         <div className="max-w-3xl mx-auto mb-10 text-center">
           <h1 className="text-4xl font-bold tracking-tight mb-4">Documentation</h1>
@@ -156,7 +153,7 @@ const Docs = () => {
                 <h3 className="text-lg font-semibold mb-2">Basic Program</h3>
                 <div className="bg-secondary/20 p-3 rounded-md">
                   <pre className="font-mono text-sm whitespace-pre-wrap">
-{`// Create two Datalings
+                  {`// Create two Datalings
 PLEASE DO :1.
 8
 
@@ -180,10 +177,10 @@ PLEASE EXIT :6.`}
               </div>
               
               <div>
-                <h3 className="text-lg font-semibold mb-2">Hello World</h3>
+                <h3 className="text-lg font-semibold mb-2">Hello</h3>
                 <div className="bg-secondary/20 p-3 rounded-md">
                   <pre className="font-mono text-sm whitespace-pre-wrap">
-{`// This program spells "hello"
+                  {`// This program spells "hello"
 PLEASE DO :1.  // h
 9
 
@@ -211,8 +208,6 @@ PLEASE EXIT :6.`}
           </Card>
         </div>
       </div>
-    </Layout>
-  );
+    </Layout>;
 };
-
 export default Docs;
