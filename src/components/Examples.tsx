@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Play, Copy } from "lucide-react";
@@ -19,6 +19,8 @@ const ExampleCard: React.FC<ExampleCardProps> = ({
   code,
   level,
 }) => {
+  const navigate = useNavigate();
+  
   const getLevelColor = () => {
     switch (level) {
       case "beginner":
@@ -35,6 +37,10 @@ const ExampleCard: React.FC<ExampleCardProps> = ({
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
     toast.success("Code copied to clipboard");
+  };
+
+  const handleTryIt = () => {
+    navigate('/try', { state: { code } });
   };
 
   return (
@@ -60,15 +66,10 @@ const ExampleCard: React.FC<ExampleCardProps> = ({
           <Copy size={12} />
           Copy
         </Button>
-        <Link 
-          to={`/try?code=${encodeURIComponent(code)}`}
-          state={{ code }}
-        >
-          <Button size="sm" className="gap-1 text-xs">
-            <Play size={12} />
-            Try it
-          </Button>
-        </Link>
+        <Button size="sm" className="gap-1 text-xs" onClick={handleTryIt}>
+          <Play size={12} />
+          Try it
+        </Button>
       </CardFooter>
     </Card>
   );
@@ -77,8 +78,8 @@ const ExampleCard: React.FC<ExampleCardProps> = ({
 const Examples = () => {
   const examples = [
     {
-      title: "Hello World",
-      description: "The classic first program, outputting 'Hello, World!'",
+      title: "Hello",
+      description: "Outputs the word 'hello'",
       code: `PLEASE DO :1.
 9
 PLEASE DO :1.
@@ -136,15 +137,21 @@ PLEASE EXIT :6.`,
       title: "Clear and Reset",
       description: "Shows how to create values and then clear them",
       code: `PLEASE DO :1.
-9
+3
 PLEASE DO :1.
-10
+26
+PLEASE DO :1.
+6
 PLEASE CALL :4.
 PLEASE BREACH :5.
 PLEASE DO :1.
-3
+8
 PLEASE DO :1.
-20
+16
+PLEASE DO :1.
+16
+PLEASE DO :1.
+5
 PLEASE CALL :4.
 PLEASE EXIT :6.`,
       level: "beginner" as const,
@@ -153,14 +160,18 @@ PLEASE EXIT :6.`,
       title: "Value Updates",
       description: "Shows how to update existing values",
       code: `PLEASE DO :1.
-3
+16
 PLEASE DO :1.
-12
+15
+PLEASE DO :1.
+6
 PLEASE CALL :4.
 PLEASE LET :3. 0
-16
+21
 PLEASE LET :3. 1
-6
+24
+PLEASE LET :3. 2
+16
 PLEASE CALL :4.
 PLEASE EXIT :6.`,
       level: "intermediate" as const,
@@ -203,20 +214,18 @@ PLEASE EXIT :6.`,
       level: "beginner" as const,
     },
     {
-      title: "Sequential Operations",
-      description: "Performs a series of operations on the data",
+      title: "Word Transformation",
+      description: "Demonstrates creating a word and transforming it to another by removing a character",
       code: `PLEASE DO :1.
-20
-PLEASE DO :1.
-21
-PLEASE DO :1.
-2
+7
 PLEASE DO :1.
 19
 PLEASE DO :1.
-21
+16
+PLEASE DO :1.
+8
 PLEASE CALL :4.
-PLEASE DONT :2. 3
+PLEASE DONT :2. 2
 PLEASE CALL :4.
 PLEASE EXIT :6.`,
       level: "intermediate" as const,

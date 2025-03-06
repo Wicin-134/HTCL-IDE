@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,10 +31,20 @@ PLEASE CALL :4.  // Display all Datalings (will show: "h e l l o")
 PLEASE EXIT :6.  // Exit the program`;
 
 const InterfuckInterpreter: React.FC = () => {
+  const location = useLocation();
   const [code, setCode] = useState<string>(EXAMPLE_CODE);
   const [output, setOutput] = useState<string[]>([]);
   const [error, setError] = useState<string | undefined>();
   const [isRunning, setIsRunning] = useState<boolean>(false);
+
+  // Handle code from location state (from example cards)
+  useEffect(() => {
+    if (location.state && location.state.code) {
+      setCode(location.state.code);
+      // Clear the browser history state to avoid persisting the code on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const runCode = () => {
     setIsRunning(true);
@@ -78,7 +90,7 @@ const InterfuckInterpreter: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* Edytor kodu */}
+      {/* Code Editor */}
       <Card className="overflow-hidden">
         <CardHeader className="pb-2">
           <CardTitle className="flex justify-between items-center">
@@ -116,7 +128,7 @@ const InterfuckInterpreter: React.FC = () => {
         </CardFooter>
       </Card>
 
-      {/* Wyjście */}
+      {/* Output */}
       <Card>
         <CardHeader className="pb-2">
           <CardTitle>Output</CardTitle>
@@ -149,7 +161,7 @@ const InterfuckInterpreter: React.FC = () => {
         )}
       </Card>
 
-      {/* Referencja akcji */}
+      {/* Action Reference */}
       <Card className="md:col-span-2">
         <CardHeader>
           <CardTitle>INTERFUCK Action Reference</CardTitle>
@@ -178,13 +190,13 @@ const InterfuckInterpreter: React.FC = () => {
             </div>
             <div className="p-3 border rounded-md bg-secondary/10">
               <div className="font-mono font-bold mb-1">PLEASE EXIT :6.</div>
-              <div className="text-sm">Exits the interpreter</div>
+              <div className="text-sm">Exits the interpreter (required at the end of every program)</div>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Tabela konwersji cyfr na znaki */}
+      {/* Character Conversion Reference */}
       <Card className="md:col-span-2">
         <CardHeader>
           <CardTitle>Character Conversion Reference</CardTitle>
