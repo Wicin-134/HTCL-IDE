@@ -1,38 +1,62 @@
+
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Code, BookText, Play, MessageCircle, Menu, X } from "lucide-react";
+import { 
+  Code, 
+  BookText, 
+  Play, 
+  MessageCircle,
+  Menu,
+  X
+} from "lucide-react";
+
 interface NavItemProps {
   to: string;
   icon: React.ReactNode;
   label: string;
   exact?: boolean;
 }
-const NavItem = ({
-  to,
-  icon,
-  label,
-  exact = false
-}: NavItemProps) => {
+
+const NavItem = ({ to, icon, label, exact = false }: NavItemProps) => {
   const location = useLocation();
-  const isActive = exact ? location.pathname === to : location.pathname.startsWith(to);
-  return <Link to={to} className={cn("flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-200", "hover:bg-secondary", isActive ? "bg-secondary text-foreground font-medium" : "text-muted-foreground")}>
-      {React.cloneElement(icon as React.ReactElement, {
-      size: 18,
-      className: cn("transition-colors", isActive ? "text-primary" : "text-muted-foreground")
-    })}
+  const isActive = exact 
+    ? location.pathname === to 
+    : location.pathname.startsWith(to);
+
+  return (
+    <Link 
+      to={to} 
+      className={cn(
+        "flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-200",
+        "hover:bg-secondary",
+        isActive 
+          ? "bg-secondary text-foreground font-medium" 
+          : "text-muted-foreground"
+      )}
+    >
+      {React.cloneElement(icon as React.ReactElement, { 
+        size: 18,
+        className: cn(
+          "transition-colors",
+          isActive ? "text-primary" : "text-muted-foreground"
+        )
+      })}
       <span>{label}</span>
-    </Link>;
+    </Link>
+  );
 };
+
 interface LayoutProps {
   children: React.ReactNode;
 }
-const Layout = ({
-  children
-}: LayoutProps) => {
+
+const Layout = ({ children }: LayoutProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  return <div className="min-h-screen flex flex-col">
+
+  return (
+    <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
         <div className="container flex h-16 items-center justify-between">
@@ -49,7 +73,12 @@ const Layout = ({
             <NavItem to="/try" icon={<Play />} label="Interpreter" />
             <NavItem to="/docs" icon={<BookText />} label="Documentation" />
             
-            <a href="https://discord.gg/4VbEjuSF" target="_blank" rel="noopener noreferrer" className="ml-2">
+            <a 
+              href="https://discord.gg/4VbEjuSF" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="ml-2"
+            >
               <Button variant="outline" size="sm" className="gap-2">
                 <MessageCircle size={16} />
                 <span>Discord</span>
@@ -58,24 +87,36 @@ const Layout = ({
           </nav>
 
           {/* Mobile Menu Button */}
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
             {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </Button>
         </div>
 
         {/* Mobile Navigation */}
-        {mobileMenuOpen && <nav className="md:hidden px-4 py-4 border-t flex flex-col gap-1 animate-fade-in">
+        {mobileMenuOpen && (
+          <nav className="md:hidden px-4 py-4 border-t flex flex-col gap-1 animate-fade-in">
             <NavItem to="/" icon={<Code />} label="Home" exact />
             <NavItem to="/try" icon={<Play />} label="Interpreter" />
             <NavItem to="/docs" icon={<BookText />} label="Documentation" />
             
-            <a href="https://discord.gg/4VbEjuSF" target="_blank" rel="noopener noreferrer" className="mt-2">
+            <a 
+              href="https://discord.gg/4VbEjuSF" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="mt-2"
+            >
               <Button variant="outline" size="sm" className="w-full gap-2 justify-center">
                 <MessageCircle size={16} />
                 <span>Discord</span>
               </Button>
             </a>
-          </nav>}
+          </nav>
+        )}
       </header>
 
       {/* Main Content */}
@@ -90,12 +131,14 @@ const Layout = ({
             <p>© {new Date().getFullYear()} Interfuck. All rights reserved.</p>
           </div>
           <div className="flex gap-6">
-            
-            
+            <a href="#" className="hover:text-foreground transition-colors">Terms</a>
+            <a href="#" className="hover:text-foreground transition-colors">Privacy</a>
             <a href="#" className="hover:text-foreground transition-colors">Contact</a>
           </div>
         </div>
       </footer>
-    </div>;
+    </div>
+  );
 };
+
 export default Layout;
