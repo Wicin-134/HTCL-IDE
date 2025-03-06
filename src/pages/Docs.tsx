@@ -79,8 +79,8 @@ const Docs = () => {
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Example Format</h3>
                   <div className="bg-secondary/20 p-2 rounded-md mt-2">
-                    <pre className="font-mono text-sm">PLEASE DO :1.  // Create a new Dataling 42           // The value is on the next line 42 
-42           </pre>
+                    <pre className="font-mono text-sm">PLEASE DO :1.  // Create a new Dataling
+42           // The value is on the next line</pre>
                   </div>
                 </div>
               </div>
