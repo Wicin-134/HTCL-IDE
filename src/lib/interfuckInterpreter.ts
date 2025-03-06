@@ -1,9 +1,10 @@
 
 // Interpreter for the INTERFUCK programming language
 
-// Funkcja konwersji liczby na znak
+// Function to convert number to character
 export function convertToChar(value: number): string {
   switch (value) {
+    // Lowercase letters
     case 1: return ' ';
     case 2: return 'a';
     case 3: return 'b';
@@ -31,6 +32,60 @@ export function convertToChar(value: number): string {
     case 25: return 'x';
     case 26: return 'y';
     case 27: return 'z';
+    
+    // Uppercase letters
+    case 28: return 'A';
+    case 29: return 'B';
+    case 30: return 'C';
+    case 31: return 'D';
+    case 32: return 'E';
+    case 33: return 'F';
+    case 34: return 'G';
+    case 35: return 'H';
+    case 36: return 'I';
+    case 37: return 'J';
+    case 38: return 'K';
+    case 39: return 'L';
+    case 40: return 'M';
+    case 41: return 'N';
+    case 42: return 'O';
+    case 43: return 'P';
+    case 44: return 'Q';
+    case 45: return 'R';
+    case 46: return 'S';
+    case 47: return 'T';
+    case 48: return 'U';
+    case 49: return 'V';
+    case 50: return 'W';
+    case 51: return 'X';
+    case 52: return 'Y';
+    case 53: return 'Z';
+    
+    // Numbers
+    case 54: return '0';
+    case 55: return '1';
+    case 56: return '2';
+    case 57: return '3';
+    case 58: return '4';
+    case 59: return '5';
+    case 60: return '6';
+    case 61: return '7';
+    case 62: return '8';
+    case 63: return '9';
+    case 64: return '10';
+    
+    // Special characters
+    case 65: return '.';
+    case 66: return ',';
+    case 67: return '?';
+    case 68: return '!';
+    case 69: return '(';
+    case 70: return ')';
+    case 71: return '"';
+    case 72: return '-';
+    case 73: return '+';
+    case 74: return '*';
+    
     default: return value.toString();
   }
 }

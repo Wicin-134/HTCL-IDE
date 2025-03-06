@@ -320,13 +320,52 @@ const InterfuckInterpreter: React.FC = () => {
           <CardTitle>Character Conversion Reference</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2">
-            {Array.from({ length: 27 }, (_, i) => i + 1).map(num => (
-              <div key={num} className="p-2 border rounded-md text-center">
-                <div className="font-mono font-bold">{num}</div>
-                <div className="text-sm">'{convertToChar(num)}'</div>
-              </div>
-            ))}
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold mb-2">Lowercase Letters (1-27)</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
+              {Array.from({ length: 27 }, (_, i) => i + 1).map(num => (
+                <div key={num} className="p-2 border rounded-md text-center">
+                  <div className="font-mono font-bold">{num}</div>
+                  <div className="text-sm">'{convertToChar(num)}'</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold mb-2">Uppercase Letters (28-53)</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
+              {Array.from({ length: 26 }, (_, i) => i + 28).map(num => (
+                <div key={num} className="p-2 border rounded-md text-center">
+                  <div className="font-mono font-bold">{num}</div>
+                  <div className="text-sm">'{convertToChar(num)}'</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="mb-4">
+            <h3 className="text-sm font-semibold mb-2">Numbers (54-64)</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
+              {Array.from({ length: 11 }, (_, i) => i + 54).map(num => (
+                <div key={num} className="p-2 border rounded-md text-center">
+                  <div className="font-mono font-bold">{num}</div>
+                  <div className="text-sm">'{convertToChar(num)}'</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="text-sm font-semibold mb-2">Special Characters (65-74)</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2">
+              {Array.from({ length: 10 }, (_, i) => i + 65).map(num => (
+                <div key={num} className="p-2 border rounded-md text-center">
+                  <div className="font-mono font-bold">{num}</div>
+                  <div className="text-sm">'{convertToChar(num)}'</div>
+                </div>
+              ))}
+            </div>
           </div>
         </CardContent>
       </Card>

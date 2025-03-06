@@ -1,6 +1,6 @@
-
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 const Docs = () => {
   return <Layout>
       <div className="container px-4 py-16">
@@ -101,19 +101,52 @@ const Docs = () => {
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                INTERFUCK can represent characters using numeric values. The values 1-27 are mapped to 
+                INTERFUCK can represent characters using numeric values. Values are mapped to 
                 specific characters according to the following scheme:
               </p>
-              <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 mb-4">
-                <div className="p-2 border rounded text-center"><span className="font-mono">1 = ' '</span></div>
-                <div className="p-2 border rounded text-center"><span className="font-mono">2 = 'a'</span></div>
-                <div className="p-2 border rounded text-center"><span className="font-mono">3 = 'b'</span></div>
-                <div className="p-2 border rounded text-center"><span className="font-mono">...</span></div>
-                <div className="p-2 border rounded text-center"><span className="font-mono">26 = 'y'</span></div>
-                <div className="p-2 border rounded text-center"><span className="font-mono">27 = 'z'</span></div>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Lowercase Letters (1-27)</h3>
+                  <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 mb-2">
+                    <div className="p-2 border rounded text-center"><span className="font-mono">1 = ' '</span></div>
+                    <div className="p-2 border rounded text-center"><span className="font-mono">2 = 'a'</span></div>
+                    <div className="p-2 border rounded text-center"><span className="font-mono">...</span></div>
+                    <div className="p-2 border rounded text-center"><span className="font-mono">27 = 'z'</span></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Uppercase Letters (28-53)</h3>
+                  <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 mb-2">
+                    <div className="p-2 border rounded text-center"><span className="font-mono">28 = 'A'</span></div>
+                    <div className="p-2 border rounded text-center"><span className="font-mono">...</span></div>
+                    <div className="p-2 border rounded text-center"><span className="font-mono">53 = 'Z'</span></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Numbers (54-64)</h3>
+                  <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 mb-2">
+                    <div className="p-2 border rounded text-center"><span className="font-mono">54 = '0'</span></div>
+                    <div className="p-2 border rounded text-center"><span className="font-mono">...</span></div>
+                    <div className="p-2 border rounded text-center"><span className="font-mono">64 = '10'</span></div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Special Characters (65-74)</h3>
+                  <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 mb-2">
+                    <div className="p-2 border rounded text-center"><span className="font-mono">65 = '.'</span></div>
+                    <div className="p-2 border rounded text-center"><span className="font-mono">66 = ','</span></div>
+                    <div className="p-2 border rounded text-center"><span className="font-mono">...</span></div>
+                    <div className="p-2 border rounded text-center"><span className="font-mono">74 = '*'</span></div>
+                  </div>
+                </div>
               </div>
-              <p>
-                When the IDE displays Dataling values between 1 and 27, it also shows the 
+              
+              <p className="mt-4">
+                When the IDE displays Dataling values between 1 and 74, it also shows the 
                 corresponding character representation.
               </p>
             </CardContent>
@@ -218,4 +251,5 @@ PLEASE EXIT :6.`}
       </div>
     </Layout>;
 };
+
 export default Docs;

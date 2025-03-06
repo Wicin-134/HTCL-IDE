@@ -310,7 +310,7 @@ PLEASE EXIT :6.`,
         <Link to="/try">
           <Button className="gap-2">
             <Play size={16} />
-            Try the interpreter
+            Try the IDE
           </Button>
         </Link>
       </div>
