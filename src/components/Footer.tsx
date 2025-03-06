@@ -1,11 +1,9 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Github, Twitter, Code, Heart } from "lucide-react";
+import { Github, Twitter, Code, Heart, MessageCircle } from "lucide-react";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  
   return (
     <footer className="border-t">
       <div className="container py-12 px-4">
@@ -22,12 +20,12 @@ const Footer = () => {
             </p>
             <div className="flex gap-4 mt-6">
               <a 
-                href="https://github.com" 
+                href="https://discord.gg/4VbEjuSF" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                <Github size={20} />
+                <MessageCircle size={20} />
               </a>
               <a 
                 href="https://twitter.com" 
@@ -54,13 +52,18 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  Community
+                <a 
+                  href="https://discord.gg/4VbEjuSF" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                >
+                  Contact
                 </a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  GitHub Repository
+                <a href="https://discord.gg/4VbEjuSF" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                  Community
                 </a>
               </li>
             </ul>
@@ -76,11 +79,6 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
                   License
                 </a>
               </li>
@@ -90,7 +88,7 @@ const Footer = () => {
         
         <div className="border-t mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Interfuck. All rights reserved.
+            © 2025 Interfuck
           </p>
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <span>Made with</span>

@@ -77,6 +77,14 @@ const Docs = () => {
                 </div>
                 
                 <div>
+                  <h3 className="text-lg font-semibold mb-2">Required EXIT Command</h3>
+                  <p className="text-destructive font-medium">
+                    Every INTERFUCK program MUST end with the <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> command.
+                    The interpreter will throw a "Stupid error" if this command is missing.
+                  </p>
+                </div>
+                
+                <div>
                   <h3 className="text-lg font-semibold mb-2">Example Format</h3>
                   <div className="bg-secondary/20 p-2 rounded-md mt-2">
                     <pre className="font-mono text-sm">PLEASE DO :1.  // Create a new Dataling

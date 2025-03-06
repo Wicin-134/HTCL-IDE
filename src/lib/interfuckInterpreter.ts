@@ -1,4 +1,3 @@
-
 // Interpreter for the INTERFUCK programming language
 
 // Funkcja konwersji liczby na znak
@@ -114,6 +113,11 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
   let error: string | undefined;
 
   try {
+    // Check if the code contains EXIT command
+    if (!code.includes('PLEASE EXIT :6.')) {
+      throw new Error("Stupid error: Missing PLEASE EXIT :6. command at the end of the program");
+    }
+
     // Dzielimy kod na linie
     const lines = code.split('\n').map(line => line.trim());
 

@@ -3,7 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Play } from "lucide-react";
+import { Play, Copy } from "lucide-react";
+import { toast } from "sonner";
 
 interface ExampleCardProps {
   title: string;
@@ -31,6 +32,11 @@ const ExampleCard: React.FC<ExampleCardProps> = ({
     }
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    toast.success("Code copied to clipboard");
+  };
+
   return (
     <Card className="overflow-hidden transition-all hover:shadow-md">
       <CardHeader className="pb-2">
@@ -45,17 +51,15 @@ const ExampleCard: React.FC<ExampleCardProps> = ({
       </CardHeader>
       <CardContent className="pb-4">
         <p className="text-muted-foreground text-sm mb-3">{description}</p>
-        <div className="bg-secondary/50 p-3 rounded-md font-mono text-xs overflow-hidden overflow-ellipsis">
-          {code.length > 120 ? `${code.substring(0, 120)}...` : code}
+        <div className="bg-secondary/50 p-3 rounded-md font-mono text-xs max-h-[200px] overflow-y-auto">
+          {code}
         </div>
       </CardContent>
       <CardFooter className="pt-0 flex justify-between">
-        <Link to="/docs">
-          <Button variant="ghost" size="sm" className="gap-1 text-xs">
-            Learn more
-            <ArrowRight size={12} />
-          </Button>
-        </Link>
+        <Button variant="ghost" size="sm" className="gap-1 text-xs" onClick={handleCopy}>
+          <Copy size={12} />
+          Copy
+        </Button>
         <Link 
           to={`/try?code=${encodeURIComponent(code)}`}
           state={{ code }}
