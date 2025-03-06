@@ -7,7 +7,7 @@ import {
   Code, 
   BookText, 
   Play, 
-  Discord,
+  MessageCircle,
   Menu,
   X
 } from "lucide-react";
@@ -80,7 +80,7 @@ const Layout = ({ children }: LayoutProps) => {
               className="ml-2"
             >
               <Button variant="outline" size="sm" className="gap-2">
-                <Discord size={16} />
+                <MessageCircle size={16} />
                 <span>Discord</span>
               </Button>
             </a>
@@ -111,7 +111,7 @@ const Layout = ({ children }: LayoutProps) => {
               className="mt-2"
             >
               <Button variant="outline" size="sm" className="w-full gap-2 justify-center">
-                <Discord size={16} />
+                <MessageCircle size={16} />
                 <span>Discord</span>
               </Button>
             </a>
