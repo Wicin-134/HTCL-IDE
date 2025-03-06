@@ -90,7 +90,7 @@ const Layout = ({
             <p>© {new Date().getFullYear()} Interfuck. All rights reserved.</p>
           </div>
           <div className="flex gap-6">
-            
+            <a href="#" className="hover:text-foreground transition-colors">Terms</a>
             
             <a href="#" className="hover:text-foreground transition-colors">Contact</a>
           </div>
