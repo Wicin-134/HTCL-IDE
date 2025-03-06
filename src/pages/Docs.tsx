@@ -1,4 +1,3 @@
-
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -62,14 +61,15 @@ const Docs = () => {
             <CardContent>
               <div className="space-y-4">
                 <p>
-                  INTERFUCK uses a unique syntax where commands are prefixed with "PLEASE" followed by an action 
-                  word and a colon-number combination. Each command must be on its own line.
+                  INTERFUCK uses a unique syntax where commands start with "PLEASE" followed by an action. 
+                  Each command's value is specified on the next line, making the code structure clear and easy to read.
+                  Comments start with // and continue to the end of the line.
                 </p>
                 
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Actions</h3>
                   <div className="space-y-2">
-                    <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO :1. [value]</code> - Creates a new Dataling with the specified numeric value</p>
+                    <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO :1.</code> - Creates a new Dataling. The value is specified on the next line</p>
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DONT :2. [index]</code> - Removes the Dataling at the specified index</p>
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE LET :3. [index] [value]</code> - Updates the value of the Dataling at the specified index</p>
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CALL :4.</code> - Prints all values stored in the Databer</p>
@@ -79,13 +79,10 @@ const Docs = () => {
                 </div>
                 
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Comments</h3>
-                  <p>
-                    Comments in INTERFUCK start with <code className="font-mono bg-secondary/20 px-1 rounded">//</code> and continue to the end of the line. 
-                    Comments are ignored during program execution.
-                  </p>
+                  <h3 className="text-lg font-semibold mb-2">Example Format</h3>
                   <div className="bg-secondary/20 p-2 rounded-md mt-2">
-                    <pre className="font-mono text-sm">PLEASE DO :1. 42  // This is a comment</pre>
+                    <pre className="font-mono text-sm">PLEASE DO :1.  // Create a new Dataling
+42           // The value is on the next line</pre>
                   </div>
                 </div>
               </div>

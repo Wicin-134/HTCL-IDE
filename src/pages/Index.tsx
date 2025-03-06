@@ -1,4 +1,3 @@
-
 import Hero from "@/components/Hero";
 import Examples from "@/components/Examples";
 import Layout from "@/components/Layout";
@@ -56,22 +55,22 @@ const Index = () => {
               <FeatureCard
                 icon={<Terminal size={24} />}
                 title="Unique Data Structure"
-                description="Interfuck introduces the Databer system, a container that can hold multiple Datalings, offering a distinctive approach to data storage and manipulation."
+                description="Interfuck uses the Databer system with Datalings, where each command's value is specified on the next line for clear data input."
               />
               <FeatureCard
                 icon={<BookText size={24} />}
                 title="Polite Syntax"
-                description="All commands in Interfuck begin with 'PLEASE', promoting a culture of courtesy in programming while providing a clear structure to the code."
+                description="Commands start with 'PLEASE', followed by the action on one line and its value on the next line, making code structure clear and courteous."
               />
               <FeatureCard
                 icon={<Database size={24} />}
                 title="Character Mapping"
-                description="Interfuck includes a built-in system for representing characters as numbers (1-27), allowing text manipulation within its numeric-focused environment."
+                description="Values 1-27 map to spaces and lowercase letters, with value inputs on separate lines for better readability."
               />
               <FeatureCard
                 icon={<Sparkles size={24} />}
                 title="Creative Challenge"
-                description="With its distinctive command set and data model, Interfuck encourages innovative problem-solving and offers a refreshing break from conventional programming paradigms."
+                description="Comments use // for notes, and the clear line-by-line structure makes programs easy to write and understand."
               />
             </div>
           </div>

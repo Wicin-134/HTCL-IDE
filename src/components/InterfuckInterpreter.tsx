@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,24 +6,27 @@ import { Play, Trash, Copy, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { interpretInterfuck, convertToChar } from "@/lib/interfuckInterpreter";
 
-const EXAMPLE_CODE = `// Przykładowy program INTERFUCK
-// Komentarze zaczynają się od // i są ignorowane podczas wykonania
+const EXAMPLE_CODE = `// Hello World program in INTERFUCK
+// Each command is followed by its value on the next line
 
-PLEASE DO :1. 42  // Tworzy Dataling z wartością 42
+PLEASE DO :1.  // Create Dataling for 'h' (value 9)
+9
 
-PLEASE DO :1. 7   // Tworzy Dataling z wartością 7
+PLEASE DO :1.  // Create Dataling for 'e' (value 6)
+6
 
-PLEASE CALL :4.   // Wyświetla wartości wszystkich Datalings
+PLEASE DO :1.  // Create Dataling for 'l' (value 13)
+13
 
-PLEASE LET :3. 1 99  // Zmienia wartość Dataling o indeksie 1 na 99
+PLEASE DO :1.  // Create Dataling for 'l' (value 13)
+13
 
-PLEASE CALL :4.   // Wyświetla zaktualizowane wartości
+PLEASE DO :1.  // Create Dataling for 'o' (value 16)
+16
 
-PLEASE BREACH :5.  // Usuwa wszystkie Datalings
+PLEASE CALL :4.  // Display all Datalings (will show: "h e l l o")
 
-PLEASE CALL :4.   // Sprawdza, czy Databer jest pusty
-
-PLEASE EXIT :6.   // Kończy wykonanie programu`;
+PLEASE EXIT :6.  // Exit the program`;
 
 const InterfuckInterpreter: React.FC = () => {
   const [code, setCode] = useState<string>(EXAMPLE_CODE);
