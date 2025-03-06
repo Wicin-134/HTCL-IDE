@@ -55,23 +55,23 @@ const Index = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in animate-delay-200">
               <FeatureCard
                 icon={<Terminal size={24} />}
-                title="Minimalist Syntax"
-                description="With just 10 commands, Interfuck strips programming down to its essential operations, forcing creative problem-solving and deeper understanding of computational principles."
+                title="Unique Data Structure"
+                description="Interfuck introduces the Databer system, a container that can hold multiple Datalings, offering a distinctive approach to data storage and manipulation."
               />
               <FeatureCard
                 icon={<BookText size={24} />}
-                title="Educational Value"
-                description="Learning Interfuck provides insights into memory management, pointers, and low-level operations that are abstracted away in higher-level languages."
+                title="Polite Syntax"
+                description="All commands in Interfuck begin with 'PLEASE', promoting a culture of courtesy in programming while providing a clear structure to the code."
               />
               <FeatureCard
                 icon={<Database size={24} />}
-                title="Memory Visualization"
-                description="Our interpreter includes tools to visualize memory states and program execution, making it easier to understand how your code manipulates data."
+                title="Character Mapping"
+                description="Interfuck includes a built-in system for representing characters as numbers (1-27), allowing text manipulation within its numeric-focused environment."
               />
               <FeatureCard
                 icon={<Sparkles size={24} />}
                 title="Creative Challenge"
-                description="Writing efficient Interfuck code is a puzzle that exercises your creativity and logical thinking in ways that conventional programming rarely demands."
+                description="With its distinctive command set and data model, Interfuck encourages innovative problem-solving and offers a refreshing break from conventional programming paradigms."
               />
             </div>
           </div>

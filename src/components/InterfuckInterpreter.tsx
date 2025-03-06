@@ -8,23 +8,23 @@ import { toast } from "sonner";
 import { interpretInterfuck, convertToChar } from "@/lib/interfuckInterpreter";
 
 const EXAMPLE_CODE = `// Przykładowy program INTERFUCK
-// Tworzy dwa Datalings, wyświetla je, aktualizuje wartość i wyświetla ponownie
+// Komentarze zaczynają się od // i są ignorowane podczas wykonania
 
-PLEASE DO :1. 42
+PLEASE DO :1. 42  // Tworzy Dataling z wartością 42
 
-PLEASE DO :1. 7
+PLEASE DO :1. 7   // Tworzy Dataling z wartością 7
 
-PLEASE CALL :4.
+PLEASE CALL :4.   // Wyświetla wartości wszystkich Datalings
 
-PLEASE LET :3. 1 99
+PLEASE LET :3. 1 99  // Zmienia wartość Dataling o indeksie 1 na 99
 
-PLEASE CALL :4.
+PLEASE CALL :4.   // Wyświetla zaktualizowane wartości
 
-PLEASE BREACH :5.
+PLEASE BREACH :5.  // Usuwa wszystkie Datalings
 
-PLEASE CALL :4.
+PLEASE CALL :4.   // Sprawdza, czy Databer jest pusty
 
-PLEASE EXIT :6.`;
+PLEASE EXIT :6.   // Kończy wykonanie programu`;
 
 const InterfuckInterpreter: React.FC = () => {
   const [code, setCode] = useState<string>(EXAMPLE_CODE);

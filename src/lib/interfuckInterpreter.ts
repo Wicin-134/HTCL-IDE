@@ -118,7 +118,16 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
     const lines = code.split('\n').map(line => line.trim()).filter(line => line);
 
     for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
+      let line = lines[i];
+      
+      // Obsługa komentarzy - usuwamy wszystko po // z linii kodu
+      if (line.includes('//')) {
+        line = line.split('//')[0].trim();
+        if (!line) continue; // Jeśli linia zawierała tylko komentarz, przechodzimy dalej
+      }
+      
+      // Pomiń puste linie po usunięciu komentarzy
+      if (!line) continue;
       
       // PLEASE DO :1. - Tworzy Dataling
       if (line.startsWith('PLEASE DO :1.')) {
@@ -178,7 +187,7 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
         break;
       }
       // Nieznana komenda
-      else if (line && !line.startsWith('//') && !line.startsWith('#')) {
+      else if (line && !line.startsWith('#')) { // Ignorujemy również linie rozpoczynające się od #
         throw new Error(`Unrecognized action: ${line}`);
       }
     }
