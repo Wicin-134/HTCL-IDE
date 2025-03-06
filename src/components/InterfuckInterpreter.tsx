@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Play, Trash, Copy, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
-import { interpretInterfuck, convertToChar } from "@/lib/interfuckInterpreter";
+import { interpretInterfuck, convertToChar, Databer } from "@/lib/interfuckInterpreter";
 
 const EXAMPLE_CODE = `// Hello World program in INTERFUCK
 // Each command is followed by its value on the next line
@@ -36,6 +36,7 @@ const InterfuckInterpreter: React.FC = () => {
   const [output, setOutput] = useState<string[]>([]);
   const [error, setError] = useState<string | undefined>();
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [datalings, setDatalings] = useState<{ index: number; value: number }[]>([]);
 
   useEffect(() => {
     if (location.state && location.state.code) {
@@ -48,13 +49,110 @@ const InterfuckInterpreter: React.FC = () => {
     setIsRunning(true);
     setOutput([]);
     setError(undefined);
-
+    setDatalings([]);
+    
     try {
+      // Create a new databer for tracking datalings
+      const databer = new Databer();
+      let currentDatalings: { index: number; value: number }[] = [];
+      
+      // Split the code into lines and process it to track datalings
+      const lines = code.split('\n').map(line => line.trim());
+      
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        
+        // Handle comments
+        if (line.includes('//')) {
+          line = line.split('//')[0].trim();
+          if (!line) continue;
+        }
+        
+        if (!line) continue;
+        
+        // PLEASE DO :1. - Create Dataling
+        if (line.startsWith('PLEASE DO :1.')) {
+          if (i + 1 < lines.length) {
+            let nextLine = lines[i + 1].trim();
+            
+            if (nextLine.includes('//')) {
+              nextLine = nextLine.split('//')[0].trim();
+            }
+            
+            if (nextLine && /^-?\d+$/.test(nextLine)) {
+              const value = Number(nextLine);
+              if (!isNaN(value)) {
+                const index = databer.addDataling(value);
+                currentDatalings.push({ index, value });
+                i++; // Skip the value line
+              }
+            }
+          }
+        }
+        // PLEASE DONT :2. - Remove Dataling
+        else if (line.startsWith('PLEASE DONT :2.')) {
+          const indexMatch = line.match(/:2\.\s*(\d+)/);
+          if (indexMatch && indexMatch[1]) {
+            const indexToRemove = Number(indexMatch[1]);
+            // Remove from our tracking
+            currentDatalings = currentDatalings.filter(d => d.index !== indexToRemove);
+            // Update the databer
+            try {
+              databer.removeDataling(indexToRemove);
+            } catch (e) {
+              // Ignore errors when removing
+            }
+          }
+        }
+        // PLEASE LET :3. - Update Dataling
+        else if (line.startsWith('PLEASE LET :3.')) {
+          const match = line.match(/PLEASE LET :3\.\s*(\d+)/);
+          if (match && match[1]) {
+            const index = Number(match[1]);
+            
+            if (i + 1 < lines.length) {
+              let nextLine = lines[i + 1].trim();
+              
+              if (nextLine.includes('//')) {
+                nextLine = nextLine.split('//')[0].trim();
+              }
+              
+              if (nextLine && /^-?\d+$/.test(nextLine)) {
+                const value = Number(nextLine);
+                if (!isNaN(value)) {
+                  // Update our tracking
+                  const existingIndex = currentDatalings.findIndex(d => d.index === index);
+                  if (existingIndex !== -1) {
+                    currentDatalings[existingIndex].value = value;
+                  }
+                  // Update the databer
+                  try {
+                    databer.updateDataling(index, value);
+                  } catch (e) {
+                    // Ignore errors when updating
+                  }
+                  i++; // Skip the value line
+                }
+              }
+            }
+          }
+        }
+        // PLEASE BREACH :5. - Clear all datalings
+        else if (line.startsWith('PLEASE BREACH :5.')) {
+          currentDatalings = [];
+          databer.clear();
+        }
+      }
+      
+      // Now run the actual interpreter
       const result = interpretInterfuck({ 
         code,
         hideCommandOutput: true // Hide command output except for CALL and EXIT
       });
+      
       setOutput(result.output);
+      setDatalings(currentDatalings);
+      
       if (result.error) {
         setError(result.error);
         toast.error(result.error);
@@ -74,6 +172,7 @@ const InterfuckInterpreter: React.FC = () => {
     setCode("");
     setOutput([]);
     setError(undefined);
+    setDatalings([]);
     toast.info("Code cleared");
   };
 
@@ -81,6 +180,7 @@ const InterfuckInterpreter: React.FC = () => {
     setCode(EXAMPLE_CODE);
     setOutput([]);
     setError(undefined);
+    setDatalings([]);
     toast.info("Example code loaded");
   };
 
@@ -88,55 +188,6 @@ const InterfuckInterpreter: React.FC = () => {
     navigator.clipboard.writeText(code);
     toast.success("Code copied to clipboard");
   };
-
-  const extractDatalings = (output: string[]): { index: number; value: number }[] => {
-    const datalings: { index: number; value: number }[] = [];
-    const creationPattern = /Created Dataling with value: (\d+) at index (\d+)/;
-    const updatePattern = /Updated Dataling at index (\d+) with value: (\d+)/;
-    const removalPattern = /Removed Dataling at index: (\d+)/;
-    const clearPattern = /All Datalings removed from Databer/;
-    
-    for (const line of output) {
-      const createMatch = line.match(creationPattern);
-      if (createMatch) {
-        datalings.push({ 
-          index: parseInt(createMatch[2]), 
-          value: parseInt(createMatch[1]) 
-        });
-        continue;
-      }
-      
-      const updateMatch = line.match(updatePattern);
-      if (updateMatch) {
-        const index = parseInt(updateMatch[1]);
-        const value = parseInt(updateMatch[2]);
-        const existingIndex = datalings.findIndex(d => d.index === index);
-        if (existingIndex !== -1) {
-          datalings[existingIndex].value = value;
-        }
-        continue;
-      }
-      
-      const removeMatch = line.match(removalPattern);
-      if (removeMatch) {
-        const index = parseInt(removeMatch[1]);
-        const existingIndex = datalings.findIndex(d => d.index === index);
-        if (existingIndex !== -1) {
-          datalings.splice(existingIndex, 1);
-        }
-        continue;
-      }
-      
-      if (line.match(clearPattern)) {
-        datalings.length = 0;
-        continue;
-      }
-    }
-    
-    return datalings;
-  };
-
-  const currentDatalings = extractDatalings(output);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -215,8 +266,8 @@ const InterfuckInterpreter: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-4">
-            {currentDatalings.length > 0 ? (
-              currentDatalings.map((dataling, i) => (
+            {datalings.length > 0 ? (
+              datalings.map((dataling, i) => (
                 <div key={i} className="border rounded-md p-3 bg-secondary/20 w-20 h-20 flex flex-col items-center justify-center">
                   <div className="text-xs text-muted-foreground mb-1">Index {dataling.index}</div>
                   <div className="font-mono text-xl font-bold">{dataling.value}</div>

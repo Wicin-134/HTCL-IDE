@@ -229,7 +229,7 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
       }
       // PLEASE EXIT :6. - Wychodzi z interpretera
       else if (line.startsWith('PLEASE EXIT :6.')) {
-        output.push("Exiting INTERFUCK interpreter");
+        output.push("Exiting INTERFUCK IDE");
         break;
       }
       // Nieznana komenda
