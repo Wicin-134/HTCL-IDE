@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -50,7 +51,7 @@ const Layout = ({
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
             <NavItem to="/" icon={<Code />} label="Home" exact />
-            <NavItem to="/try" icon={<Play />} label="Interpreter" />
+            <NavItem to="/try" icon={<Play />} label="IDE" />
             <NavItem to="/docs" icon={<BookText />} label="Documentation" />
             
             <a href="https://discord.gg/4VbEjuSF" target="_blank" rel="noopener noreferrer" className="ml-2">
@@ -70,7 +71,7 @@ const Layout = ({
         {/* Mobile Navigation */}
         {mobileMenuOpen && <nav className="md:hidden px-4 py-4 border-t flex flex-col gap-1 animate-fade-in">
             <NavItem to="/" icon={<Code />} label="Home" exact />
-            <NavItem to="/try" icon={<Play />} label="Interpreter" />
+            <NavItem to="/try" icon={<Play />} label="IDE" />
             <NavItem to="/docs" icon={<BookText />} label="Documentation" />
             
             <a href="https://discord.gg/4VbEjuSF" target="_blank" rel="noopener noreferrer" className="mt-2">
