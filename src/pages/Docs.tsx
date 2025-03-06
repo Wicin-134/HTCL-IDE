@@ -1,11 +1,9 @@
-
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 import { Book, ChevronRight, Code, FileCode, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 const Docs = () => {
   return <Layout>
       <div className="container px-4 py-16">
@@ -58,11 +56,7 @@ const Docs = () => {
             <CardContent className="space-y-6">
               <div>
                 <h3 className="text-lg font-semibold mb-2">Databer</h3>
-                <p>
-                  The Databer is the primary data structure in INTERFUCK. It serves as a container that 
-                  can hold 500+ Datalings. When a program starts, the Databer is empty and you must add 
-                  Datalings to it using the DO command.
-                </p>
+                <p>The Databer is the primary data structure in INTERFUCK. It serves as a container that can hold many Datalings. When a program starts, the Databer is empty and you must add Datalings to it using the DO command.</p>
                 <p className="mt-2">
                   The Databer is essentially a numeric array where each position can be accessed by index.
                   Indices start at 0 for the first Dataling and increment by 1 for each subsequent Dataling.
@@ -632,5 +626,4 @@ PLEASE EXIT :6.`}
       </div>
     </Layout>;
 };
-
 export default Docs;
