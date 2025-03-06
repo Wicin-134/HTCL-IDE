@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -49,7 +50,10 @@ const InterfuckInterpreter: React.FC = () => {
     setError(undefined);
 
     try {
-      const result = interpretInterfuck({ code });
+      const result = interpretInterfuck({ 
+        code,
+        hideCommandOutput: true // Hide command output except for CALL and EXIT
+      });
       setOutput(result.output);
       if (result.error) {
         setError(result.error);
@@ -254,7 +258,7 @@ const InterfuckInterpreter: React.FC = () => {
             </div>
             <div className="p-3 border rounded-md bg-secondary/10">
               <div className="font-mono font-bold mb-1">PLEASE EXIT :6.</div>
-              <div className="text-sm">Exits the interpreter (required at the end of every program)</div>
+              <div className="text-sm">Exits the IDE (required at the end of every program)</div>
             </div>
           </div>
         </CardContent>

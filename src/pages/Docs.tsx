@@ -1,3 +1,4 @@
+
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 const Docs = () => {
@@ -72,7 +73,7 @@ const Docs = () => {
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE LET :3. [index]</code> - Updates the value of the Dataling at the specified index. The new value is specified on the next line</p>
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CALL :4.</code> - Prints all values stored in the Databer</p>
                     <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE BREACH :5.</code> - Removes all Datalings from the Databer</p>
-                    <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> - Exits the interpreter</p>
+                    <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> - Exits the IDE</p>
                   </div>
                 </div>
                 
@@ -80,7 +81,7 @@ const Docs = () => {
                   <h3 className="text-lg font-semibold mb-2">Required EXIT Command</h3>
                   <p className="text-destructive font-medium">
                     Every INTERFUCK program MUST end with the <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> command.
-                    The interpreter will throw a "Stupid error" if this command is missing.
+                    The IDE will throw a "Stupid error" if this command is missing.
                   </p>
                 </div>
                 
@@ -112,7 +113,7 @@ const Docs = () => {
                 <div className="p-2 border rounded text-center"><span className="font-mono">27 = 'z'</span></div>
               </div>
               <p>
-                When the interpreter displays Dataling values between 1 and 27, it also shows the 
+                When the IDE displays Dataling values between 1 and 27, it also shows the 
                 corresponding character representation.
               </p>
             </CardContent>
@@ -177,7 +178,7 @@ PLEASE LET :3. 0
 // Display the updated Databer
 PLEASE CALL :4.
                     
-// Exit the interpreter
+// Exit the IDE
 PLEASE EXIT :6.`}
                   </pre>
                 </div>
@@ -206,7 +207,7 @@ PLEASE DO :1.  // o
 // Display the Databer contents
 PLEASE CALL :4.
                     
-// Exit the interpreter
+// Exit the IDE
 PLEASE EXIT :6.`}
                   </pre>
                 </div>

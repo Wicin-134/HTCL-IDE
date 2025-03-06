@@ -1,3 +1,4 @@
+
 // Interpreter for the INTERFUCK programming language
 
 // Funkcja konwersji liczby na znak
@@ -98,6 +99,7 @@ export class Databer {
 // Typu wejścia dla interpretera
 export interface InterfuckInput {
   code: string;
+  hideCommandOutput?: boolean; // Add option to hide command output
 }
 
 // Rezultat wykonania kodu
@@ -108,7 +110,7 @@ export interface InterfuckResult {
 
 // Główna funkcja interpretująca kod INTERFUCK
 export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
-  const { code } = input;
+  const { code, hideCommandOutput = false } = input;
   const databer = new Databer();
   const output: string[] = [];
   let error: string | undefined;
@@ -149,7 +151,9 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
             const value = Number(nextLine);
             if (!isNaN(value)) {
               const index = databer.addDataling(value);
-              output.push(`Created Dataling with value: ${value} at index ${index}`);
+              if (!hideCommandOutput) {
+                output.push(`Created Dataling with value: ${value} at index ${index}`);
+              }
               i++; // Przesuwamy wskaźnik, aby pominąć linię wartości
             } else {
               throw new Error(`Stupid error: Value "${nextLine}" is not numeric`);
@@ -167,7 +171,9 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
         if (indexMatch && indexMatch[1]) {
           const index = Number(indexMatch[1]);
           databer.removeDataling(index);
-          output.push(`Removed Dataling at index: ${index}`);
+          if (!hideCommandOutput) {
+            output.push(`Removed Dataling at index: ${index}`);
+          }
         } else {
           throw new Error("Stupid error: PLEASE DONT :2. requires an index");
         }
@@ -191,7 +197,9 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
               const value = Number(nextLine);
               if (!isNaN(value)) {
                 databer.updateDataling(index, value);
-                output.push(`Updated Dataling at index ${index} with value: ${value}`);
+                if (!hideCommandOutput) {
+                  output.push(`Updated Dataling at index ${index} with value: ${value}`);
+                }
                 i++; // Przesuwamy wskaźnik, aby pominąć linię wartości
               } else {
                 throw new Error(`Stupid error: Value "${nextLine}" is not numeric`);
@@ -209,12 +217,15 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
       // PLEASE CALL :4. - Wyświetla wartości Databer
       else if (line.startsWith('PLEASE CALL :4.')) {
         const values = databer.getValues();
-        output.push(`Databer values: ${values || 'empty'}`);
+        // Only show the raw values without the "Databer values:" prefix
+        output.push(`${values || 'empty'}`);
       }
       // PLEASE BREACH :5. - Usuwa wszystkie Datalings
       else if (line.startsWith('PLEASE BREACH :5.')) {
         databer.clear();
-        output.push("All Datalings removed from Databer");
+        if (!hideCommandOutput) {
+          output.push("All Datalings removed from Databer");
+        }
       }
       // PLEASE EXIT :6. - Wychodzi z interpretera
       else if (line.startsWith('PLEASE EXIT :6.')) {
