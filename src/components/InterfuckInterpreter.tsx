@@ -10,6 +10,14 @@ import { interpretInterfuck, convertToChar, Databer } from "@/lib/interfuckInter
 const EXAMPLE_CODE = `// Write your INTERFUCK code here
 // Remember to end with PLEASE EXIT :6.
 
+PLEASE DO :1.
+9    // Creates a Dataling with value 9 (represents 'h')
+
+PLEASE DO :1.
+6    // Creates a Dataling with value 6 (represents 'e')
+
+PLEASE CALL :4.
+
 PLEASE EXIT :6.`;
 
 const InterfuckInterpreter: React.FC = () => {
@@ -333,6 +341,32 @@ const InterfuckInterpreter: React.FC = () => {
                   <div className="text-sm">'{convertToChar(num)}'</div>
                 </div>
               ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="md:col-span-2">
+        <CardHeader>
+          <CardTitle>Error Types Reference</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="p-3 border rounded-md bg-destructive/10">
+              <div className="font-mono font-bold mb-1">AMNESIA ERROR</div>
+              <div className="text-sm">Missing period (.) or colon (:) in a command</div>
+            </div>
+            <div className="p-3 border rounded-md bg-destructive/10">
+              <div className="font-mono font-bold mb-1">ORB OVERLOAD ERROR</div>
+              <div className="text-sm">Too many periods (.) in a command</div>
+            </div>
+            <div className="p-3 border rounded-md bg-destructive/10">
+              <div className="font-mono font-bold mb-1">SYNTAX ERROR</div>
+              <div className="text-sm">Unknown command despite correct syntax structure</div>
+            </div>
+            <div className="p-3 border rounded-md bg-destructive/10">
+              <div className="font-mono font-bold mb-1">STUPID ERROR</div>
+              <div className="text-sm">Various errors like missing EXIT command, invalid index, etc.</div>
             </div>
           </div>
         </CardContent>

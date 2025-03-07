@@ -163,6 +163,38 @@ export interface InterfuckResult {
   error?: string;
 }
 
+// Helper function to validate command syntax
+function validateCommandSyntax(line: string): string | null {
+  // Check for missing period (.)
+  if (line.startsWith('PLEASE') && !line.includes('.')) {
+    return "AMNESIA ERROR – Brak kropki (.) w komendzie.";
+  }
+  
+  // Check for missing colon (:)
+  if (line.startsWith('PLEASE') && line.includes('.') && !line.includes(':')) {
+    return "AMNESIA ERROR – Brak dwukropka (:) w komendzie.";
+  }
+  
+  // Check for too many periods
+  const periodCount = (line.match(/\./g) || []).length;
+  if (periodCount > 1) {
+    return "ORB OVERLOAD ERROR – Zbyt wiele kropek (.) w komendzie.";
+  }
+  
+  // Check for valid command structure but unknown command
+  if (line.startsWith('PLEASE') && line.includes(':') && line.includes('.')) {
+    const commandMatch = line.match(/PLEASE\s+([A-Z]+)\s+:/);
+    if (commandMatch) {
+      const command = commandMatch[1];
+      if (!['DO', 'DONT', 'LET', 'CALL', 'BREACH', 'EXIT'].includes(command)) {
+        return "SYNTAX ERROR – Nieznana komenda mimo poprawnej składni.";
+      }
+    }
+  }
+  
+  return null;
+}
+
 // Główna funkcja interpretująca kod INTERFUCK
 export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
   const { code, hideCommandOutput = false } = input;
@@ -190,6 +222,12 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
       
       // Pomiń puste linie po usunięciu komentarzy
       if (!line) continue;
+      
+      // Validate command syntax
+      const syntaxError = validateCommandSyntax(line);
+      if (syntaxError) {
+        throw new Error(syntaxError);
+      }
       
       // PLEASE DO :1. - Tworzy Dataling
       if (line.startsWith('PLEASE DO :1.')) {

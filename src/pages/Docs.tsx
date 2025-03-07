@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
 import { Book, ChevronRight, Code, FileCode, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
 const Docs = () => {
   return <Layout>
       <div className="container px-4 py-16">
@@ -189,6 +190,19 @@ PLEASE DO :1.  // This is also a comment
                   <div className="bg-secondary/20 p-2 rounded-md mt-2">
                     <pre className="font-mono text-sm">PLEASE DO :1.  // Create a new Dataling                // The value is on the next line</pre>
                   </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Syntax Requirements</h3>
+                  <p>
+                    INTERFUCK has strict syntax requirements that must be followed:
+                  </p>
+                  <ul className="list-disc pl-6 mt-2 space-y-1">
+                    <li>All commands must include a period (.) - the "Orb"</li>
+                    <li>All commands must include a colon (:) - the "Semi-Orb"</li>
+                    <li>Commands must have exactly one period (.)</li>
+                    <li>The command name must be one of the defined actions (DO, DONT, LET, CALL, BREACH, EXIT)</li>
+                  </ul>
                 </div>
               </div>
             </CardContent>
@@ -397,13 +411,40 @@ PLEASE CALL :4.
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                INTERFUCK throws "Stupid errors" when it encounters issues in your code. Common errors include:
+                INTERFUCK throws specific errors when it encounters issues in your code. Common errors include:
               </p>
               
               <div className="space-y-4">
                 <div className="p-3 border border-destructive/30 rounded">
                   <p className="font-medium">Missing EXIT Command</p>
                   <p className="text-muted-foreground">Every program must end with <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code></p>
+                </div>
+                
+                <div className="p-3 border border-destructive/30 rounded">
+                  <p className="font-medium">AMNESIA ERROR</p>
+                  <p className="text-muted-foreground">Missing period (.) or colon (:) in a command</p>
+                  <div className="mt-2 text-sm">
+                    <ul className="list-disc pl-6">
+                      <li><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO :1</code> - Missing period (.)</li>
+                      <li><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO 1.</code> - Missing colon (:)</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="p-3 border border-destructive/30 rounded">
+                  <p className="font-medium">ORB OVERLOAD ERROR</p>
+                  <p className="text-muted-foreground">Too many periods (.) in a command</p>
+                  <div className="mt-2 text-sm">
+                    <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO :1..</code> - Has two periods
+                  </div>
+                </div>
+                
+                <div className="p-3 border border-destructive/30 rounded">
+                  <p className="font-medium">SYNTAX ERROR</p>
+                  <p className="text-muted-foreground">Unknown command despite correct syntax structure</p>
+                  <div className="mt-2 text-sm">
+                    <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CREATE :1.</code> - "CREATE" is not a valid action
+                  </div>
                 </div>
                 
                 <div className="p-3 border border-destructive/30 rounded">
@@ -429,7 +470,7 @@ PLEASE CALL :4.
               
               <p className="mt-4">
                 When an error occurs, the IDE will display a clear error message that 
-                explains the issue and helps you debug your code.
+                explains the issue and helps you debug your code. INTERFUCK uses unique error names that reflect its quirky nature.
               </p>
             </CardContent>
           </Card>
