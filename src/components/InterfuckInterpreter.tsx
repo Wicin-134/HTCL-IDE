@@ -354,11 +354,11 @@ const InterfuckInterpreter: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="p-3 border rounded-md bg-destructive/10">
               <div className="font-mono font-bold mb-1">AMNESIA ERROR</div>
-              <div className="text-sm">Missing period (.) or colon (:) in a command</div>
+              <div className="text-sm">Missing Orb (.) or Semi-Orb (:) in a command</div>
             </div>
             <div className="p-3 border rounded-md bg-destructive/10">
               <div className="font-mono font-bold mb-1">ORB OVERLOAD ERROR</div>
-              <div className="text-sm">Too many periods (.) in a command</div>
+              <div className="text-sm">Too many Orbs (.) in a command</div>
             </div>
             <div className="p-3 border rounded-md bg-destructive/10">
               <div className="font-mono font-bold mb-1">SYNTAX ERROR</div>

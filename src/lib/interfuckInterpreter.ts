@@ -167,18 +167,18 @@ export interface InterfuckResult {
 function validateCommandSyntax(line: string): string | null {
   // Check for missing period (.)
   if (line.startsWith('PLEASE') && !line.includes('.')) {
-    return "AMNESIA ERROR – Brak kropki (.) w komendzie.";
+    return "AMNESIA ERROR - Missing Orb (.) in command.";
   }
   
   // Check for missing colon (:)
   if (line.startsWith('PLEASE') && line.includes('.') && !line.includes(':')) {
-    return "AMNESIA ERROR – Brak dwukropka (:) w komendzie.";
+    return "AMNESIA ERROR - Missing Semi-Orb (:) in command.";
   }
   
   // Check for too many periods
   const periodCount = (line.match(/\./g) || []).length;
   if (periodCount > 1) {
-    return "ORB OVERLOAD ERROR – Zbyt wiele kropek (.) w komendzie.";
+    return "ORB OVERLOAD ERROR - Too many Orbs (.) in command.";
   }
   
   // Check for valid command structure but unknown command
@@ -187,7 +187,7 @@ function validateCommandSyntax(line: string): string | null {
     if (commandMatch) {
       const command = commandMatch[1];
       if (!['DO', 'DONT', 'LET', 'CALL', 'BREACH', 'EXIT'].includes(command)) {
-        return "SYNTAX ERROR – Nieznana komenda mimo poprawnej składni.";
+        return "SYNTAX ERROR - Unknown command despite correct syntax.";
       }
     }
   }

@@ -422,20 +422,20 @@ PLEASE CALL :4.
                 
                 <div className="p-3 border border-destructive/30 rounded">
                   <p className="font-medium">AMNESIA ERROR</p>
-                  <p className="text-muted-foreground">Missing period (.) or colon (:) in a command</p>
+                  <p className="text-muted-foreground">Missing Orb (.) or Semi-Orb (:) in a command</p>
                   <div className="mt-2 text-sm">
                     <ul className="list-disc pl-6">
-                      <li><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO :1</code> - Missing period (.)</li>
-                      <li><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO 1.</code> - Missing colon (:)</li>
+                      <li><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO :1</code> - Missing Orb (.)</li>
+                      <li><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO 1.</code> - Missing Semi-Orb (:)</li>
                     </ul>
                   </div>
                 </div>
                 
                 <div className="p-3 border border-destructive/30 rounded">
                   <p className="font-medium">ORB OVERLOAD ERROR</p>
-                  <p className="text-muted-foreground">Too many periods (.) in a command</p>
+                  <p className="text-muted-foreground">Too many Orbs (.) in a command</p>
                   <div className="mt-2 text-sm">
-                    <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO :1..</code> - Has two periods
+                    <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE DO :1..</code> - Has two Orbs
                   </div>
                 </div>
                 
