@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import Examples from "@/components/Examples";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Terminal, BookText, Database, Sparkles } from "lucide-react";
+import { Terminal, BookText, Database, Sparkles, Code, LayoutGrid } from "lucide-react";
 
 const FeatureCard = ({ 
   icon, 
@@ -52,7 +52,7 @@ const Index = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in animate-delay-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in animate-delay-200">
               <FeatureCard
                 icon={<Terminal size={24} />}
                 title="Unique Data Structure"
@@ -65,13 +65,23 @@ const Index = () => {
               />
               <FeatureCard
                 icon={<Database size={24} />}
-                title="Character Mapping"
-                description="Values 1-27 map to spaces and lowercase letters, with value inputs on separate lines for better readability."
+                title="Extensive Character Mapping"
+                description="Supports a comprehensive set of 74 character mappings including lowercase and uppercase letters, numbers 0-9, and special characters for rich text output."
               />
               <FeatureCard
                 icon={<Sparkles size={24} />}
                 title="Creative Challenge"
                 description="Comments use // for notes, and the clear line-by-line structure makes programs easy to write and understand."
+              />
+              <FeatureCard
+                icon={<Code size={24} />}
+                title="Educational Value"
+                description="Perfect for learning programming concepts with its unique approach to data manipulation, control flow, and memory management in a simplified environment."
+              />
+              <FeatureCard
+                icon={<LayoutGrid size={24} />}
+                title="Visual Datalings"
+                description="Watch your data structures in real-time with visual representations of Datalings, making it easier to understand how your program interacts with memory."
               />
             </div>
           </div>

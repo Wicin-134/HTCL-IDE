@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,27 +7,10 @@ import { Play, Trash, Copy, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { interpretInterfuck, convertToChar, Databer } from "@/lib/interfuckInterpreter";
 
-const EXAMPLE_CODE = `// Hello World program in INTERFUCK
-// Each command is followed by its value on the next line
+const EXAMPLE_CODE = `// Write your INTERFUCK code here
+// Remember to end with PLEASE EXIT :6.
 
-PLEASE DO :1.  // Create Dataling for 'h' (value 9)
-9
-
-PLEASE DO :1.  // Create Dataling for 'e' (value 6)
-6
-
-PLEASE DO :1.  // Create Dataling for 'l' (value 13)
-13
-
-PLEASE DO :1.  // Create Dataling for 'l' (value 13)
-13
-
-PLEASE DO :1.  // Create Dataling for 'o' (value 16)
-16
-
-PLEASE CALL :4.  // Display all Datalings (will show: "h e l l o")
-
-PLEASE EXIT :6.  // Exit the program`;
+PLEASE EXIT :6.`;
 
 const InterfuckInterpreter: React.FC = () => {
   const location = useLocation();
@@ -52,17 +34,14 @@ const InterfuckInterpreter: React.FC = () => {
     setDatalings([]);
     
     try {
-      // Create a new databer for tracking datalings
       const databer = new Databer();
       let currentDatalings: { index: number; value: number }[] = [];
       
-      // Split the code into lines and process it to track datalings
       const lines = code.split('\n').map(line => line.trim());
       
       for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
         
-        // Handle comments
         if (line.includes('//')) {
           line = line.split('//')[0].trim();
           if (!line) continue;
@@ -70,7 +49,6 @@ const InterfuckInterpreter: React.FC = () => {
         
         if (!line) continue;
         
-        // PLEASE DO :1. - Create Dataling
         if (line.startsWith('PLEASE DO :1.')) {
           if (i + 1 < lines.length) {
             let nextLine = lines[i + 1].trim();
@@ -84,27 +62,22 @@ const InterfuckInterpreter: React.FC = () => {
               if (!isNaN(value)) {
                 const index = databer.addDataling(value);
                 currentDatalings.push({ index, value });
-                i++; // Skip the value line
+                i++;
               }
             }
           }
         }
-        // PLEASE DONT :2. - Remove Dataling
         else if (line.startsWith('PLEASE DONT :2.')) {
           const indexMatch = line.match(/:2\.\s*(\d+)/);
           if (indexMatch && indexMatch[1]) {
             const indexToRemove = Number(indexMatch[1]);
-            // Remove from our tracking
             currentDatalings = currentDatalings.filter(d => d.index !== indexToRemove);
-            // Update the databer
             try {
               databer.removeDataling(indexToRemove);
             } catch (e) {
-              // Ignore errors when removing
             }
           }
         }
-        // PLEASE LET :3. - Update Dataling
         else if (line.startsWith('PLEASE LET :3.')) {
           const match = line.match(/PLEASE LET :3\.\s*(\d+)/);
           if (match && match[1]) {
@@ -120,34 +93,29 @@ const InterfuckInterpreter: React.FC = () => {
               if (nextLine && /^-?\d+$/.test(nextLine)) {
                 const value = Number(nextLine);
                 if (!isNaN(value)) {
-                  // Update our tracking
                   const existingIndex = currentDatalings.findIndex(d => d.index === index);
                   if (existingIndex !== -1) {
                     currentDatalings[existingIndex].value = value;
                   }
-                  // Update the databer
                   try {
                     databer.updateDataling(index, value);
                   } catch (e) {
-                    // Ignore errors when updating
                   }
-                  i++; // Skip the value line
+                  i++;
                 }
               }
             }
           }
         }
-        // PLEASE BREACH :5. - Clear all datalings
         else if (line.startsWith('PLEASE BREACH :5.')) {
           currentDatalings = [];
           databer.clear();
         }
       }
       
-      // Now run the actual interpreter
       const result = interpretInterfuck({ 
         code,
-        hideCommandOutput: true // Hide command output except for CALL and EXIT
+        hideCommandOutput: true
       });
       
       setOutput(result.output);
