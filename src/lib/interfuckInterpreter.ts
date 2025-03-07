@@ -1,4 +1,3 @@
-
 // Interpreter for the INTERFUCK programming language
 
 // Function to convert number to character
@@ -131,9 +130,9 @@ export class Databer {
       return "";
     }
     
-    // Updated to only return the characters (only for values 1-27)
+    // Updated to handle all character ranges (1-74)
     return this.datalings.map(value => {
-      if (value >= 1 && value <= 27) {
+      if (value >= 1 && value <= 74) {  // Changed from 27 to 74 to include all character ranges
         return convertToChar(value);
       }
       return value.toString();
