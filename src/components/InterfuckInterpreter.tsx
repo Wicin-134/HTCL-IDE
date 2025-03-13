@@ -7,7 +7,7 @@ import { Play, Trash, Copy, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { interpretInterfuck, convertToChar, Databer } from "@/lib/interfuckInterpreter";
 
-const EXAMPLE_CODE = `// Write your INTERFUCK code here
+const EXAMPLE_CODE = `// Write your HCPL code here
 // Remember to end with PLEASE EXIT :6.
 
 PLEASE DO :1.
@@ -188,7 +188,7 @@ const InterfuckInterpreter: React.FC = () => {
           <Textarea
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            placeholder="Enter your INTERFUCK code here..."
+            placeholder="Enter your HCPL code here..."
             className="h-[350px] font-mono text-sm resize-none"
           />
         </CardContent>
@@ -259,7 +259,7 @@ const InterfuckInterpreter: React.FC = () => {
 
       <Card className="md:col-span-2">
         <CardHeader>
-          <CardTitle>INTERFUCK Action Reference</CardTitle>
+          <CardTitle>HCPL Action Reference</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
