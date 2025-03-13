@@ -11,7 +11,7 @@ const Docs = () => {
         <div className="max-w-3xl mx-auto mb-10 text-center">
           <h1 className="text-4xl font-bold tracking-tight mb-4">Documentation</h1>
           <p className="text-muted-foreground text-lg">
-            Everything you need to know about the Interfuck programming language
+            Everything you need to know about the HyperCall Programming Language
           </p>
         </div>
         
@@ -20,12 +20,12 @@ const Docs = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Book className="h-5 w-5" />
-                Introduction to INTERFUCK
+                Introduction to HyperCall Programming Language
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                INTERFUCK is an esoteric programming language designed to challenge conventional 
+                HyperCall Programming Language (HCPL) is an esoteric programming language designed to challenge conventional 
                 programming paradigms with its unique syntax and execution model.
               </p>
               <p>
@@ -34,7 +34,7 @@ const Docs = () => {
                 that can also represent a character based on its numeric code.
               </p>
               <p>
-                What sets INTERFUCK apart is its polite syntax - all commands begin with "PLEASE", 
+                What sets HCPL apart is its polite syntax - all commands begin with "PLEASE", 
                 emphasizing the importance of courtesy even in computer interactions.
               </p>
               <div className="flex justify-end mt-4">
@@ -57,7 +57,7 @@ const Docs = () => {
             <CardContent className="space-y-6">
               <div>
                 <h3 className="text-lg font-semibold mb-2">Databer</h3>
-                <p>The Databer is the primary data structure in INTERFUCK. It serves as a container that can hold many Datalings. When a program starts, the Databer is empty and you must add Datalings to it using the DO command.</p>
+                <p>The Databer is the primary data structure in HCPL. It serves as a container that can hold many Datalings. When a program starts, the Databer is empty and you must add Datalings to it using the DO command.</p>
                 <p className="mt-2">
                   The Databer is essentially a numeric array where each position can be accessed by index.
                   Indices start at 0 for the first Dataling and increment by 1 for each subsequent Dataling.
@@ -74,7 +74,7 @@ const Docs = () => {
                 </p>
                 <p className="mt-2">
                   When displayed, Datalings with values between 1 and 74 automatically show both their numeric 
-                  value and their character representation according to the INTERFUCK character mapping.
+                  value and their character representation according to the HCPL character mapping.
                 </p>
                 <p className="mt-2">
                   Operations can be performed on Datalings:
@@ -99,14 +99,14 @@ const Docs = () => {
             <CardContent>
               <div className="space-y-6">
                 <p>
-                  INTERFUCK uses a unique syntax where commands start with "PLEASE" followed by an action. 
+                  HCPL uses a unique syntax where commands start with "PLEASE" followed by an action. 
                   Each command's value is specified on the next line (not on the same line), making the code structure clear and easy to read.
                 </p>
                 
                 <div>
                   <h3 className="text-lg font-semibold mb-3">Comments</h3>
                   <p>
-                    Comments in INTERFUCK start with <code className="font-mono bg-secondary/20 px-1 rounded">//</code> and continue to the end of the line.
+                    Comments in HCPL start with <code className="font-mono bg-secondary/20 px-1 rounded">//</code> and continue to the end of the line.
                     Comments are ignored by the interpreter and are useful for documenting your code.
                   </p>
                   <div className="bg-secondary/20 p-3 rounded-md mt-3">
@@ -180,7 +180,7 @@ PLEASE DO :1.  // This is also a comment
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Required EXIT Command</h3>
                   <p className="text-destructive font-medium">
-                    Every INTERFUCK program MUST end with the <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> command.
+                    Every HCPL program MUST end with the <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> command.
                     The IDE will throw a "Stupid error" if this command is missing.
                   </p>
                 </div>
@@ -195,7 +195,7 @@ PLEASE DO :1.  // This is also a comment
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Syntax Requirements</h3>
                   <p>
-                    INTERFUCK has strict syntax requirements that must be followed:
+                    HCPL has strict syntax requirements that must be followed:
                   </p>
                   <ul className="list-disc pl-6 mt-2 space-y-1">
                     <li>All commands must include a period (.) - the "Orb"</li>
@@ -217,7 +217,7 @@ PLEASE DO :1.  // This is also a comment
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                INTERFUCK can represent characters using numeric values. Values are mapped to 
+                HCPL can represent characters using numeric values. Values are mapped to 
                 specific characters according to the following comprehensive scheme:
               </p>
               
@@ -324,7 +324,7 @@ PLEASE DO :1.  // This is also a comment
               <p className="mt-4">
                 When the IDE displays Dataling values between 1 and 74, it shows both the 
                 numeric value and the corresponding character representation. This makes it easier to work
-                with text in INTERFUCK programs.
+                with text in HCPL programs.
               </p>
               
               <div className="bg-secondary/20 p-3 rounded-md mt-4">
@@ -349,7 +349,7 @@ PLEASE CALL :4.
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                INTERFUCK has unique names for certain programming concepts and characters:
+                HCPL has unique names for certain programming concepts and characters:
               </p>
               <div className="space-y-6">
                 <div>
@@ -411,7 +411,7 @@ PLEASE CALL :4.
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                INTERFUCK throws specific errors when it encounters issues in your code. Common errors include:
+                HCPL throws specific errors when it encounters issues in your code. Common errors include:
               </p>
               
               <div className="space-y-4">
@@ -464,13 +464,13 @@ PLEASE CALL :4.
                 
                 <div className="p-3 border border-destructive/30 rounded">
                   <p className="font-medium">Unrecognized Action</p>
-                  <p className="text-muted-foreground">Using an action that is not part of the INTERFUCK language</p>
+                  <p className="text-muted-foreground">Using an action that is not part of the HCPL language</p>
                 </div>
               </div>
               
               <p className="mt-4">
                 When an error occurs, the IDE will display a clear error message that 
-                explains the issue and helps you debug your code. INTERFUCK uses unique error names that reflect its quirky nature.
+                explains the issue and helps you debug your code. HCPL uses unique error names that reflect its quirky nature.
               </p>
             </CardContent>
           </Card>
@@ -621,7 +621,7 @@ PLEASE EXIT :6.`}
             <CardContent>
               <div className="space-y-4">
                 <p>
-                  While INTERFUCK is an esoteric language primarily designed for fun, following 
+                  While HCPL is an esoteric language primarily designed for fun, following 
                   these best practices will make your code more readable and maintainable:
                 </p>
                 
@@ -652,7 +652,7 @@ PLEASE EXIT :6.`}
           <div className="flex justify-center my-8">
             <Link to="/try">
               <Button size="lg" className="gap-2">
-                Try INTERFUCK Now
+                Try HCPL Now
               </Button>
             </Link>
           </div>

@@ -1,4 +1,4 @@
-// Interpreter for the INTERFUCK programming language
+// Interpreter for the HyperCall Programming Language (HCPL)
 
 // Function to convert number to character
 export function convertToChar(value: number): string {
@@ -194,7 +194,7 @@ function validateCommandSyntax(line: string): string | null {
   return null;
 }
 
-// Główna funkcja interpretująca kod INTERFUCK
+// Główna funkcja interpretująca kod HyperCall Programming Language
 export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
   const { code, hideCommandOutput = false } = input;
   const databer = new Databer();

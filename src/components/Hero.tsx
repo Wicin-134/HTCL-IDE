@@ -23,11 +23,11 @@ const Hero = () => {
           </div>
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-            Experience the <span className="text-primary">Interfuck</span> Programming Language
+            Experience the <span className="text-primary">HyperCall</span> Programming Language
           </h1>
           
           <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl">
-            Interfuck is an esoteric programming language designed to challenge conventional programming paradigms with its unique syntax and execution model.
+            HyperCall Programming Language (HCPL) is an esoteric programming language designed to challenge conventional programming paradigms with its unique syntax and execution model.
           </p>
           
           <div className="mt-8 flex flex-col sm:flex-row gap-4 w-full justify-center">
