@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -153,11 +154,12 @@ const InterfuckInterpreter: React.FC = () => {
   };
 
   const resetExample = () => {
-    setCode(EXAMPLE_CODE);
+    // Update this function to clear the editor instead of loading example code
+    setCode("");
     setOutput([]);
     setError(undefined);
     setDatalings([]);
-    toast.info("Example code loaded");
+    toast.info("Editor reset");
   };
 
   const copyCode = () => {
@@ -178,7 +180,7 @@ const InterfuckInterpreter: React.FC = () => {
               <Button variant="outline" size="sm" onClick={clearCode} title="Clear code">
                 <Trash size={16} />
               </Button>
-              <Button variant="outline" size="sm" onClick={resetExample} title="Reset to example">
+              <Button variant="outline" size="sm" onClick={resetExample} title="Reset editor">
                 <RotateCcw size={16} />
               </Button>
             </div>
@@ -376,4 +378,3 @@ const InterfuckInterpreter: React.FC = () => {
 };
 
 export default InterfuckInterpreter;
-
