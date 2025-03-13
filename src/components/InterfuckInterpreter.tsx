@@ -22,7 +22,7 @@ PLEASE EXIT :6.`;
 
 const InterfuckInterpreter: React.FC = () => {
   const location = useLocation();
-  const [code, setCode] = useState<string>(EXAMPLE_CODE);
+  const [code, setCode] = useState<string>("");
   const [output, setOutput] = useState<string[]>([]);
   const [error, setError] = useState<string | undefined>();
   const [isRunning, setIsRunning] = useState<boolean>(false);
@@ -376,3 +376,4 @@ const InterfuckInterpreter: React.FC = () => {
 };
 
 export default InterfuckInterpreter;
+
