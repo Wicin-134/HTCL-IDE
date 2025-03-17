@@ -4,6 +4,7 @@ import Examples from "@/components/Examples";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Terminal, BookText, Database, Sparkles, Code, LayoutGrid } from "lucide-react";
+import { useEffect } from "react";
 
 const FeatureCard = ({ 
   icon, 
@@ -34,6 +35,10 @@ const FeatureCard = ({
 };
 
 const Index = () => {
+  useEffect(() => {
+    console.log("Index page loaded");
+  }, []);
+  
   return (
     <Layout>
       <div className="flex flex-col min-h-screen">
