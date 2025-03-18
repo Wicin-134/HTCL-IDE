@@ -20,7 +20,7 @@ const Footer = () => {
             </p>
             <div className="flex gap-4 mt-6">
               <a 
-                href="https://discord.gg/4VbEjuSF" 
+                href="https://discord.gg/Z6gTEmnNVU" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground transition-colors"
@@ -53,7 +53,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://discord.gg/4VbEjuSF" 
+                  href="https://discord.gg/Z6gTEmnNVU" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-muted-foreground hover:text-foreground transition-colors text-sm"
@@ -62,7 +62,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="https://discord.gg/4VbEjuSF" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
+                <a href="https://discord.gg/Z6gTEmnNVU" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
                   Community
                 </a>
               </li>

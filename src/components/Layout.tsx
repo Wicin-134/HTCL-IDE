@@ -54,7 +54,7 @@ const Layout = ({
             <NavItem to="/try" icon={<Play />} label="IDE" />
             <NavItem to="/docs" icon={<BookText />} label="Documentation" />
             
-            <a href="https://discord.gg/4VbEjuSF" target="_blank" rel="noopener noreferrer" className="ml-2">
+            <a href="https://discord.gg/Z6gTEmnNVU" target="_blank" rel="noopener noreferrer" className="ml-2">
               <Button variant="outline" size="sm" className="gap-2">
                 <MessageCircle size={16} />
                 <span>Discord</span>
@@ -74,7 +74,7 @@ const Layout = ({
             <NavItem to="/try" icon={<Play />} label="IDE" />
             <NavItem to="/docs" icon={<BookText />} label="Documentation" />
             
-            <a href="https://discord.gg/4VbEjuSF" target="_blank" rel="noopener noreferrer" className="mt-2">
+            <a href="https://discord.gg/Z6gTEmnNVU" target="_blank" rel="noopener noreferrer" className="mt-2">
               <Button variant="outline" size="sm" className="w-full gap-2 justify-center">
                 <MessageCircle size={16} />
                 <span>Discord</span>
@@ -95,7 +95,7 @@ const Layout = ({
             <p>2025 HyperCall</p>
           </div>
           <div className="flex gap-6">
-            <a href="https://discord.gg/4VbEjuSF" className="hover:text-foreground transition-colors">Contact</a>
+            <a href="https://discord.gg/Z6gTEmnNVU" className="hover:text-foreground transition-colors">Contact</a>
           </div>
         </div>
       </footer>
