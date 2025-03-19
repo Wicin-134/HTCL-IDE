@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -37,6 +36,18 @@ const NavItem = ({
     </Link>;
 };
 
+const languageFlags: Record<string, string> = {
+  en: "🇬🇧",
+  es: "🇪🇸",
+  fr: "🇫🇷",
+  de: "🇩🇪",
+  pl: "🇵🇱",
+  zh: "🇨🇳",
+  ja: "🇯🇵",
+  hi: "🇮🇳",
+  ar: "🇸🇦",
+};
+
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -62,20 +73,20 @@ const Layout = ({
             {/* Language Selector */}
             <div className="flex items-center ml-2">
               <Globe size={14} className="mr-1 text-muted-foreground" />
-              <Select value={currentLanguage} onValueChange={setLanguage}>
-                <SelectTrigger className="h-8 w-[80px] border-none bg-transparent shadow-none focus:ring-0">
-                  <SelectValue placeholder={currentLanguage.toUpperCase()} />
+              <Select defaultValue={currentLanguage} onValueChange={setLanguage}>
+                <SelectTrigger className="h-8 w-[100px] border-none bg-transparent shadow-none focus:ring-0">
+                  <SelectValue placeholder={`${languageFlags[currentLanguage]} ${currentLanguage.toUpperCase()}`} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="en">EN</SelectItem>
-                  <SelectItem value="es">ES</SelectItem>
-                  <SelectItem value="fr">FR</SelectItem>
-                  <SelectItem value="de">DE</SelectItem>
-                  <SelectItem value="pl">PL</SelectItem>
-                  <SelectItem value="zh">ZH</SelectItem>
-                  <SelectItem value="ja">JA</SelectItem>
-                  <SelectItem value="hi">HI</SelectItem>
-                  <SelectItem value="ar">AR</SelectItem>
+                  <SelectItem value="en">{languageFlags.en} EN</SelectItem>
+                  <SelectItem value="es">{languageFlags.es} ES</SelectItem>
+                  <SelectItem value="fr">{languageFlags.fr} FR</SelectItem>
+                  <SelectItem value="de">{languageFlags.de} DE</SelectItem>
+                  <SelectItem value="pl">{languageFlags.pl} PL</SelectItem>
+                  <SelectItem value="zh">{languageFlags.zh} ZH</SelectItem>
+                  <SelectItem value="ja">{languageFlags.ja} JA</SelectItem>
+                  <SelectItem value="hi">{languageFlags.hi} HI</SelectItem>
+                  <SelectItem value="ar">{languageFlags.ar} AR</SelectItem>
                 </SelectContent>
               </Select>
             </div>
