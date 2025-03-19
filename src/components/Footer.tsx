@@ -2,7 +2,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Github, Twitter, Code, Heart, MessageCircle, Globe } from "lucide-react";
-import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslation } from "@/lib/translations";
 
 // Define the available languages
 const languages = [
@@ -25,12 +25,11 @@ const languages = [
 ];
 
 const Footer = () => {
-  const [language, setLanguage] = useState("en");
+  const { currentLanguage, setLanguage, t } = useTranslation();
 
   // Function to handle language change
   const handleLanguageChange = (value: string) => {
     setLanguage(value);
-    // Here you would normally implement actual translation logic
     console.log(`Language changed to: ${value}`);
   };
 
@@ -69,16 +68,16 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-medium mb-4">Resources</h3>
+            <h3 className="font-medium mb-4">{t('resources')}</h3>
             <ul className="space-y-3">
               <li>
                 <Link to="/docs" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  Documentation
+                  {t('documentation')}
                 </Link>
               </li>
               <li>
                 <Link to="/try" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  Try Interfuck
+                  {t('tryInterfuck')}
                 </Link>
               </li>
               <li>
@@ -88,36 +87,36 @@ const Footer = () => {
                   rel="noopener noreferrer" 
                   className="text-muted-foreground hover:text-foreground transition-colors text-sm"
                 >
-                  Contact
+                  {t('contact')}
                 </a>
               </li>
               <li>
                 <a href="https://discord.gg/Z6gTEmnNVU" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  Community
+                  {t('community')}
                 </a>
               </li>
             </ul>
           </div>
           
           <div>
-            <h3 className="font-medium mb-4">Legal</h3>
+            <h3 className="font-medium mb-4">{t('legal')}</h3>
             <ul className="space-y-3">
               <li>
                 <a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  Privacy Policy
+                  {t('privacyPolicy')}
                 </a>
               </li>
               <li>
                 <a href="#" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  License
+                  {t('license')}
                 </a>
               </li>
             </ul>
             
             {/* Language selector */}
             <div className="mt-6">
-              <h3 className="font-medium mb-2 text-sm">Language</h3>
-              <Select value={language} onValueChange={handleLanguageChange}>
+              <h3 className="font-medium mb-2 text-sm">{t('language')}</h3>
+              <Select value={currentLanguage} onValueChange={handleLanguageChange}>
                 <SelectTrigger className="w-full text-sm">
                   <SelectValue placeholder="Select a language" />
                 </SelectTrigger>
@@ -137,16 +136,16 @@ const Footer = () => {
         
         <div className="border-t mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2025 Interfuck
+            {t('copyright')}
           </p>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Globe size={14} className="text-muted-foreground" />
-            <span>Language: {languages.find(lang => lang.code === language)?.name}</span>
+            <span>Language: {languages.find(lang => lang.code === currentLanguage)?.name}</span>
           </div>
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
-            <span>Made with</span>
+            <span>{t('madeWith')}</span>
             <Heart size={14} className="text-red-500" />
-            <span>by esoteric enthusiasts</span>
+            <span>{t('by')}</span>
           </div>
         </div>
       </div>
