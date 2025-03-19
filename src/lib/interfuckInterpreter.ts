@@ -92,23 +92,81 @@ export function convertToChar(value: number): string {
 // Reprezentacja Databer - główny kontener danych
 export class Databer {
   private datalings: number[] = [];
+  private datasubs: Map<string, string> = new Map(); // New storage for datasubs
+  private dataOrder: Array<{type: 'dataling' | 'datasub', name?: string, index?: number}> = []; // Track order of data elements
 
   // Dodaje nowy Dataling z podaną wartością
   addDataling(value: number): number {
     if (typeof value !== 'number' || isNaN(value)) {
       throw new Error("Stupid error: Dataling value must be numeric");
     }
-    this.datalings.push(value);
-    return this.datalings.length - 1; // Return the index of the newly added dataling
+    const index = this.datalings.push(value) - 1;
+    this.dataOrder.push({type: 'dataling', index});
+    return index; // Return the index of the newly added dataling
+  }
+
+  // Dodaje nowy Datasub z podaną nazwą
+  addDatasub(name: string, value: string = ""): void {
+    if (!name || typeof name !== 'string') {
+      throw new Error("Stupid error: Datasub name must be a non-empty string");
+    }
+    this.datasubs.set(name, value);
+    this.dataOrder.push({type: 'datasub', name});
+  }
+
+  // Pobiera wartość Datasub o określonej nazwie
+  getDatasub(name: string): string | undefined {
+    return this.datasubs.get(name);
+  }
+
+  // Ustawia wartość Datasub o określonej nazwie
+  setDatasub(name: string, value: string): void {
+    if (!this.datasubs.has(name)) {
+      throw new Error(`Stupid error: Datasub '${name}' does not exist`);
+    }
+    this.datasubs.set(name, value);
+  }
+
+  // Sprawdza czy Datasub o określonej nazwie istnieje
+  hasDatasub(name: string): boolean {
+    return this.datasubs.has(name);
+  }
+
+  // Pobiera wszystkie Datasubs jako mapa
+  getAllDatasubs(): Map<string, string> {
+    return new Map(this.datasubs);
   }
 
   // Usuwa Dataling o określonym indeksie
   removeDataling(index: number): void {
     if (index >= 0 && index < this.datalings.length) {
       this.datalings.splice(index, 1);
+      // Update data order
+      this.dataOrder = this.dataOrder.filter(item => 
+        !(item.type === 'dataling' && item.index === index)
+      );
+      // Update indexes for datalings that come after the removed one
+      this.dataOrder = this.dataOrder.map(item => {
+        if (item.type === 'dataling' && item.index !== undefined && item.index > index) {
+          return { ...item, index: item.index - 1 };
+        }
+        return item;
+      });
     } else {
       throw new Error(`Stupid error: Cannot remove Dataling at index ${index}, out of range`);
     }
+  }
+
+  // Usuwa Datasub o określonej nazwie
+  removeDatasub(name: string): void {
+    if (!this.datasubs.has(name)) {
+      throw new Error(`Stupid error: Datasub '${name}' does not exist`);
+    }
+    this.datasubs.delete(name);
+    // Update data order
+    this.dataOrder = this.dataOrder.filter(item => 
+      !(item.type === 'datasub' && item.name === name)
+    );
   }
 
   // Aktualizuje wartość Dataling o określonym indeksie
@@ -126,22 +184,50 @@ export class Databer {
 
   // Zwraca wszystkie wartości Datalings jako string
   getValues(): string {
-    if (this.datalings.length === 0) {
+    if (this.datalings.length === 0 && this.datasubs.size === 0) {
       return "";
     }
     
-    // Updated to handle all character ranges (1-74)
-    return this.datalings.map(value => {
-      if (value >= 1 && value <= 74) {  // Changed from 27 to 74 to include all character ranges
-        return convertToChar(value);
+    let output = "";
+    
+    // Process data in the order they were added
+    for (const item of this.dataOrder) {
+      if (item.type === 'dataling' && item.index !== undefined) {
+        const value = this.datalings[item.index];
+        if (value >= 1 && value <= 74) {
+          output += convertToChar(value);
+        } else {
+          output += value.toString();
+        }
+      } else if (item.type === 'datasub' && item.name) {
+        const value = this.datasubs.get(item.name);
+        if (value !== undefined) {
+          output += value;
+        }
       }
-      return value.toString();
-    }).join("");
+    }
+    
+    return output;
   }
 
   // Usuwa wszystkie Datalings
   clear(): void {
     this.datalings = [];
+    this.datasubs.clear();
+    this.dataOrder = [];
+  }
+
+  // Usuwa wszystkie Datasubs
+  clearDatasubs(): void {
+    this.datasubs.clear();
+    this.dataOrder = this.dataOrder.filter(item => item.type !== 'datasub');
+  }
+
+  // Usuwa wszystkie dane (Datalings i Datasubs)
+  clearAll(): void {
+    this.datalings = [];
+    this.datasubs.clear();
+    this.dataOrder = [];
   }
 
   // Zwraca kopię wszystkich Datalings
@@ -154,18 +240,21 @@ export class Databer {
 export interface InterfuckInput {
   code: string;
   hideCommandOutput?: boolean; // Add option to hide command output
+  onUserInput?: (subName: string) => Promise<string>; // Add callback for user input
 }
 
 // Rezultat wykonania kodu
 export interface InterfuckResult {
   output: string[];
   error?: string;
+  datasubs?: Map<string, string>; // Return datasubs for display
 }
 
 // Helper function to validate command syntax
 function validateCommandSyntax(line: string): string | null {
   // Check for missing period (.)
-  if (line.startsWith('PLEASE') && !line.includes('.')) {
+  if ((line.startsWith('PLEASE') && !line.includes('.')) && 
+      !(line.startsWith('PLEASE LISTEN :8.'))) { // Special case for LISTEN command
     return "AMNESIA ERROR - Missing Orb (.) in command.";
   }
   
@@ -185,7 +274,7 @@ function validateCommandSyntax(line: string): string | null {
     const commandMatch = line.match(/PLEASE\s+([A-Z]+)\s+:/);
     if (commandMatch) {
       const command = commandMatch[1];
-      if (!['DO', 'DONT', 'LET', 'CALL', 'BREACH', 'EXIT'].includes(command)) {
+      if (!['DO', 'DONT', 'LET', 'CALL', 'BREACH', 'EXIT', 'ADD', 'LISTEN', 'SUB GO'].includes(command)) {
         return "SYNTAX ERROR - Unknown command despite correct syntax.";
       }
     }
@@ -195,8 +284,8 @@ function validateCommandSyntax(line: string): string | null {
 }
 
 // Główna funkcja interpretująca kod HyperCall Programming Language
-export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
-  const { code, hideCommandOutput = false } = input;
+export async function interpretInterfuck(input: InterfuckInput): Promise<InterfuckResult> {
+  const { code, hideCommandOutput = false, onUserInput } = input;
   const databer = new Databer();
   const output: string[] = [];
   let error: string | undefined;
@@ -257,6 +346,66 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
           throw new Error("Stupid error: Missing value after PLEASE DO :1.");
         }
       }
+      // PLEASE ADD :9. - Creates a Datasub
+      else if (line.startsWith('PLEASE ADD :9.')) {
+        const subNameMatch = line.match(/PLEASE ADD :9\.\s*(\w+)/);
+        if (subNameMatch && subNameMatch[1]) {
+          const subName = subNameMatch[1];
+          databer.addDatasub(subName);
+          if (!hideCommandOutput) {
+            output.push(`Created Datasub with name: ${subName}`);
+          }
+        } else {
+          throw new Error("Stupid error: PLEASE ADD :9. requires a name");
+        }
+      }
+      // PLEASE LISTEN :8. - Gets user input for a Datasub
+      else if (line.startsWith('PLEASE LISTEN :8.')) {
+        const subNameMatch = line.match(/PLEASE LISTEN :8\.\s*(\w+)/);
+        if (subNameMatch && subNameMatch[1]) {
+          const subName = subNameMatch[1];
+          
+          if (!databer.hasDatasub(subName)) {
+            throw new Error(`Stupid error: Datasub '${subName}' does not exist`);
+          }
+          
+          if (onUserInput) {
+            try {
+              const userInput = await onUserInput(subName);
+              databer.setDatasub(subName, userInput);
+              if (!hideCommandOutput) {
+                output.push(`Received input for Datasub '${subName}': ${userInput}`);
+              }
+            } catch (e) {
+              throw new Error(`Stupid error: Failed to get user input for Datasub '${subName}'`);
+            }
+          } else {
+            throw new Error("Stupid error: User input handler not provided");
+          }
+        } else {
+          throw new Error("Stupid error: PLEASE LISTEN :8. requires a Datasub name");
+        }
+      }
+      // PLEASE SUB GO :7. - Removes a Datasub
+      else if (line.startsWith('PLEASE SUB GO :7.')) {
+        const subNameMatch = line.match(/PLEASE SUB GO :7\.\s*(\w+)/);
+        if (subNameMatch && subNameMatch[1]) {
+          const subName = subNameMatch[1];
+          try {
+            databer.removeDatasub(subName);
+            if (!hideCommandOutput) {
+              output.push(`Removed Datasub with name: ${subName}`);
+            }
+          } catch (e) {
+            if (e instanceof Error) {
+              throw e;
+            }
+            throw new Error(`Stupid error: Failed to remove Datasub '${subName}'`);
+          }
+        } else {
+          throw new Error("Stupid error: PLEASE SUB GO :7. requires a Datasub name");
+        }
+      }
       // PLEASE DONT :2. - Usuwa Dataling
       else if (line.startsWith('PLEASE DONT :2.')) {
         const indexMatch = line.match(/:2\.\s*(\d+)/);
@@ -312,11 +461,11 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
         // Only show the raw values without the "Databer values:" prefix
         output.push(`${values || 'empty'}`);
       }
-      // PLEASE BREACH :5. - Usuwa wszystkie Datalings
+      // PLEASE BREACH :5. - Usuwa wszystkie Datalings i Datasubs
       else if (line.startsWith('PLEASE BREACH :5.')) {
-        databer.clear();
+        databer.clear(); // Now clears both datalings and datasubs
         if (!hideCommandOutput) {
-          output.push("All Datalings removed from Databer");
+          output.push("All Datalings and Datasubs removed from Databer");
         }
       }
       // PLEASE EXIT :6. - Wychodzi z interpretera
@@ -337,5 +486,9 @@ export function interpretInterfuck(input: InterfuckInput): InterfuckResult {
     }
   }
 
-  return { output, error };
+  return { 
+    output, 
+    error,
+    datasubs: databer.getAllDatasubs()
+  };
 }

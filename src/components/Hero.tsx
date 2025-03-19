@@ -6,10 +6,9 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <div className="relative overflow-hidden border-b">
-      {/* Background decoration */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-[30%] -right-[20%] h-[600px] w-[600px] rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute -bottom-[20%] -left-[20%] h-[400px] w-[400px] rounded-full bg-primary/5 blur-3xl" />
+      {/* Background decoration - pure white */}
+      <div className="absolute inset-0 -z-10 overflow-hidden bg-background">
+        {/* We've removed the bluish tinted background elements completely */}
       </div>
 
       <div className="container px-4 py-16 md:py-24 lg:py-32 mx-auto">

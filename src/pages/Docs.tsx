@@ -29,9 +29,9 @@ const Docs = () => {
                 programming paradigms with its unique syntax and execution model.
               </p>
               <p>
-                The language revolves around a data structure called a <strong>Databer</strong>, which can 
-                hold multiple data elements called <strong>Datalings</strong>. Each Dataling contains a numeric value
-                that can also represent a character based on its numeric code.
+                The language revolves around two main data structures: the <strong>Databer</strong>, which can 
+                hold multiple numeric data elements called <strong>Datalings</strong>, and <strong>Datasubs</strong>, which can 
+                store text data from user input.
               </p>
               <p>
                 What sets HCPL apart is its polite syntax - all commands begin with "PLEASE", 
@@ -85,6 +85,39 @@ const Docs = () => {
                   <li>Updating Dataling values (LET)</li>
                   <li>Displaying all Datalings (CALL)</li>
                 </ul>
+              </div>
+              
+              <Separator />
+              
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Datasubs</h3>
+                <p>
+                  Datasubs are named variables that can store text data. Unlike Datalings, which only store numeric values,
+                  Datasubs can store entire words, sentences, or any textual input from the user.
+                </p>
+                <p className="mt-2">
+                  Datasubs are especially useful for gathering input from the user during program execution. You can:
+                </p>
+                <ul className="list-disc pl-6 mt-2 space-y-1">
+                  <li>Create named Datasubs (ADD)</li>
+                  <li>Get user input and store it in a Datasub (LISTEN)</li>
+                  <li>Delete Datasubs when no longer needed (SUB GO)</li>
+                </ul>
+                <div className="bg-secondary/20 p-3 rounded-md mt-3">
+                  <p className="font-medium mb-2">Example usage:</p>
+                  <pre className="font-mono text-sm whitespace-pre-wrap">
+                  {`// Create a Datasub named "Username"
+PLEASE ADD :9. Username
+
+// Wait for user input and store it in the "Username" Datasub
+PLEASE LISTEN :8. Username
+
+// Now the Datasub contains whatever the user entered
+
+// When done, delete the Datasub
+PLEASE SUB GO :7. Username`}
+                  </pre>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -172,6 +205,31 @@ PLEASE DO :1.  // This is also a comment
                         <pre className="font-mono text-sm">{`PLEASE EXIT :6.     // Ends program execution`}</pre>
                       </div>
                     </div>
+                    
+                    <div className="bg-secondary/20 p-4 rounded-md">
+                      <h4 className="font-medium mb-1">Deleting Datasubs</h4>
+                      <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE SUB GO :7. [name]</code> - Deletes the Datasub with the specified name.</p>
+                      <div className="bg-secondary/20 p-2 rounded-md mt-2">
+                        <pre className="font-mono text-sm">{`PLEASE SUB GO :7. UserName   // Deletes the Datasub named 'UserName'`}</pre>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-secondary/20 p-4 rounded-md">
+                      <h4 className="font-medium mb-1">Getting User Input</h4>
+                      <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE LISTEN :8. [name]</code> - Prompts the user for input and stores it in the named Datasub.</p>
+                      <div className="bg-secondary/20 p-2 rounded-md mt-2">
+                        <pre className="font-mono text-sm">{`PLEASE LISTEN :8. UserName   // Gets input from user and stores in 'UserName'`}</pre>
+                      </div>
+                      <p className="mt-2 text-sm">Note: You must create a Datasub with ADD before you can LISTEN to it.</p>
+                    </div>
+                    
+                    <div className="bg-secondary/20 p-4 rounded-md">
+                      <h4 className="font-medium mb-1">Creating Datasubs</h4>
+                      <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE ADD :9. [name]</code> - Creates a new Datasub with the specified name.</p>
+                      <div className="bg-secondary/20 p-2 rounded-md mt-2">
+                        <pre className="font-mono text-sm">{`PLEASE ADD :9. UserName   // Creates a Datasub named 'UserName'`}</pre>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
@@ -201,7 +259,7 @@ PLEASE DO :1.  // This is also a comment
                     <li>All commands must include a period (.) - the "Orb"</li>
                     <li>All commands must include a colon (:) - the "Semi-Orb"</li>
                     <li>Commands must have exactly one period (.)</li>
-                    <li>The command name must be one of the defined actions (DO, DONT, LET, CALL, BREACH, EXIT)</li>
+                    <li>The command name must be one of the defined actions (DO, DONT, LET, CALL, BREACH, EXIT, SUB GO, LISTEN, ADD)</li>
                   </ul>
                 </div>
               </div>
@@ -362,6 +420,10 @@ PLEASE CALL :4.
                     <div className="p-3 border rounded">
                       <p className="font-mono font-semibold">Data Element</p>
                       <p className="text-muted-foreground">Called a "Dataling"</p>
+                    </div>
+                    <div className="p-3 border rounded bg-secondary/20">
+                      <p className="font-mono font-semibold">Named Variable</p>
+                      <p className="text-muted-foreground">Called a "Datasub"</p>
                     </div>
                   </div>
                 </div>
@@ -530,6 +592,48 @@ PLEASE EXIT :6.`}
                 </div>
                 
                 <div>
+                  <h3 className="text-lg font-semibold mb-2">Using Datasubs for User Input</h3>
+                  <p className="text-sm text-muted-foreground mb-3">This program gets user input and displays a greeting</p>
+                  <div className="bg-secondary/20 p-3 rounded-md">
+                    <pre className="font-mono text-sm whitespace-pre-wrap">
+                    {`// Create a Datasub for the user's name
+PLEASE ADD :9. UserName
+
+// Get input from the user
+PLEASE LISTEN :8. UserName
+
+// Spell "Hello, "
+PLEASE DO :1.  // H
+35
+
+PLEASE DO :1.  // e
+6
+
+PLEASE DO :1.  // l
+13
+
+PLEASE DO :1.  // l
+13
+
+PLEASE DO :1.  // o
+16
+
+PLEASE DO :1.  // comma
+66
+
+PLEASE DO :1.  // space
+1
+
+// Display the greeting
+PLEASE CALL :4.
+                      
+// Exit the IDE
+PLEASE EXIT :6.`}
+                    </pre>
+                  </div>
+                </div>
+                
+                <div>
                   <h3 className="text-lg font-semibold mb-2">Manipulating Datalings</h3>
                   <p className="text-sm text-muted-foreground mb-3">This program demonstrates adding, updating, and removing Datalings</p>
                   <div className="bg-secondary/20 p-3 rounded-md">
@@ -631,14 +735,15 @@ PLEASE EXIT :6.`}
                     complex operations. Comments start with <code className="font-mono bg-secondary/20 px-1 rounded">//</code>.
                   </li>
                   
-                  
-                  
                   <li>
                     <strong>Be Mindful of Indices:</strong> When removing Datalings, remember that all subsequent 
                     Datalings' indices will shift. Plan your operations accordingly.
                   </li>
                   
-                  
+                  <li>
+                    <strong>Create Datasubs Before Using Them:</strong> Always create a Datasub with ADD before trying to 
+                    get user input with LISTEN.
+                  </li>
                   
                   <li>
                     <strong>Always Include EXIT:</strong> Always end your program with <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> to 
@@ -661,3 +766,4 @@ PLEASE EXIT :6.`}
     </Layout>;
 };
 export default Docs;
+

@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import Examples from "@/components/Examples";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Terminal, BookText, Database, Sparkles, Code, LayoutGrid } from "lucide-react";
+import { Terminal, BookText, Database, Sparkles, Code, LayoutGrid, MessageSquare } from "lucide-react";
 import { useEffect } from "react";
 
 const FeatureCard = ({ 
@@ -74,9 +74,9 @@ const Index = () => {
                 description="Supports a comprehensive set of 74 character mappings including lowercase and uppercase letters, numbers 0-9, and special characters for rich text output."
               />
               <FeatureCard
-                icon={<Sparkles size={24} />}
-                title="Creative Challenge"
-                description="Comments use // for notes, and the clear line-by-line structure makes programs easy to write and understand."
+                icon={<MessageSquare size={24} />}
+                title="Interactive Input"
+                description="Create Datasubs to collect and store user input, allowing for interactive programs with named variables for text storage."
               />
               <FeatureCard
                 icon={<Code size={24} />}
@@ -86,7 +86,7 @@ const Index = () => {
               <FeatureCard
                 icon={<LayoutGrid size={24} />}
                 title="Visual Datalings"
-                description="Watch your data structures in real-time with visual representations of Datalings, making it easier to understand how your program interacts with memory."
+                description="Watch your data structures in real-time with visual representations of Datalings and Datasubs, making it easier to understand how your program interacts with memory."
               />
             </div>
           </div>

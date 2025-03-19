@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -154,6 +155,62 @@ PLEASE EXIT :6.`,
       level: "beginner" as const,
     },
     {
+      title: "Building Words",
+      description: "Builds the word 'code' letter by letter",
+      code: `PLEASE DO :1.
+4
+PLEASE CALL :4.
+PLEASE DO :1.
+16
+PLEASE CALL :4.
+PLEASE DO :1.
+5
+PLEASE CALL :4.
+PLEASE DO :1.
+6
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
+      level: "beginner" as const,
+    },
+    {
+      title: "User Greeting",
+      description: "Personalized greeting using datasubs and datalings together in order",
+      code: `PLEASE DO :1.
+35
+PLEASE DO :1.
+6
+PLEASE DO :1.
+13
+PLEASE DO :1.
+13
+PLEASE DO :1.
+16
+PLEASE DO :1.
+1
+PLEASE ADD :9. Username
+PLEASE LISTEN :8. Username
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
+      level: "beginner" as const,
+    },
+    {
+      title: "Number Sequence", 
+      description: "Creates a sequence of numeric characters",
+      code: `PLEASE DO :1.
+54
+PLEASE DO :1.
+55
+PLEASE DO :1.
+56
+PLEASE DO :1.
+57
+PLEASE DO :1.
+58
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
+      level: "beginner" as const,
+    },
+    {
       title: "Value Updates",
       description: "Shows how to update existing values",
       code: `PLEASE DO :1.
@@ -193,24 +250,6 @@ PLEASE EXIT :6.`,
       level: "intermediate" as const,
     },
     {
-      title: "Building Words",
-      description: "Builds the word 'code' letter by letter",
-      code: `PLEASE DO :1.
-4
-PLEASE CALL :4.
-PLEASE DO :1.
-16
-PLEASE CALL :4.
-PLEASE DO :1.
-5
-PLEASE CALL :4.
-PLEASE DO :1.
-6
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "beginner" as const,
-    },
-    {
       title: "Word Transformation",
       description: "Demonstrates creating a word and transforming it to another by removing a character",
       code: `PLEASE DO :1.
@@ -223,6 +262,100 @@ PLEASE DO :1.
 8
 PLEASE CALL :4.
 PLEASE DONT :2. 1
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
+      level: "intermediate" as const,
+    },
+    {
+      title: "Datasubs in Order",
+      description: "Shows how datasubs appear in the output in the order they are created in the code",
+      code: `PLEASE DO :1.
+54  // Character '0'
+PLEASE ADD :9. First
+PLEASE LISTEN :8. First
+PLEASE DO :1.
+55  // Character '1'
+PLEASE ADD :9. Second
+PLEASE LISTEN :8. Second
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
+      level: "intermediate" as const,
+    },
+    {
+      title: "Remove Datasub",
+      description: "Demonstrates how to create and then remove a datasub",
+      code: `PLEASE ADD :9. TempData
+PLEASE LISTEN :8. TempData
+PLEASE DO :1.
+20  // 's'
+PLEASE DO :1.
+21  // 't'
+PLEASE DO :1.
+2   // 'a'
+PLEASE DO :1.
+19  // 'r'
+PLEASE DO :1.
+21  // 't'
+PLEASE CALL :4.
+PLEASE SUB GO :7. TempData
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
+      level: "intermediate" as const,
+    },
+    {
+      title: "Punctuated Sentence",
+      description: "Creates a sentence with punctuation marks ending with a question mark",
+      code: `PLEASE DO :1.
+36
+PLEASE DO :1.
+20
+PLEASE DO :1.
+1
+PLEASE DO :1.
+21
+PLEASE DO :1.
+9
+PLEASE DO :1.
+10
+PLEASE DO :1.
+20
+PLEASE DO :1.
+1
+PLEASE DO :1.
+7
+PLEASE DO :1.
+22
+PLEASE DO :1.
+15
+PLEASE DO :1.
+67
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
+      level: "intermediate" as const,
+    },
+    {
+      title: "Question Generator",
+      description: "Creates a question using datasubs in sequence for customization",
+      code: `PLEASE DO :1.
+50
+PLEASE DO :1.
+9
+PLEASE DO :1.
+2
+PLEASE DO :1.
+21
+PLEASE DO :1.
+1
+PLEASE DO :1.
+10
+PLEASE DO :1.
+20
+PLEASE DO :1.
+1
+PLEASE ADD :9. Topic
+PLEASE LISTEN :8. Topic
+PLEASE DO :1.
+67
 PLEASE CALL :4.
 PLEASE EXIT :6.`,
       level: "intermediate" as const,
@@ -257,27 +390,98 @@ PLEASE EXIT :6.`,
       level: "advanced" as const,
     },
     {
-      title: "Interactive Example",
-      description: "Shows a variety of Interfuck commands in action",
+      title: "Datalings with Datasubs",
+      description: "Combines datalings and datasubs in sequence for precise output ordering",
       code: `PLEASE DO :1.
-10
+52  // 'Y'
 PLEASE DO :1.
-15
+16  // 'o'
 PLEASE DO :1.
-21
+22  // 'u'
 PLEASE DO :1.
-6
+19  // 'r'
 PLEASE DO :1.
-19
+1   // ' '
+PLEASE ADD :9. Message
+PLEASE LISTEN :8. Message
 PLEASE DO :1.
-2
+1   // ' '
 PLEASE DO :1.
-4
+10  // 'i'
 PLEASE DO :1.
-21
+20  // 's'
+PLEASE DO :1.
+1   // ' '
+PLEASE DO :1.
+9   // 'h'
+PLEASE DO :1.
+6   // 'e'
+PLEASE DO :1.
+19  // 'r'
+PLEASE DO :1.
+6   // 'e'
 PLEASE CALL :4.
-PLEASE LET :3. 2
-22
+PLEASE EXIT :6.`,
+      level: "advanced" as const,
+    },
+    {
+      title: "Message Concatenation",
+      description: "Combines multiple datasubs with datalings in specific order",
+      code: `PLEASE ADD :9. FirstName
+PLEASE ADD :9. LastName
+PLEASE LISTEN :8. FirstName
+PLEASE LISTEN :8. LastName
+PLEASE DO :1.
+35  // 'H'
+PLEASE DO :1.
+6   // 'e'
+PLEASE DO :1.
+13  // 'l'
+PLEASE DO :1.
+13  // 'l'
+PLEASE DO :1.
+16  // 'o'
+PLEASE DO :1.
+44  // ',' 
+PLEASE DO :1.
+1   // ' '
+PLEASE CALL :4.
+PLEASE EXIT :6.`,
+      level: "advanced" as const,
+    },
+    {
+      title: "Datasub Management",
+      description: "Creates, uses, and removes datasubs to control output flow",
+      code: `PLEASE ADD :9. Temp
+PLEASE LISTEN :8. Temp
+PLEASE DO :1.
+47  // 'T'
+PLEASE DO :1.
+6   // 'e'
+PLEASE DO :1.
+14  // 'm'
+PLEASE DO :1.
+17  // 'p'
+PLEASE DO :1.
+58  // ':'
+PLEASE DO :1.
+1   // ' '
+PLEASE CALL :4.
+PLEASE SUB GO :7. Temp
+PLEASE DO :1.
+45  // 'R'
+PLEASE DO :1.
+6   // 'e'
+PLEASE DO :1.
+14  // 'm'
+PLEASE DO :1.
+16  // 'o'
+PLEASE DO :1.
+23  // 'v'
+PLEASE DO :1.
+6   // 'e'
+PLEASE DO :1.
+5   // 'd'
 PLEASE CALL :4.
 PLEASE EXIT :6.`,
       level: "advanced" as const,
