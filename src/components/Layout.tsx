@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -58,6 +59,12 @@ const Layout = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { currentLanguage, setLanguage, t } = useTranslation();
 
+  // Language change handler
+  const handleLanguageChange = (value: string) => {
+    console.log("Changing language to:", value);
+    setLanguage(value);
+  };
+
   return <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
@@ -73,9 +80,11 @@ const Layout = ({
             {/* Language Selector */}
             <div className="flex items-center ml-2">
               <Globe size={14} className="mr-1 text-muted-foreground" />
-              <Select defaultValue={currentLanguage} onValueChange={setLanguage}>
+              <Select value={currentLanguage} onValueChange={handleLanguageChange}>
                 <SelectTrigger className="h-8 w-[100px] border-none bg-transparent shadow-none focus:ring-0">
-                  <SelectValue placeholder={`${languageFlags[currentLanguage]} ${currentLanguage.toUpperCase()}`} />
+                  <SelectValue placeholder={`${languageFlags[currentLanguage]} ${currentLanguage.toUpperCase()}`}>
+                    {languageFlags[currentLanguage]} {currentLanguage.toUpperCase()}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="en">{languageFlags.en} EN</SelectItem>
