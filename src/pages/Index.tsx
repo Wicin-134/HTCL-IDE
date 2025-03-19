@@ -50,7 +50,7 @@ const Index = () => {
           <div className="container px-4">
             <div className="text-center max-w-2xl mx-auto mb-12 animate-fade-in">
               <h2 className="text-3xl font-bold tracking-tight mb-4">
-                Why HyperCall?
+                Why Callback?
               </h2>
               <p className="text-muted-foreground text-lg">
                 Discover the unique advantages of programming in this esoteric language
@@ -61,7 +61,7 @@ const Index = () => {
               <FeatureCard
                 icon={<Terminal size={24} />}
                 title="Unique Data Structure"
-                description="HyperCall uses the Databer system with Datalings, where each command's value is specified on the next line for clear data input."
+                description="Callback uses the Databer system with Datalings, where each command's value is specified on the next line for clear data input."
               />
               <FeatureCard
                 icon={<BookText size={24} />}

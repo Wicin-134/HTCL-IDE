@@ -1,3 +1,4 @@
+
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -6,12 +7,13 @@ import { Book, ChevronRight, Code, FileCode, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Docs = () => {
-  return <Layout>
+  return (
+    <Layout>
       <div className="container px-4 py-16">
         <div className="max-w-3xl mx-auto mb-10 text-center">
           <h1 className="text-4xl font-bold tracking-tight mb-4">Documentation</h1>
           <p className="text-muted-foreground text-lg">
-            Everything you need to know about the HyperCall Programming Language
+            Everything you need to know about the Callback Programming Language
           </p>
         </div>
         
@@ -20,12 +22,12 @@ const Docs = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Book className="h-5 w-5" />
-                Introduction to HyperCall Programming Language
+                Introduction to Callback Programming Language
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                HyperCall Programming Language (HCPL) is an esoteric programming language designed to challenge conventional 
+                Callback Programming Language (CBPL) is an esoteric programming language designed to challenge conventional 
                 programming paradigms with its unique syntax and execution model.
               </p>
               <p>
@@ -34,7 +36,7 @@ const Docs = () => {
                 store text data from user input.
               </p>
               <p>
-                What sets HCPL apart is its polite syntax - all commands begin with "PLEASE", 
+                What sets CBPL apart is its polite syntax - all commands begin with "PLEASE", 
                 emphasizing the importance of courtesy even in computer interactions.
               </p>
               <div className="flex justify-end mt-4">
@@ -57,7 +59,7 @@ const Docs = () => {
             <CardContent className="space-y-6">
               <div>
                 <h3 className="text-lg font-semibold mb-2">Databer</h3>
-                <p>The Databer is the primary data structure in HCPL. It serves as a container that can hold many Datalings. When a program starts, the Databer is empty and you must add Datalings to it using the DO command.</p>
+                <p>The Databer is the primary data structure in CBPL. It serves as a container that can hold many Datalings. When a program starts, the Databer is empty and you must add Datalings to it using the DO command.</p>
                 <p className="mt-2">
                   The Databer is essentially a numeric array where each position can be accessed by index.
                   Indices start at 0 for the first Dataling and increment by 1 for each subsequent Dataling.
@@ -74,7 +76,7 @@ const Docs = () => {
                 </p>
                 <p className="mt-2">
                   When displayed, Datalings with values between 1 and 74 automatically show both their numeric 
-                  value and their character representation according to the HCPL character mapping.
+                  value and their character representation according to the CBPL character mapping.
                 </p>
                 <p className="mt-2">
                   Operations can be performed on Datalings:
@@ -132,14 +134,14 @@ PLEASE SUB GO :7. Username`}
             <CardContent>
               <div className="space-y-6">
                 <p>
-                  HCPL uses a unique syntax where commands start with "PLEASE" followed by an action. 
+                  CBPL uses a unique syntax where commands start with "PLEASE" followed by an action. 
                   Each command's value is specified on the next line (not on the same line), making the code structure clear and easy to read.
                 </p>
                 
                 <div>
                   <h3 className="text-lg font-semibold mb-3">Comments</h3>
                   <p>
-                    Comments in HCPL start with <code className="font-mono bg-secondary/20 px-1 rounded">//</code> and continue to the end of the line.
+                    Comments in CBPL start with <code className="font-mono bg-secondary/20 px-1 rounded">//</code> and continue to the end of the line.
                     Comments are ignored by the interpreter and are useful for documenting your code.
                   </p>
                   <div className="bg-secondary/20 p-3 rounded-md mt-3">
@@ -183,18 +185,28 @@ PLEASE DO :1.  // This is also a comment
                     </div>
                     
                     <div>
-                      <h4 className="font-medium mb-1">Displaying Datalings</h4>
-                      <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CALL :4.</code> - Prints all values stored in the Databer.</p>
+                      <h4 className="font-medium mb-1">Displaying Data</h4>
+                      <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CALL :4.</code> - Prints all values stored in the Databer in the order they were added.</p>
                       <div className="bg-secondary/20 p-2 rounded-md mt-2">
-                        <pre className="font-mono text-sm">{`PLEASE CALL :4.     // Displays all Datalings`}</pre>
+                        <pre className="font-mono text-sm">{`PLEASE CALL :4.     // Displays all Datalings and Datasubs`}</pre>
+                      </div>
+                      
+                      <p className="mt-3"><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CALL :4.: [index]</code> - Displays the value of a specific Dataling at the given index.</p>
+                      <div className="bg-secondary/20 p-2 rounded-md mt-2">
+                        <pre className="font-mono text-sm">{`PLEASE CALL :4.: 2  // Displays the third Dataling's value`}</pre>
+                      </div>
+                      
+                      <p className="mt-3"><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CALL :4.; [name]</code> - Displays the value of a specific Datasub with the given name.</p>
+                      <div className="bg-secondary/20 p-2 rounded-md mt-2">
+                        <pre className="font-mono text-sm">{`PLEASE CALL :4.; UserName  // Displays the value of the "UserName" Datasub`}</pre>
                       </div>
                     </div>
                     
                     <div>
                       <h4 className="font-medium mb-1">Clearing the Databer</h4>
-                      <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE BREACH :5.</code> - Removes all Datalings from the Databer.</p>
+                      <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE BREACH :5.</code> - Removes all Datalings and Datasubs from the Databer.</p>
                       <div className="bg-secondary/20 p-2 rounded-md mt-2">
-                        <pre className="font-mono text-sm">{`PLEASE BREACH :5.   // Clears all Datalings`}</pre>
+                        <pre className="font-mono text-sm">{`PLEASE BREACH :5.   // Clears all Datalings and Datasubs`}</pre>
                       </div>
                     </div>
                     
@@ -238,7 +250,7 @@ PLEASE DO :1.  // This is also a comment
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Required EXIT Command</h3>
                   <p className="text-destructive font-medium">
-                    Every HCPL program MUST end with the <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> command.
+                    Every CBPL program MUST end with the <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> command.
                     The IDE will throw a "Stupid error" if this command is missing.
                   </p>
                 </div>
@@ -253,7 +265,7 @@ PLEASE DO :1.  // This is also a comment
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Syntax Requirements</h3>
                   <p>
-                    HCPL has strict syntax requirements that must be followed:
+                    CBPL has strict syntax requirements that must be followed:
                   </p>
                   <ul className="list-disc pl-6 mt-2 space-y-1">
                     <li>All commands must include a period (.) - the "Orb"</li>
@@ -275,7 +287,7 @@ PLEASE DO :1.  // This is also a comment
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                HCPL can represent characters using numeric values. Values are mapped to 
+                CBPL can represent characters using numeric values. Values are mapped to 
                 specific characters according to the following comprehensive scheme:
               </p>
               
@@ -382,7 +394,7 @@ PLEASE DO :1.  // This is also a comment
               <p className="mt-4">
                 When the IDE displays Dataling values between 1 and 74, it shows both the 
                 numeric value and the corresponding character representation. This makes it easier to work
-                with text in HCPL programs.
+                with text in CBPL programs.
               </p>
               
               <div className="bg-secondary/20 p-3 rounded-md mt-4">
@@ -407,7 +419,7 @@ PLEASE CALL :4.
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                HCPL has unique names for certain programming concepts and characters:
+                CBPL has unique names for certain programming concepts and characters:
               </p>
               <div className="space-y-6">
                 <div>
@@ -473,7 +485,7 @@ PLEASE CALL :4.
             </CardHeader>
             <CardContent>
               <p className="mb-4">
-                HCPL throws specific errors when it encounters issues in your code. Common errors include:
+                CBPL throws specific errors when it encounters issues in your code. Common errors include:
               </p>
               
               <div className="space-y-4">
@@ -526,13 +538,13 @@ PLEASE CALL :4.
                 
                 <div className="p-3 border border-destructive/30 rounded">
                   <p className="font-medium">Unrecognized Action</p>
-                  <p className="text-muted-foreground">Using an action that is not part of the HCPL language</p>
+                  <p className="text-muted-foreground">Using an action that is not part of the CBPL language</p>
                 </div>
               </div>
               
               <p className="mt-4">
                 When an error occurs, the IDE will display a clear error message that 
-                explains the issue and helps you debug your code. HCPL uses unique error names that reflect its quirky nature.
+                explains the issue and helps you debug your code. CBPL uses unique error names that reflect its quirky nature.
               </p>
             </CardContent>
           </Card>
@@ -545,225 +557,148 @@ PLEASE CALL :4.
               <div className="space-y-8">
                 <div>
                   <h3 className="text-lg font-semibold mb-2">Hello World</h3>
-                  <p className="text-sm text-muted-foreground mb-3">This program spells "hello world" using character codes</p>
+                  <p className="mb-2">This simple program creates a series of Datalings that spell "Hello World" when displayed:</p>
                   <div className="bg-secondary/20 p-3 rounded-md">
                     <pre className="font-mono text-sm whitespace-pre-wrap">
-                    {`// This program spells "hello world"
-PLEASE DO :1.  // h
-9
+{`// Hello World in CBPL
+PLEASE DO :1.
+9    // 'h'
 
-PLEASE DO :1.  // e
-6
+PLEASE DO :1.
+6    // 'e'
 
-PLEASE DO :1.  // l
-13
+PLEASE DO :1.
+13   // 'l'
 
-PLEASE DO :1.  // l
-13
+PLEASE DO :1.
+13   // 'l'
 
-PLEASE DO :1.  // o
-16
+PLEASE DO :1.
+16   // 'o'
 
-PLEASE DO :1.  // space
-1
+PLEASE DO :1.
+1    // ' '
 
-PLEASE DO :1.  // w
-24
+PLEASE DO :1.
+50   // 'W'
 
-PLEASE DO :1.  // o
-16
+PLEASE DO :1.
+16   // 'o'
 
-PLEASE DO :1.  // r
-19
+PLEASE DO :1.
+19   // 'r'
 
-PLEASE DO :1.  // l
-13
+PLEASE DO :1.
+13   // 'l'
 
-PLEASE DO :1.  // d
-5
-                      
-// Display the Databer contents
+PLEASE DO :1.
+5    // 'd'
+
 PLEASE CALL :4.
-                      
-// Exit the IDE
+// Displays: hello World
+
 PLEASE EXIT :6.`}
                     </pre>
                   </div>
                 </div>
                 
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">Using Datasubs for User Input</h3>
-                  <p className="text-sm text-muted-foreground mb-3">This program gets user input and displays a greeting</p>
+                  <h3 className="text-lg font-semibold mb-2">User Input Example</h3>
+                  <p className="mb-2">This program demonstrates getting input from the user:</p>
                   <div className="bg-secondary/20 p-3 rounded-md">
                     <pre className="font-mono text-sm whitespace-pre-wrap">
-                    {`// Create a Datasub for the user's name
+{`// Gather user input and display it
 PLEASE ADD :9. UserName
 
-// Get input from the user
-PLEASE LISTEN :8. UserName
+PLEASE DO :1.
+32   // 'E'
 
-// Spell "Hello, "
-PLEASE DO :1.  // H
-35
+PLEASE DO :1.
+15   // 'n'
 
-PLEASE DO :1.  // e
-6
+PLEASE DO :1.
+21   // 't'
 
-PLEASE DO :1.  // l
-13
+PLEASE DO :1.
+6    // 'e'
 
-PLEASE DO :1.  // l
-13
+PLEASE DO :1.
+19   // 'r'
 
-PLEASE DO :1.  // o
-16
+PLEASE DO :1.
+1    // ' '
 
-PLEASE DO :1.  // comma
-66
+PLEASE DO :1.
+26   // 'y'
 
-PLEASE DO :1.  // space
-1
+PLEASE DO :1.
+16   // 'o'
 
-// Display the greeting
+PLEASE DO :1.
+22   // 'u'
+
+PLEASE DO :1.
+19   // 'r'
+
+PLEASE DO :1.
+1    // ' '
+
+PLEASE DO :1.
+15   // 'n'
+
+PLEASE DO :1.
+2    // 'a'
+
+PLEASE DO :1.
+14   // 'm'
+
+PLEASE DO :1.
+6    // 'e'
+
 PLEASE CALL :4.
-                      
-// Exit the IDE
+// Displays: Enter your name
+
+PLEASE LISTEN :8. UserName
+// Waits for user input
+
+PLEASE DO :1.
+35   // 'H'
+
+PLEASE DO :1.
+6    // 'e'
+
+PLEASE DO :1.
+13   // 'l'
+
+PLEASE DO :1.
+13   // 'l'
+
+PLEASE DO :1.
+16   // 'o'
+
+PLEASE DO :1.
+1    // ' '
+
+PLEASE CALL :4.
+// Displays: Hello 
+
+PLEASE CALL :4.; UserName
+// Displays the user's input
+
+PLEASE SUB GO :7. UserName
+// Clean up
+
 PLEASE EXIT :6.`}
                     </pre>
                   </div>
                 </div>
-                
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Manipulating Datalings</h3>
-                  <p className="text-sm text-muted-foreground mb-3">This program demonstrates adding, updating, and removing Datalings</p>
-                  <div className="bg-secondary/20 p-3 rounded-md">
-                    <pre className="font-mono text-sm whitespace-pre-wrap">
-                    {`// Create three Datalings
-PLEASE DO :1.
-2                // 'a'
-
-PLEASE DO :1.
-3                // 'b'
-
-PLEASE DO :1.
-4                // 'c'
-                      
-// Display the Databer contents
-PLEASE CALL :4.   // Output: abc
-                      
-// Update the second Dataling
-PLEASE LET :3. 1
-27               // 'z'
-                      
-// Display the updated Databer
-PLEASE CALL :4.   // Output: azc
-                      
-// Remove the last Dataling
-PLEASE DONT :2. 2
-                      
-// Display the final Databer
-PLEASE CALL :4.   // Output: az
-                      
-// Exit the IDE
-PLEASE EXIT :6.`}
-                    </pre>
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Working with Numbers</h3>
-                  <p className="text-sm text-muted-foreground mb-3">This program demonstrates using numeric values that don't represent characters</p>
-                  <div className="bg-secondary/20 p-3 rounded-md">
-                    <pre className="font-mono text-sm whitespace-pre-wrap">
-                    {`// Create Datalings with numeric values
-PLEASE DO :1.
-100             // Regular number, not a character
-
-PLEASE DO :1.
-200             // Another number
-                      
-// Display the Databer contents
-PLEASE CALL :4.   // Output: 100200
-                      
-// Clear all Datalings
-PLEASE BREACH :5.
-                      
-// Add numbers that represent digits
-PLEASE DO :1.
-54               // '0'
-
-PLEASE DO :1.
-55               // '1'
-
-PLEASE DO :1.
-56               // '2'
-                      
-// Display the Databer contents
-PLEASE CALL :4.   // Output: 012
-                      
-// Exit the IDE
-PLEASE EXIT :6.`}
-                    </pre>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="flex justify-center mt-8">
-                <Link to="/try">
-                  <Button className="gap-2">
-                    Try the IDE
-                  </Button>
-                </Link>
               </div>
             </CardContent>
           </Card>
-          
-          <Card id="best-practices" className="scroll-mt-20">
-            <CardHeader>
-              <CardTitle>Best Practices</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <p>
-                  While HCPL is an esoteric language primarily designed for fun, following 
-                  these best practices will make your code more readable and maintainable:
-                </p>
-                
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>
-                    <strong>Use Comments:</strong> Add comments to explain what your code is doing, especially for 
-                    complex operations. Comments start with <code className="font-mono bg-secondary/20 px-1 rounded">//</code>.
-                  </li>
-                  
-                  <li>
-                    <strong>Be Mindful of Indices:</strong> When removing Datalings, remember that all subsequent 
-                    Datalings' indices will shift. Plan your operations accordingly.
-                  </li>
-                  
-                  <li>
-                    <strong>Create Datasubs Before Using Them:</strong> Always create a Datasub with ADD before trying to 
-                    get user input with LISTEN.
-                  </li>
-                  
-                  <li>
-                    <strong>Always Include EXIT:</strong> Always end your program with <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE EXIT :6.</code> to 
-                    prevent "Stupid errors".
-                  </li>
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <div className="flex justify-center my-8">
-            <Link to="/try">
-              <Button size="lg" className="gap-2">
-                Try HCPL Now
-              </Button>
-            </Link>
-          </div>
         </div>
       </div>
-    </Layout>;
+    </Layout>
+  );
 };
-export default Docs;
 
+export default Docs;

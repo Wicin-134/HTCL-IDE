@@ -8,7 +8,6 @@ import { Play, Trash, Copy, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { interpretInterfuck, convertToChar, Databer } from "@/lib/interfuckInterpreter";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-
 const InterfuckInterpreter: React.FC = () => {
   const location = useLocation();
   const [code, setCode] = useState<string>("");
@@ -24,14 +23,12 @@ const InterfuckInterpreter: React.FC = () => {
   const [currentSubName, setCurrentSubName] = useState("");
   const [userInput, setUserInput] = useState("");
   const inputResolveFnRef = useRef<((value: string) => void) | null>(null);
-
   useEffect(() => {
     if (location.state && location.state.code) {
       setCode(location.state.code);
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
-
   const getUserInput = async (subName: string): Promise<string> => {
     return new Promise(resolve => {
       setCurrentSubName(subName);
@@ -40,7 +37,6 @@ const InterfuckInterpreter: React.FC = () => {
       inputResolveFnRef.current = resolve;
     });
   };
-
   const handleInputSubmit = () => {
     if (inputResolveFnRef.current) {
       inputResolveFnRef.current(userInput);
@@ -48,7 +44,6 @@ const InterfuckInterpreter: React.FC = () => {
     }
     setInputDialogOpen(false);
   };
-
   const runCode = async () => {
     setIsRunning(true);
     setOutput([]);
@@ -161,7 +156,6 @@ const InterfuckInterpreter: React.FC = () => {
       setIsRunning(false);
     }
   };
-
   const clearCode = () => {
     setCode("");
     setOutput([]);
@@ -170,7 +164,6 @@ const InterfuckInterpreter: React.FC = () => {
     setDatasubs(new Map());
     toast.info("Code cleared");
   };
-
   const resetExample = () => {
     setCode("");
     setOutput([]);
@@ -179,12 +172,10 @@ const InterfuckInterpreter: React.FC = () => {
     setDatasubs(new Map());
     toast.info("Editor reset");
   };
-
   const copyCode = () => {
     navigator.clipboard.writeText(code);
     toast.success("Code copied to clipboard");
   };
-
   return <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="overflow-hidden">
@@ -205,7 +196,7 @@ const InterfuckInterpreter: React.FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="pb-2">
-            <Textarea value={code} onChange={e => setCode(e.target.value)} placeholder="Enter your HCPL code here..." className="h-[350px] font-mono text-sm resize-none" />
+            <Textarea value={code} onChange={e => setCode(e.target.value)} placeholder="Enter your CBPL code here..." className="h-[350px] font-mono text-sm resize-none" />
           </CardContent>
           <CardFooter>
             <Button className="w-full" onClick={runCode} disabled={isRunning || !code.trim()}>
@@ -271,7 +262,7 @@ const InterfuckInterpreter: React.FC = () => {
 
         <Card className="md:col-span-2">
           <CardHeader>
-            <CardTitle>HCPL Action Reference</CardTitle>
+            <CardTitle>CBPL Action Reference</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -289,7 +280,16 @@ const InterfuckInterpreter: React.FC = () => {
               </div>
               <div className="p-3 border rounded-md bg-secondary/10">
                 <div className="font-mono font-bold mb-1">PLEASE CALL :4.</div>
-                <div className="text-sm">Prints all values stored in the Databer (Datalings and Datasubs)</div>
+                <div className="text-sm">Prints all values stored in the Databer.
+(check docs  for other actions </div>
+              </div>
+              <div className="p-3 border rounded-md bg-secondary/10">
+                <div className="font-mono font-bold mb-1">PLEASE CALL :4.: [index]</div>
+                <div className="text-sm">Prints the value of the Dataling at the specified index</div>
+              </div>
+              <div className="p-3 border rounded-md bg-secondary/10">
+                <div className="font-mono font-bold mb-1">PLEASE CALL :4.; [name]</div>
+                <div className="text-sm">Prints the value of the Datasub with the specified name</div>
               </div>
               <div className="p-3 border rounded-md bg-secondary/10">
                 <div className="font-mono font-bold mb-1">PLEASE BREACH :5.</div>
@@ -419,5 +419,4 @@ const InterfuckInterpreter: React.FC = () => {
       </Dialog>
     </>;
 };
-
 export default InterfuckInterpreter;

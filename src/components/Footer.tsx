@@ -13,10 +13,10 @@ const Footer = () => {
               <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary/10">
                 <Code size={16} className="text-primary" />
               </div>
-              <span className="font-medium text-lg">Interfuck</span>
+              <span className="font-medium text-lg">Callback</span>
             </Link>
             <p className="text-muted-foreground text-sm max-w-xs">
-              Interfuck is an esoteric programming language designed to challenge conventional programming paradigms with its unique syntax and execution model.
+              Callback is an esoteric programming language designed to challenge conventional programming paradigms with its unique syntax and execution model.
             </p>
             <div className="flex gap-4 mt-6">
               <a 
@@ -48,7 +48,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/try" className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                  Try Interfuck
+                  Try Callback
                 </Link>
               </li>
               <li>
@@ -88,7 +88,7 @@ const Footer = () => {
         
         <div className="border-t mt-12 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2025 Interfuck
+            © 2025 Callback
           </p>
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <span>Made with</span>

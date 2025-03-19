@@ -45,7 +45,7 @@ const Layout = ({
             <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary/10">
               <Code size={16} className="text-primary" />
             </div>
-            <span className="font-medium tracking-tight text-lg">HyperCall</span>
+            <span className="font-medium tracking-tight text-lg">Callback</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -92,7 +92,7 @@ const Layout = ({
       <footer className="border-t py-6 md:py-8">
         <div className="container flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <div>
-            <p>2025 HyperCall</p>
+            <p>2025 Callback</p>
           </div>
           <div className="flex gap-6">
             <a href="https://discord.gg/Z6gTEmnNVU" className="hover:text-foreground transition-colors">Contact</a>

@@ -1,4 +1,4 @@
-// Interpreter for the HyperCall Programming Language (HCPL)
+// Interpreter for the Callback Programming Language (CBPL)
 
 // Function to convert number to character
 export function convertToChar(value: number): string {
@@ -119,6 +119,14 @@ export class Databer {
     return this.datasubs.get(name);
   }
 
+  // Pobiera Dataling o określonym indeksie
+  getDataling(index: number): number | undefined {
+    if (index >= 0 && index < this.datalings.length) {
+      return this.datalings[index];
+    }
+    return undefined;
+  }
+
   // Ustawia wartość Datasub o określonej nazwie
   setDatasub(name: string, value: string): void {
     if (!this.datasubs.has(name)) {
@@ -210,6 +218,19 @@ export class Databer {
     return output;
   }
 
+  // Zwraca pojedynczy Dataling jako string
+  getDatalingAsString(index: number): string {
+    const value = this.getDataling(index);
+    if (value === undefined) {
+      throw new Error(`Stupid error: Dataling at index ${index} does not exist`);
+    }
+    
+    if (value >= 1 && value <= 74) {
+      return `${value} (${convertToChar(value)})`;
+    }
+    return value.toString();
+  }
+
   // Usuwa wszystkie Datalings
   clear(): void {
     this.datalings = [];
@@ -283,7 +304,7 @@ function validateCommandSyntax(line: string): string | null {
   return null;
 }
 
-// Główna funkcja interpretująca kod HyperCall Programming Language
+// Główna funkcja interpretująca kod Callback Programming Language
 export async function interpretInterfuck(input: InterfuckInput): Promise<InterfuckResult> {
   const { code, hideCommandOutput = false, onUserInput } = input;
   const databer = new Databer();
@@ -455,11 +476,60 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
           throw new Error("Stupid error: PLEASE LET :3. requires an index");
         }
       }
-      // PLEASE CALL :4. - Wyświetla wartości Databer
+      // MODIFIED: Enhanced CALL command with three variants
+      // PLEASE CALL :4. - Displays all Databer values (original behavior)
+      // PLEASE CALL :4.: [index] - Displays a specific Dataling
+      // PLEASE CALL :4.; [name] - Displays a specific Datasub
       else if (line.startsWith('PLEASE CALL :4.')) {
-        const values = databer.getValues();
-        // Only show the raw values without the "Databer values:" prefix
-        output.push(`${values || 'empty'}`);
+        // Check for specific Dataling display (with colon)
+        if (line.includes(':4.:')) {
+          const indexMatch = line.match(/:4\.:[ ]*(\d+)/);
+          if (indexMatch && indexMatch[1]) {
+            const index = Number(indexMatch[1]);
+            try {
+              const datalingValue = databer.getDataling(index);
+              if (datalingValue !== undefined) {
+                // Only show the raw value without extra text
+                if (datalingValue >= 1 && datalingValue <= 74) {
+                  output.push(`${convertToChar(datalingValue)}`);
+                } else {
+                  output.push(`${datalingValue}`);
+                }
+              } else {
+                throw new Error(`Stupid error: Dataling at index ${index} does not exist`);
+              }
+            } catch (e) {
+              if (e instanceof Error) {
+                throw e;
+              }
+              throw new Error(`Stupid error: Failed to get Dataling at index ${index}`);
+            }
+          } else {
+            throw new Error("Stupid error: PLEASE CALL :4.: requires a valid index");
+          }
+        } 
+        // Check for specific Datasub display (with semicolon)
+        else if (line.includes(':4.;')) {
+          const subNameMatch = line.match(/:4\.\;[ ]*(\w+)/);
+          if (subNameMatch && subNameMatch[1]) {
+            const subName = subNameMatch[1];
+            if (databer.hasDatasub(subName)) {
+              const value = databer.getDatasub(subName) || "";
+              // Only show the raw value without extra text
+              output.push(`${value}`);
+            } else {
+              throw new Error(`Stupid error: Datasub '${subName}' does not exist`);
+            }
+          } else {
+            throw new Error("Stupid error: PLEASE CALL :4.; requires a valid Datasub name");
+          }
+        }
+        // Original behavior - display all Databer values 
+        else {
+          const values = databer.getValues();
+          // Only show the raw values without the "Databer values:" prefix
+          output.push(`${values || 'empty'}`);
+        }
       }
       // PLEASE BREACH :5. - Usuwa wszystkie Datalings i Datasubs
       else if (line.startsWith('PLEASE BREACH :5.')) {
@@ -470,7 +540,7 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
       }
       // PLEASE EXIT :6. - Wychodzi z interpretera
       else if (line.startsWith('PLEASE EXIT :6.')) {
-        output.push("Exiting INTERFUCK IDE");
+        output.push("Exiting CBPL IDE");
         break;
       }
       // Nieznana komenda
@@ -492,3 +562,4 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
     datasubs: databer.getAllDatasubs()
   };
 }
+
