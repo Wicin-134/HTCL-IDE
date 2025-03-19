@@ -23,11 +23,4 @@ Check out the documentation to learn about:
 - Character Representation
 - Example Programs
 
-## Command Reference
-
-The CALL command now has 3 different usages:
-
-- `PLEASE CALL :4.` - Prints all values in the Databer (Datalings and Datasubs)
-- `PLEASE CALL :4.: [index]` - Prints the specific Dataling at the given index
-- `PLEASE CALL :4.; [name]` - Prints the content of the specific Datasub with the given name
 
