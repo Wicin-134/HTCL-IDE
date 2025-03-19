@@ -1,9 +1,39 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Github, Twitter, Code, Heart, MessageCircle } from "lucide-react";
+import { Github, Twitter, Code, Heart, MessageCircle, Globe } from "lucide-react";
+import { useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+// Define the available languages
+const languages = [
+  { code: "en", name: "English" },
+  { code: "es", name: "Español" },
+  { code: "fr", name: "Français" },
+  { code: "de", name: "Deutsch" },
+  { code: "pl", name: "Polski" },
+  { code: "zh", name: "中文" },
+  { code: "ja", name: "日本語" },
+  { code: "hi", name: "हिन्दी" },
+  { code: "ar", name: "العربية" },
+];
 
 const Footer = () => {
+  const [language, setLanguage] = useState("en");
+
+  // Function to handle language change
+  const handleLanguageChange = (value: string) => {
+    setLanguage(value);
+    // Here you would normally implement actual translation logic
+    console.log(`Language changed to: ${value}`);
+  };
+
   return (
     <footer className="border-t">
       <div className="container py-12 px-4">
@@ -83,6 +113,25 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
+            
+            {/* Language selector */}
+            <div className="mt-6">
+              <h3 className="font-medium mb-2 text-sm">Language</h3>
+              <Select value={language} onValueChange={handleLanguageChange}>
+                <SelectTrigger className="w-full text-sm">
+                  <SelectValue placeholder="Select a language" />
+                </SelectTrigger>
+                <SelectContent>
+                  {languages.map((lang) => (
+                    <SelectItem key={lang.code} value={lang.code}>
+                      <div className="flex items-center gap-2">
+                        <span>{lang.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
         
@@ -90,6 +139,10 @@ const Footer = () => {
           <p className="text-sm text-muted-foreground">
             © 2025 Interfuck
           </p>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Globe size={14} className="text-muted-foreground" />
+            <span>Language: {languages.find(lang => lang.code === language)?.name}</span>
+          </div>
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <span>Made with</span>
             <Heart size={14} className="text-red-500" />
