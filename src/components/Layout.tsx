@@ -3,7 +3,15 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Code, BookText, Play, MessageCircle, Menu, X } from "lucide-react";
+import { Code, BookText, Play, MessageCircle, Menu, X, Globe } from "lucide-react";
+import { useTranslation } from "@/lib/translations";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface NavItemProps {
   to: string;
@@ -37,16 +45,41 @@ const Layout = ({
   children
 }: LayoutProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { currentLanguage, setLanguage, t } = useTranslation();
+
   return <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
         <div className="container flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity">
-            <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary/10">
-              <Code size={16} className="text-primary" />
+          <div className="flex items-center gap-4">
+            <Link to="/" className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity">
+              <div className="flex items-center justify-center w-8 h-8 rounded-md bg-primary/10">
+                <Code size={16} className="text-primary" />
+              </div>
+              <span className="font-medium tracking-tight text-lg">HyperCall</span>
+            </Link>
+            
+            {/* Language Selector */}
+            <div className="flex items-center ml-2">
+              <Globe size={14} className="mr-1 text-muted-foreground" />
+              <Select value={currentLanguage} onValueChange={setLanguage}>
+                <SelectTrigger className="h-8 w-[80px] border-none bg-transparent shadow-none focus:ring-0">
+                  <SelectValue placeholder={currentLanguage.toUpperCase()} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="en">EN</SelectItem>
+                  <SelectItem value="es">ES</SelectItem>
+                  <SelectItem value="fr">FR</SelectItem>
+                  <SelectItem value="de">DE</SelectItem>
+                  <SelectItem value="pl">PL</SelectItem>
+                  <SelectItem value="zh">ZH</SelectItem>
+                  <SelectItem value="ja">JA</SelectItem>
+                  <SelectItem value="hi">HI</SelectItem>
+                  <SelectItem value="ar">AR</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-            <span className="font-medium tracking-tight text-lg">HyperCall</span>
-          </Link>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
