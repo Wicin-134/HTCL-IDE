@@ -280,8 +280,7 @@ const InterfuckInterpreter: React.FC = () => {
               </div>
               <div className="p-3 border rounded-md bg-secondary/10">
                 <div className="font-mono font-bold mb-1">PLEASE CALL :4.</div>
-                <div className="text-sm">Prints all values stored in the Databer. 
- </div>
+                <div className="text-sm">Prints all values stored in the Databer.    </div>
               </div>
               <div className="p-3 border rounded-md bg-secondary/10">
                 <div className="font-mono font-bold mb-1">PLEASE CALL :4.: [index]</div>
