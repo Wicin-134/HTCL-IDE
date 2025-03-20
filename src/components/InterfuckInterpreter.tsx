@@ -8,7 +8,6 @@ import { Play, Trash, Copy, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { interpretInterfuck, convertToChar, Databer } from "@/lib/interfuckInterpreter";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-
 const InterfuckInterpreter: React.FC = () => {
   const location = useLocation();
   const [code, setCode] = useState<string>("");
@@ -24,14 +23,12 @@ const InterfuckInterpreter: React.FC = () => {
   const [currentSubName, setCurrentSubName] = useState("");
   const [userInput, setUserInput] = useState("");
   const inputResolveFnRef = useRef<((value: string) => void) | null>(null);
-
   useEffect(() => {
     if (location.state && location.state.code) {
       setCode(location.state.code);
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
-
   const getUserInput = async (subName: string): Promise<string> => {
     return new Promise(resolve => {
       setCurrentSubName(subName);
@@ -40,7 +37,6 @@ const InterfuckInterpreter: React.FC = () => {
       inputResolveFnRef.current = resolve;
     });
   };
-
   const handleInputSubmit = () => {
     if (inputResolveFnRef.current) {
       inputResolveFnRef.current(userInput);
@@ -48,7 +44,6 @@ const InterfuckInterpreter: React.FC = () => {
     }
     setInputDialogOpen(false);
   };
-
   const runCode = async () => {
     setIsRunning(true);
     setOutput([]);
@@ -161,7 +156,6 @@ const InterfuckInterpreter: React.FC = () => {
       setIsRunning(false);
     }
   };
-
   const clearCode = () => {
     setCode("");
     setOutput([]);
@@ -170,7 +164,6 @@ const InterfuckInterpreter: React.FC = () => {
     setDatasubs(new Map());
     toast.info("Code cleared");
   };
-
   const resetExample = () => {
     setCode("");
     setOutput([]);
@@ -179,12 +172,10 @@ const InterfuckInterpreter: React.FC = () => {
     setDatasubs(new Map());
     toast.info("Editor reset");
   };
-
   const copyCode = () => {
     navigator.clipboard.writeText(code);
     toast.success("Code copied to clipboard");
   };
-
   return <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="overflow-hidden">
@@ -239,7 +230,7 @@ const InterfuckInterpreter: React.FC = () => {
 
         <Card className="md:col-span-2">
           <CardHeader>
-            <CardTitle>Current Databer Status</CardTitle>
+            <CardTitle>Current  Databer Status</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -289,7 +280,8 @@ const InterfuckInterpreter: React.FC = () => {
               </div>
               <div className="p-3 border rounded-md bg-secondary/10">
                 <div className="font-mono font-bold mb-1">PLEASE CALL :4.</div>
-                <div className="text-sm">Prints all values stored in the Databer</div>
+                <div className="text-sm">Prints all values stored in the Databer.
+(check docs  for other actions </div>
               </div>
               <div className="p-3 border rounded-md bg-secondary/10">
                 <div className="font-mono font-bold mb-1">PLEASE CALL :4.: [index]</div>
@@ -427,5 +419,4 @@ const InterfuckInterpreter: React.FC = () => {
       </Dialog>
     </>;
 };
-
 export default InterfuckInterpreter;
