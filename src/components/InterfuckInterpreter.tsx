@@ -294,7 +294,7 @@ const InterfuckInterpreter: React.FC = () => {
               </div>
               <div className="p-3 border rounded-md bg-secondary/10">
                 <div className="font-mono font-bold mb-1">PLEASE CALL :4.</div>
-                <div className="text-sm">Prints all values stored in the Databer.    </div>
+                <div className="text-sm">Prints all values stored in the Databer.    </div>
               </div>
               <div className="p-3 border rounded-md bg-secondary/10">
                 <div className="font-mono font-bold mb-1">PLEASE CALL :4.: [index]</div>
@@ -326,7 +326,13 @@ const InterfuckInterpreter: React.FC = () => {
               </div>
               <div className="p-3 border rounded-md bg-secondary/10 bg-blue-500/10">
                 <div className="font-mono font-bold mb-1">PLEASE CALC :14. [datasub]</div>
-                <div className="text-sm">Evaluates a mathematical expression using datasubs</div>
+                <div className="text-sm">Calculates and stores result in [datasub]</div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  Way 1: Direct calculation<br />
+                  <span className="font-mono">PLEASE CALC :14. Sum<br />50 + 50</span><br />
+                  Way 2: Using datasubs<br />
+                  <span className="font-mono">PLEASE CALC :14. Sum<br />Num1 + Num2</span>
+                </div>
               </div>
             </div>
           </CardContent>
@@ -438,3 +444,4 @@ const InterfuckInterpreter: React.FC = () => {
 };
 
 export default InterfuckInterpreter;
+
