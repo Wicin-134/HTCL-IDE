@@ -8,6 +8,7 @@ import { Play, Trash, Copy, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { interpretInterfuck, convertToChar, Databer } from "@/lib/interfuckInterpreter";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+
 const InterfuckInterpreter: React.FC = () => {
   const location = useLocation();
   const [code, setCode] = useState<string>("");
@@ -23,12 +24,14 @@ const InterfuckInterpreter: React.FC = () => {
   const [currentSubName, setCurrentSubName] = useState("");
   const [userInput, setUserInput] = useState("");
   const inputResolveFnRef = useRef<((value: string) => void) | null>(null);
+
   useEffect(() => {
     if (location.state && location.state.code) {
       setCode(location.state.code);
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
+
   const getUserInput = async (subName: string): Promise<string> => {
     return new Promise(resolve => {
       setCurrentSubName(subName);
@@ -37,6 +40,7 @@ const InterfuckInterpreter: React.FC = () => {
       inputResolveFnRef.current = resolve;
     });
   };
+
   const handleInputSubmit = () => {
     if (inputResolveFnRef.current) {
       inputResolveFnRef.current(userInput);
@@ -44,18 +48,21 @@ const InterfuckInterpreter: React.FC = () => {
     }
     setInputDialogOpen(false);
   };
+
   const runCode = async () => {
     setIsRunning(true);
     setOutput([]);
     setError(undefined);
     setDatalings([]);
     setDatasubs(new Map());
+
     try {
       const databer = new Databer();
       let currentDatalings: {
         index: number;
         value: number;
       }[] = [];
+
       const lines = code.split('\n').map(line => line.trim());
       for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
@@ -132,16 +139,19 @@ const InterfuckInterpreter: React.FC = () => {
           }
         }
       }
+
       const result = await interpretInterfuck({
         code,
         hideCommandOutput: true,
         onUserInput: getUserInput
       });
+
       setOutput(result.output);
       setDatalings(currentDatalings);
       if (result.datasubs) {
         setDatasubs(result.datasubs);
       }
+
       if (result.error) {
         setError(result.error);
         toast.error(result.error);
@@ -156,6 +166,7 @@ const InterfuckInterpreter: React.FC = () => {
       setIsRunning(false);
     }
   };
+
   const clearCode = () => {
     setCode("");
     setOutput([]);
@@ -164,6 +175,7 @@ const InterfuckInterpreter: React.FC = () => {
     setDatasubs(new Map());
     toast.info("Code cleared");
   };
+
   const resetExample = () => {
     setCode("");
     setOutput([]);
@@ -172,10 +184,12 @@ const InterfuckInterpreter: React.FC = () => {
     setDatasubs(new Map());
     toast.info("Editor reset");
   };
+
   const copyCode = () => {
     navigator.clipboard.writeText(code);
     toast.success("Code copied to clipboard");
   };
+
   return <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="overflow-hidden">
@@ -310,6 +324,10 @@ const InterfuckInterpreter: React.FC = () => {
                 <div className="font-mono font-bold mb-1">PLEASE ADD :9. [name]</div>
                 <div className="text-sm">Creates a Datasub with the specified name</div>
               </div>
+              <div className="p-3 border rounded-md bg-secondary/10 bg-blue-500/10">
+                <div className="font-mono font-bold mb-1">PLEASE CALC :14. [datasub]</div>
+                <div className="text-sm">Evaluates a mathematical expression using datasubs</div>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -418,4 +436,5 @@ const InterfuckInterpreter: React.FC = () => {
       </Dialog>
     </>;
 };
+
 export default InterfuckInterpreter;

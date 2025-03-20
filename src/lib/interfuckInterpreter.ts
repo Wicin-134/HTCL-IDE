@@ -255,6 +255,40 @@ export class Databer {
   getAllDatalings(): number[] {
     return [...this.datalings];
   }
+
+  // Evaluates a mathematical expression using datasub values
+  evaluateExpression(expression: string, datasubs: string[]): string {
+    try {
+      // Replace datasub names with their values
+      let processedExpression = expression;
+      
+      for (const subName of datasubs) {
+        const value = this.getDatasub(subName);
+        if (value === undefined) {
+          throw new Error(`Datasub '${subName}' does not exist`);
+        }
+        
+        // Only replace if the datasub name is a whole word
+        const regex = new RegExp(`\\b${subName}\\b`, 'g');
+        processedExpression = processedExpression.replace(regex, value);
+      }
+      
+      // Evaluate the expression
+      // eslint-disable-next-line no-eval
+      const result = eval(processedExpression);
+      
+      if (typeof result !== 'number' || isNaN(result)) {
+        throw new Error(`Result is not a valid number: ${result}`);
+      }
+      
+      return result.toString();
+    } catch (e) {
+      if (e instanceof Error) {
+        throw new Error(`Math error: ${e.message}`);
+      }
+      throw new Error("Math error: Could not evaluate expression");
+    }
+  }
 }
 
 // Typu wejścia dla interpretera
@@ -295,7 +329,7 @@ function validateCommandSyntax(line: string): string | null {
     const commandMatch = line.match(/PLEASE\s+([A-Z]+)\s+:/);
     if (commandMatch) {
       const command = commandMatch[1];
-      if (!['DO', 'DONT', 'LET', 'CALL', 'BREACH', 'EXIT', 'ADD', 'LISTEN', 'SUB GO'].includes(command)) {
+      if (!['DO', 'DONT', 'LET', 'CALL', 'BREACH', 'EXIT', 'ADD', 'LISTEN', 'SUB GO', 'CALC'].includes(command)) {
         return "SYNTAX ERROR - Unknown command despite correct syntax.";
       }
     }
@@ -531,6 +565,92 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
           output.push(`${values || 'empty'}`);
         }
       }
+      // PLEASE CALC :14. - Evaluates a mathematical expression
+      else if (line.startsWith('PLEASE CALC :14.')) {
+        const subNameMatch = line.match(/PLEASE CALC :14\.\s*(\w+)/);
+        if (subNameMatch && subNameMatch[1]) {
+          const resultSubName = subNameMatch[1];
+          
+          if (!databer.hasDatasub(resultSubName)) {
+            throw new Error(`Stupid error: Result Datasub '${resultSubName}' does not exist`);
+          }
+          
+          // Get expression from next line
+          if (i + 1 < lines.length) {
+            let expressionLine = lines[i + 1].trim();
+            
+            // Remove comments
+            if (expressionLine.includes('//')) {
+              expressionLine = expressionLine.split('//')[0].trim();
+            }
+            
+            if (!expressionLine) {
+              throw new Error("Stupid error: Missing expression after PLEASE CALC :14.");
+            }
+            
+            // Skip to the CALC command again
+            i += 2;
+            
+            if (i < lines.length) {
+              let calcLine = lines[i].trim();
+              
+              // Remove comments
+              if (calcLine.includes('//')) {
+                calcLine = calcLine.split('//')[0].trim();
+              }
+              
+              if (!calcLine.startsWith('PLEASE CALC :14.')) {
+                throw new Error("Stupid error: Expected second PLEASE CALC :14. line");
+              }
+              
+              // Get datasubs list from next line
+              if (i + 1 < lines.length) {
+                let datasubsLine = lines[i + 1].trim();
+                
+                // Remove comments
+                if (datasubsLine.includes('//')) {
+                  datasubsLine = datasubsLine.split('//')[0].trim();
+                }
+                
+                if (!datasubsLine) {
+                  throw new Error("Stupid error: Missing datasubs list after second PLEASE CALC :14.");
+                }
+                
+                // Parse datasubs
+                const datasubs = datasubsLine.split(/\s+/);
+                
+                try {
+                  // Evaluate the expression
+                  const result = databer.evaluateExpression(expressionLine, datasubs);
+                  
+                  // Store the result in the specified datasub
+                  databer.setDatasub(resultSubName, result);
+                  
+                  if (!hideCommandOutput) {
+                    output.push(`Calculated expression: ${expressionLine} = ${result}`);
+                    output.push(`Result stored in Datasub '${resultSubName}'`);
+                  }
+                } catch (e) {
+                  if (e instanceof Error) {
+                    throw e;
+                  }
+                  throw new Error("Stupid error: Failed to evaluate expression");
+                }
+                
+                i++; // Skip the datasubs line
+              } else {
+                throw new Error("Stupid error: Missing datasubs list after second PLEASE CALC :14.");
+              }
+            } else {
+              throw new Error("Stupid error: Missing second PLEASE CALC :14. command");
+            }
+          } else {
+            throw new Error("Stupid error: Missing expression after PLEASE CALC :14.");
+          }
+        } else {
+          throw new Error("Stupid error: PLEASE CALC :14. requires a result Datasub name");
+        }
+      }
       // PLEASE BREACH :5. - Usuwa wszystkie Datalings i Datasubs
       else if (line.startsWith('PLEASE BREACH :5.')) {
         databer.clear(); // Now clears both datalings and datasubs
@@ -562,4 +682,3 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
     datasubs: databer.getAllDatasubs()
   };
 }
-
