@@ -588,61 +588,71 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
               throw new Error("Stupid error: Missing expression after PLEASE CALC :14.");
             }
             
-            // Skip to the CALC command again
-            i += 2;
+            // Look for datasubs in the next lines
+            let foundSecondCalcLine = false;
+            let datasubsLine = "";
+            let j = i + 2;
             
-            if (i < lines.length) {
-              let calcLine = lines[i].trim();
+            while (j < lines.length) {
+              let nextLine = lines[j].trim();
               
               // Remove comments
-              if (calcLine.includes('//')) {
-                calcLine = calcLine.split('//')[0].trim();
+              if (nextLine.includes('//')) {
+                nextLine = nextLine.split('//')[0].trim();
               }
               
-              if (!calcLine.startsWith('PLEASE CALC :14.')) {
-                throw new Error("Stupid error: Expected second PLEASE CALC :14. line");
+              if (!nextLine) {
+                j++;
+                continue;
               }
               
-              // Get datasubs list from next line
-              if (i + 1 < lines.length) {
-                let datasubsLine = lines[i + 1].trim();
-                
-                // Remove comments
-                if (datasubsLine.includes('//')) {
-                  datasubsLine = datasubsLine.split('//')[0].trim();
-                }
-                
-                if (!datasubsLine) {
+              if (nextLine.startsWith('PLEASE CALC :14.')) {
+                foundSecondCalcLine = true;
+                // Get datasubs from the next line
+                if (j + 1 < lines.length) {
+                  datasubsLine = lines[j + 1].trim();
+                  if (datasubsLine.includes('//')) {
+                    datasubsLine = datasubsLine.split('//')[0].trim();
+                  }
+                  
+                  if (!datasubsLine) {
+                    throw new Error("Stupid error: Missing datasubs list after second PLEASE CALC :14.");
+                  }
+                  
+                  i = j + 1; // Skip to the datasubs line
+                  break;
+                } else {
                   throw new Error("Stupid error: Missing datasubs list after second PLEASE CALC :14.");
                 }
-                
-                // Parse datasubs
-                const datasubs = datasubsLine.split(/\s+/);
-                
-                try {
-                  // Evaluate the expression
-                  const result = databer.evaluateExpression(expressionLine, datasubs);
-                  
-                  // Store the result in the specified datasub
-                  databer.setDatasub(resultSubName, result);
-                  
-                  if (!hideCommandOutput) {
-                    output.push(`Calculated expression: ${expressionLine} = ${result}`);
-                    output.push(`Result stored in Datasub '${resultSubName}'`);
-                  }
-                } catch (e) {
-                  if (e instanceof Error) {
-                    throw e;
-                  }
-                  throw new Error("Stupid error: Failed to evaluate expression");
-                }
-                
-                i++; // Skip the datasubs line
-              } else {
-                throw new Error("Stupid error: Missing datasubs list after second PLEASE CALC :14.");
               }
-            } else {
-              throw new Error("Stupid error: Missing second PLEASE CALC :14. command");
+              
+              j++;
+            }
+            
+            // Check if we found the second CALC line
+            if (!foundSecondCalcLine) {
+              throw new Error("Stupid error: Expected second PLEASE CALC :14. line");
+            }
+            
+            // Parse datasubs
+            const datasubs = datasubsLine.split(/\s+/);
+            
+            try {
+              // Evaluate the expression
+              const result = databer.evaluateExpression(expressionLine, datasubs);
+              
+              // Store the result in the specified datasub
+              databer.setDatasub(resultSubName, result);
+              
+              if (!hideCommandOutput) {
+                output.push(`Calculated expression: ${expressionLine} = ${result}`);
+                output.push(`Result stored in Datasub '${resultSubName}'`);
+              }
+            } catch (e) {
+              if (e instanceof Error) {
+                throw e;
+              }
+              throw new Error("Stupid error: Failed to evaluate expression");
             }
           } else {
             throw new Error("Stupid error: Missing expression after PLEASE CALC :14.");
