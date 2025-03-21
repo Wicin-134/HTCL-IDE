@@ -273,6 +273,12 @@ export class Databer {
         processedExpression = processedExpression.replace(regex, value);
       }
       
+      // Check for division by zero before evaluation
+      const divisionByZeroRegex = /\/\s*0(?![.\d])/;
+      if (divisionByZeroRegex.test(processedExpression)) {
+        throw new Error("Division by zero");
+      }
+      
       // Evaluate the expression
       // eslint-disable-next-line no-eval
       const result = eval(processedExpression);
@@ -284,6 +290,9 @@ export class Databer {
       return result.toString();
     } catch (e) {
       if (e instanceof Error) {
+        if (e.message === "Division by zero") {
+          return "Error: Division by zero";
+        }
         throw new Error(`Math error: ${e.message}`);
       }
       throw new Error("Math error: Could not evaluate expression");
@@ -565,9 +574,9 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
           output.push(`${values || 'empty'}`);
         }
       }
-      // PLEASE CALC :14. - Evaluates a mathematical expression
-      else if (line.startsWith('PLEASE CALC :14.')) {
-        const subNameMatch = line.match(/PLEASE CALC :14\.\s*(\w+)/);
+      // PLEASE CALC :10. - Evaluates a mathematical expression (renamed from :14.)
+      else if (line.startsWith('PLEASE CALC :10.')) {
+        const subNameMatch = line.match(/PLEASE CALC :10\.\s*(\w+)/);
         if (subNameMatch && subNameMatch[1]) {
           const resultSubName = subNameMatch[1];
           
@@ -585,7 +594,7 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
             }
             
             if (!expressionLine) {
-              throw new Error("Stupid error: Missing expression after PLEASE CALC :14.");
+              throw new Error("Stupid error: Missing expression after PLEASE CALC :10.");
             }
             
             // Check if the expression is a direct calculation or references datasubs
@@ -647,10 +656,10 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
             // Skip the expression line
             i++;
           } else {
-            throw new Error("Stupid error: Missing expression after PLEASE CALC :14.");
+            throw new Error("Stupid error: Missing expression after PLEASE CALC :10.");
           }
         } else {
-          throw new Error("Stupid error: PLEASE CALC :14. requires a result Datasub name");
+          throw new Error("Stupid error: PLEASE CALC :10. requires a result Datasub name");
         }
       }
       // PLEASE BREACH :5. - Usuwa wszystkie Datalings i Datasubs
@@ -684,3 +693,4 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
     datasubs: databer.getAllDatasubs()
   };
 }
+

@@ -325,13 +325,14 @@ const InterfuckInterpreter: React.FC = () => {
                 <div className="text-sm">Creates a Datasub with the specified name</div>
               </div>
               <div className="p-3 border rounded-md bg-secondary/10 bg-blue-500/10">
-                <div className="font-mono font-bold mb-1">PLEASE CALC :14. [datasub]</div>
+                <div className="font-mono font-bold mb-1">PLEASE CALC :10. [datasub]</div>
                 <div className="text-sm">Calculates and stores result in [datasub]</div>
                 <div className="text-xs text-muted-foreground mt-1">
                   Way 1: Direct calculation<br />
-                  <span className="font-mono">PLEASE CALC :14. Sum<br />50 + 50</span><br />
+                  <span className="font-mono">PLEASE CALC :10. Sum<br />50 + 50</span><br />
                   Way 2: Using datasubs<br />
-                  <span className="font-mono">PLEASE CALC :14. Sum<br />Num1 + Num2</span>
+                  <span className="font-mono">PLEASE CALC :10. Sum<br />Num1 + Num2</span><br />
+                  Supports +, -, *, / (division by zero returns error)
                 </div>
               </div>
             </div>
@@ -444,4 +445,3 @@ const InterfuckInterpreter: React.FC = () => {
 };
 
 export default InterfuckInterpreter;
-
