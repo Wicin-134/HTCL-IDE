@@ -3,7 +3,7 @@ import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
-import { Book, ChevronRight, Code, FileCode, Terminal } from "lucide-react";
+import { Book, ChevronRight, Code, FileCode, Terminal, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Docs = () => {
@@ -33,7 +33,7 @@ const Docs = () => {
               <p>
                 The language revolves around two main data structures: the <strong>Databer</strong>, which can 
                 hold multiple numeric data elements called <strong>Datalings</strong>, and <strong>Datasubs</strong>, which can 
-                store text data from user input.
+                store text data from user input or calculation results.
               </p>
               <p>
                 What sets CBPL apart is its polite syntax - all commands begin with "PLEASE", 
@@ -95,14 +95,20 @@ const Docs = () => {
                 <h3 className="text-lg font-semibold mb-2">Datasubs</h3>
                 <p>
                   Datasubs are named variables that can store text data. Unlike Datalings, which only store numeric values,
-                  Datasubs can store entire words, sentences, or any textual input from the user.
+                  Datasubs can store entire words, sentences, or any textual input from the user, as well as numerical calculation results.
                 </p>
                 <p className="mt-2">
-                  Datasubs are especially useful for gathering input from the user during program execution. You can:
+                  Datasubs serve two primary functions:
                 </p>
+                <ol className="list-decimal pl-6 mt-2 space-y-1">
+                  <li>Storing user input during program execution</li>
+                  <li>Storing the results of mathematical calculations</li>
+                </ol>
+                <p className="mt-2">You can:</p>
                 <ul className="list-disc pl-6 mt-2 space-y-1">
                   <li>Create named Datasubs (ADD)</li>
                   <li>Get user input and store it in a Datasub (LISTEN)</li>
+                  <li>Perform calculations and store the result in a Datasub (CALC)</li>
                   <li>Delete Datasubs when no longer needed (SUB GO)</li>
                 </ul>
                 <div className="bg-secondary/20 p-3 rounded-md mt-3">
@@ -119,6 +125,14 @@ PLEASE LISTEN :8. Username
 // When done, delete the Datasub
 PLEASE SUB GO :7. Username`}
                   </pre>
+                </div>
+                <div className="bg-yellow-100 dark:bg-yellow-900/30 p-3 rounded-md mt-3">
+                  <p className="font-semibold text-yellow-800 dark:text-yellow-400 mb-2">⚠️ Important Note:</p>
+                  <p className="text-yellow-800 dark:text-yellow-400">
+                    Once a Datasub has been used to store a calculation result (with the CALC command), it <strong>cannot</strong> be used with the LISTEN command.
+                    This prevents calculation results from being overwritten by user input. Attempting to LISTEN to a calculation Datasub will result
+                    in a "Math error".
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -232,7 +246,7 @@ PLEASE DO :1.  // This is also a comment
                       <div className="bg-secondary/20 p-2 rounded-md mt-2">
                         <pre className="font-mono text-sm">{`PLEASE LISTEN :8. UserName   // Gets input from user and stores in 'UserName'`}</pre>
                       </div>
-                      <p className="mt-2 text-sm">Note: You must create a Datasub with ADD before you can LISTEN to it.</p>
+                      <p className="mt-2 text-sm">Note: You must create a Datasub with ADD before you can LISTEN to it. Also, you cannot LISTEN to a Datasub that has been used for calculation results.</p>
                     </div>
                     
                     <div className="bg-secondary/20 p-4 rounded-md">
@@ -241,6 +255,24 @@ PLEASE DO :1.  // This is also a comment
                       <div className="bg-secondary/20 p-2 rounded-md mt-2">
                         <pre className="font-mono text-sm">{`PLEASE ADD :9. UserName   // Creates a Datasub named 'UserName'`}</pre>
                       </div>
+                    </div>
+                    
+                    <div className="bg-secondary/20 p-4 rounded-md">
+                      <h4 className="font-medium mb-1">Performing Mathematical Calculations</h4>
+                      <p><code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CALC :10. [result-name]</code> - Performs a calculation and stores the result in the specified Datasub.</p>
+                      <div className="bg-secondary/20 p-2 rounded-md mt-2">
+                        <pre className="font-mono text-sm">{`PLEASE ADD :9. Result  // First create a Datasub to store the result
+PLEASE ADD :9. Num1    // Create a Datasub for the first number
+PLEASE ADD :9. Num2    // Create a Datasub for the second number
+PLEASE LISTEN :8. Num1 // Get the first number from user
+PLEASE LISTEN :8. Num2 // Get the second number from user
+
+PLEASE CALC :10. Result  // Perform calculation and store in 'Result'
+Num1 + Num2             // The calculation to perform (on the next line)
+
+PLEASE CALL :4.; Result  // Display the calculation result`}</pre>
+                      </div>
+                      <p className="mt-2 text-sm">Note: After using a Datasub for calculation results, you cannot use LISTEN on it.</p>
                     </div>
                   </div>
                 </div>
@@ -271,8 +303,317 @@ PLEASE DO :1.  // This is also a comment
                     <li>All commands must include a period (.) - the "Orb"</li>
                     <li>All commands must include a colon (:) - the "Semi-Orb"</li>
                     <li>Commands must have exactly one period (.)</li>
-                    <li>The command name must be one of the defined actions (DO, DONT, LET, CALL, BREACH, EXIT, SUB GO, LISTEN, ADD)</li>
+                    <li>The command name must be one of the defined actions (DO, DONT, LET, CALL, BREACH, EXIT, SUB GO, LISTEN, ADD, CALC)</li>
                   </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card id="mathematical-operations" className="scroll-mt-20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Calculator className="h-5 w-5" />
+                Mathematical Operations
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <p>
+                  CBPL supports basic mathematical operations through the <code className="font-mono bg-secondary/20 px-1 rounded">PLEASE CALC :10.</code> command,
+                  which allows you to perform calculations and store the results in a Datasub.
+                </p>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Supported Operations</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="p-3 border rounded">
+                      <p className="font-mono font-semibold">Addition (+)</p>
+                      <p className="text-muted-foreground">Adds two or more numbers together</p>
+                      <pre className="font-mono text-sm mt-2 bg-secondary/20 p-2 rounded">5 + 3 = 8</pre>
+                    </div>
+                    <div className="p-3 border rounded">
+                      <p className="font-mono font-semibold">Subtraction (-)</p>
+                      <p className="text-muted-foreground">Subtracts the second number from the first</p>
+                      <pre className="font-mono text-sm mt-2 bg-secondary/20 p-2 rounded">10 - 4 = 6</pre>
+                    </div>
+                    <div className="p-3 border rounded">
+                      <p className="font-mono font-semibold">Multiplication (*)</p>
+                      <p className="text-muted-foreground">Multiplies two or more numbers together</p>
+                      <pre className="font-mono text-sm mt-2 bg-secondary/20 p-2 rounded">7 * 3 = 21</pre>
+                    </div>
+                    <div className="p-3 border rounded">
+                      <p className="font-mono font-semibold">Division (/)</p>
+                      <p className="text-muted-foreground">Divides the first number by the second</p>
+                      <pre className="font-mono text-sm mt-2 bg-secondary/20 p-2 rounded">15 / 3 = 5</pre>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Calculation Methods</h3>
+                  <p>There are two ways to use the CALC command:</p>
+                  
+                  <div className="space-y-4 mt-3">
+                    <div className="p-4 border rounded">
+                      <h4 className="font-medium">Way 1: Direct Calculation</h4>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        You can specify a direct numerical expression on the line after the CALC command.
+                        The result will be stored in the specified Datasub.
+                      </p>
+                      <div className="bg-secondary/20 p-3 rounded-md">
+                        <pre className="font-mono text-sm whitespace-pre-wrap">
+{`PLEASE ADD :9. Result
+PLEASE CALC :10. Result
+10 + 5
+PLEASE CALL :4.; Result   // Will display: 15`}
+                        </pre>
+                      </div>
+                    </div>
+                    
+                    <div className="p-4 border rounded">
+                      <h4 className="font-medium">Way 2: Datasub Variables</h4>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        You can use Datasubs as variables in your expression. The system will substitute the values 
+                        of these Datasubs into the expression before evaluating it.
+                      </p>
+                      <div className="bg-secondary/20 p-3 rounded-md">
+                        <pre className="font-mono text-sm whitespace-pre-wrap">
+{`PLEASE ADD :9. Num1
+PLEASE ADD :9. Num2
+PLEASE ADD :9. Result
+
+PLEASE LISTEN :8. Num1    // User enters 8
+PLEASE LISTEN :8. Num2    // User enters 4
+
+PLEASE CALC :10. Result
+Num1 + Num2 * 2           // Expression using datasub variables
+PLEASE CALL :4.; Result   // Will display: 16 (8 + 4*2)`}
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Error Handling</h3>
+                  <p>The CALC command includes robust error handling for common mathematical errors:</p>
+                  
+                  <div className="space-y-3 mt-3">
+                    <div className="p-3 border border-destructive/30 rounded">
+                      <p className="font-medium">Division by Zero</p>
+                      <p className="text-muted-foreground">
+                        If you attempt to divide by zero, the operation will return an error message instead of crashing.
+                      </p>
+                      <div className="bg-secondary/20 p-2 rounded-md mt-2">
+                        <pre className="font-mono text-sm">{`PLEASE CALC :10. Result
+10 / 0
+// Result will contain: "Error: Division by zero"`}</pre>
+                      </div>
+                    </div>
+                    
+                    <div className="p-3 border border-destructive/30 rounded">
+                      <p className="font-medium">Non-Numeric Values</p>
+                      <p className="text-muted-foreground">
+                        If a Datasub used in a calculation contains a non-numeric value, a "Math error" will be thrown.
+                      </p>
+                    </div>
+                    
+                    <div className="p-3 border border-destructive/30 rounded">
+                      <p className="font-medium">Calculation-User Input Conflict</p>
+                      <p className="text-muted-foreground">
+                        You cannot use the LISTEN command on a Datasub that has been used for calculation results.
+                        This prevents accidental overwriting of calculated values.
+                      </p>
+                      <div className="bg-secondary/20 p-2 rounded-md mt-2">
+                        <pre className="font-mono text-sm">{`PLEASE ADD :9. Result
+PLEASE CALC :10. Result
+5 + 10
+PLEASE LISTEN :8. Result   // This will cause a "Math error"`}</pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Example Calculator Program</h3>
+                  <div className="bg-secondary/20 p-3 rounded-md">
+                    <pre className="font-mono text-sm whitespace-pre-wrap">
+{`// Simple calculator program
+PLEASE ADD :9. Num1
+PLEASE ADD :9. Num2
+PLEASE ADD :9. Operation
+PLEASE ADD :9. Result
+
+// First message
+PLEASE DO :1.
+32   // 'E'
+PLEASE DO :1.
+15   // 'n'
+PLEASE DO :1.
+21   // 't'
+PLEASE DO :1.
+6    // 'e'
+PLEASE DO :1.
+19   // 'r'
+PLEASE DO :1.
+1    // ' '
+PLEASE DO :1.
+7    // 'f'
+PLEASE DO :1.
+10   // 'i'
+PLEASE DO :1.
+19   // 'r'
+PLEASE DO :1.
+20   // 's'
+PLEASE DO :1.
+21   // 't'
+PLEASE DO :1.
+1    // ' '
+PLEASE DO :1.
+15   // 'n'
+PLEASE DO :1.
+22   // 'u'
+PLEASE DO :1.
+14   // 'm'
+PLEASE DO :1.
+3    // 'b'
+PLEASE DO :1.
+6    // 'e'
+PLEASE DO :1.
+19   // 'r'
+PLEASE CALL :4.
+
+// Get first number
+PLEASE LISTEN :8. Num1
+
+// Second message
+PLEASE DO :1.
+32   // 'E'
+PLEASE DO :1.
+15   // 'n'
+PLEASE DO :1.
+21   // 't'
+PLEASE DO :1.
+6    // 'e'
+PLEASE DO :1.
+19   // 'r'
+PLEASE DO :1.
+1    // ' '
+PLEASE DO :1.
+20   // 's'
+PLEASE DO :1.
+6    // 'e'
+PLEASE DO :1.
+4    // 'c'
+PLEASE DO :1.
+16   // 'o'
+PLEASE DO :1.
+15   // 'n'
+PLEASE DO :1.
+5    // 'd'
+PLEASE DO :1.
+1    // ' '
+PLEASE DO :1.
+15   // 'n'
+PLEASE DO :1.
+22   // 'u'
+PLEASE DO :1.
+14   // 'm'
+PLEASE DO :1.
+3    // 'b'
+PLEASE DO :1.
+6    // 'e'
+PLEASE DO :1.
+19   // 'r'
+PLEASE CALL :4.
+
+// Get second number
+PLEASE LISTEN :8. Num2
+
+// Operation message
+PLEASE DO :1.
+32   // 'E'
+PLEASE DO :1.
+15   // 'n'
+PLEASE DO :1.
+21   // 't'
+PLEASE DO :1.
+6    // 'e'
+PLEASE DO :1.
+19   // 'r'
+PLEASE DO :1.
+1    // ' '
+PLEASE DO :1.
+16   // 'o'
+PLEASE DO :1.
+17   // 'p'
+PLEASE DO :1.
+6    // 'e'
+PLEASE DO :1.
+19   // 'r'
+PLEASE DO :1.
+2    // 'a'
+PLEASE DO :1.
+21   // 't'
+PLEASE DO :1.
+10   // 'i'
+PLEASE DO :1.
+16   // 'o'
+PLEASE DO :1.
+15   // 'n'
+PLEASE DO :1.
+1    // ' '
+PLEASE DO :1.
+69   // '('
+PLEASE DO :1.
+73   // '+'
+PLEASE DO :1.
+66   // ','
+PLEASE DO :1.
+72   // '-'
+PLEASE DO :1.
+66   // ','
+PLEASE DO :1.
+74   // '*'
+PLEASE DO :1.
+66   // ','
+PLEASE DO :1.
+65   // '/'
+PLEASE DO :1.
+70   // ')'
+PLEASE CALL :4.
+
+// Get operation
+PLEASE LISTEN :8. Operation
+
+// Perform calculation
+PLEASE CALC :10. Result
+Num1 Operation Num2
+
+// Display result
+PLEASE DO :1.
+45   // 'R'
+PLEASE DO :1.
+6    // 'e'
+PLEASE DO :1.
+20   // 's'
+PLEASE DO :1.
+22   // 'u'
+PLEASE DO :1.
+13   // 'l'
+PLEASE DO :1.
+21   // 't'
+PLEASE DO :1.
+58   // ':'
+PLEASE DO :1.
+1    // ' '
+PLEASE CALL :4.
+PLEASE CALL :4.; Result
+
+PLEASE EXIT :6.`}
+                    </pre>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -537,6 +878,16 @@ PLEASE CALL :4.
                 </div>
                 
                 <div className="p-3 border border-destructive/30 rounded">
+                  <p className="font-medium">Math Error</p>
+                  <p className="text-muted-foreground">Attempting to use LISTEN on a Datasub that has been used for calculation results, or trying to perform a calculation with non-numeric Datasub values</p>
+                </div>
+                
+                <div className="p-3 border border-destructive/30 rounded">
+                  <p className="font-medium">Division by Zero</p>
+                  <p className="text-muted-foreground">Attempting to divide by zero in a calculation</p>
+                </div>
+                
+                <div className="p-3 border border-destructive/30 rounded">
                   <p className="font-medium">Unrecognized Action</p>
                   <p className="text-muted-foreground">Using an action that is not part of the CBPL language</p>
                 </div>
@@ -546,153 +897,6 @@ PLEASE CALL :4.
                 When an error occurs, the IDE will display a clear error message that 
                 explains the issue and helps you debug your code. CBPL uses unique error names that reflect its quirky nature.
               </p>
-            </CardContent>
-          </Card>
-
-          <Card id="example-programs" className="scroll-mt-20">
-            <CardHeader>
-              <CardTitle>Example Programs</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-8">
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">Hello World</h3>
-                  <p className="mb-2">This simple program creates a series of Datalings that spell "Hello World" when displayed:</p>
-                  <div className="bg-secondary/20 p-3 rounded-md">
-                    <pre className="font-mono text-sm whitespace-pre-wrap">
-{`// Hello World in CBPL
-PLEASE DO :1.
-9    // 'h'
-
-PLEASE DO :1.
-6    // 'e'
-
-PLEASE DO :1.
-13   // 'l'
-
-PLEASE DO :1.
-13   // 'l'
-
-PLEASE DO :1.
-16   // 'o'
-
-PLEASE DO :1.
-1    // ' '
-
-PLEASE DO :1.
-50   // 'W'
-
-PLEASE DO :1.
-16   // 'o'
-
-PLEASE DO :1.
-19   // 'r'
-
-PLEASE DO :1.
-13   // 'l'
-
-PLEASE DO :1.
-5    // 'd'
-
-PLEASE CALL :4.
-// Displays: hello World
-
-PLEASE EXIT :6.`}
-                    </pre>
-                  </div>
-                </div>
-                
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">User Input Example</h3>
-                  <p className="mb-2">This program demonstrates getting input from the user:</p>
-                  <div className="bg-secondary/20 p-3 rounded-md">
-                    <pre className="font-mono text-sm whitespace-pre-wrap">
-{`// Gather user input and display it
-PLEASE ADD :9. UserName
-
-PLEASE DO :1.
-32   // 'E'
-
-PLEASE DO :1.
-15   // 'n'
-
-PLEASE DO :1.
-21   // 't'
-
-PLEASE DO :1.
-6    // 'e'
-
-PLEASE DO :1.
-19   // 'r'
-
-PLEASE DO :1.
-1    // ' '
-
-PLEASE DO :1.
-26   // 'y'
-
-PLEASE DO :1.
-16   // 'o'
-
-PLEASE DO :1.
-22   // 'u'
-
-PLEASE DO :1.
-19   // 'r'
-
-PLEASE DO :1.
-1    // ' '
-
-PLEASE DO :1.
-15   // 'n'
-
-PLEASE DO :1.
-2    // 'a'
-
-PLEASE DO :1.
-14   // 'm'
-
-PLEASE DO :1.
-6    // 'e'
-
-PLEASE CALL :4.
-// Displays: Enter your name
-
-PLEASE LISTEN :8. UserName
-// Waits for user input
-
-PLEASE DO :1.
-35   // 'H'
-
-PLEASE DO :1.
-6    // 'e'
-
-PLEASE DO :1.
-13   // 'l'
-
-PLEASE DO :1.
-13   // 'l'
-
-PLEASE DO :1.
-16   // 'o'
-
-PLEASE DO :1.
-1    // ' '
-
-PLEASE CALL :4.
-// Displays: Hello 
-
-PLEASE CALL :4.; UserName
-// Displays the user's input
-
-PLEASE SUB GO :7. UserName
-// Clean up
-
-PLEASE EXIT :6.`}
-                    </pre>
-                  </div>
-                </div>
-              </div>
             </CardContent>
           </Card>
         </div>

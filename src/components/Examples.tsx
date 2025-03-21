@@ -78,413 +78,1356 @@ const ExampleCard: React.FC<ExampleCardProps> = ({
 const Examples = () => {
   const examples = [
     {
-      title: "Hello",
-      description: "Outputs the word 'hello'",
-      code: `PLEASE DO :1.
-9
-PLEASE DO :1.
-6
-PLEASE DO :1.
-13
-PLEASE DO :1.
-13
-PLEASE DO :1.
-16
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "beginner" as const,
-    },
-    {
-      title: "Hello Programmer",
-      description: "Displays a greeting to the programmer",
-      code: `PLEASE DO :1.
-9
-PLEASE DO :1.
-6
-PLEASE DO :1.
-13
-PLEASE DO :1.
-13
-PLEASE DO :1.
-16
-PLEASE DO :1.
-1
-PLEASE DO :1.
-17
-PLEASE DO :1.
-19
-PLEASE DO :1.
-16
+      title: "Hello World",
+      description: "Simple hello world program showing basic character output",
+      code: `// Hello World program in CBPL
+PLEASE ADD :9. Output
+
+// Set output characters one by one (Hello World)
 PLEASE DO :1.
 8
 PLEASE DO :1.
-19
-PLEASE DO :1.
-2
-PLEASE DO :1.
-14
-PLEASE DO :1.
-14
-PLEASE DO :1.
-6
-PLEASE DO :1.
-19
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "beginner" as const,
-    },
-    {
-      title: "Clear and Reset",
-      description: "Shows how to create values and then clear them",
-      code: `PLEASE DO :1.
-3
-PLEASE DO :1.
-26
-PLEASE DO :1.
-6
-PLEASE CALL :4.
-PLEASE BREACH :5.
-PLEASE DO :1.
-3
-PLEASE DO :1.
-26
-PLEASE DO :1.
-6
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "beginner" as const,
-    },
-    {
-      title: "Building Words",
-      description: "Builds the word 'code' letter by letter",
-      code: `PLEASE DO :1.
-4
-PLEASE CALL :4.
-PLEASE DO :1.
-16
-PLEASE CALL :4.
-PLEASE DO :1.
 5
-PLEASE CALL :4.
 PLEASE DO :1.
-6
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "beginner" as const,
-    },
-    {
-      title: "User Greeting",
-      description: "Personalized greeting using datasubs and datalings together in order",
-      code: `PLEASE DO :1.
-35
+12
 PLEASE DO :1.
-6
+12
 PLEASE DO :1.
-13
+15
 PLEASE DO :1.
-13
+32
 PLEASE DO :1.
-16
+23
 PLEASE DO :1.
-1
-PLEASE ADD :9. Username
-PLEASE LISTEN :8. Username
+15
+PLEASE DO :1.
+18
+PLEASE DO :1.
+12
+PLEASE DO :1.
+4
+
+// Display the characters
 PLEASE CALL :4.
 PLEASE EXIT :6.`,
       level: "beginner" as const,
     },
     {
-      title: "Number Sequence", 
-      description: "Creates a sequence of numeric characters",
-      code: `PLEASE DO :1.
-54
+      title: "User Name Greeter",
+      description: "Asks for user's name and creates a personalized greeting",
+      code: `// Create a greeter program
+PLEASE ADD :9. UserName
+
+// Create characters for prompt "Enter your name"
 PLEASE DO :1.
-55
+69
 PLEASE DO :1.
-56
+110
 PLEASE DO :1.
-57
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+121
+PLEASE DO :1.
+111
+PLEASE DO :1.
+117
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+110
+PLEASE DO :1.
+97
+PLEASE DO :1.
+109
+PLEASE DO :1.
+101
+
+// Display prompt
+PLEASE CALL :4.
+
+// Get user input
+PLEASE LISTEN :8. UserName
+
+// Clear the output before next message
+PLEASE CLEAR :7.
+
+// Create characters for "Hello"
+PLEASE DO :1.
+72
+PLEASE DO :1.
+101
+PLEASE DO :1.
+108
+PLEASE DO :1.
+108
+PLEASE DO :1.
+111
+PLEASE DO :1.
+32
+
+// Display greeting
+PLEASE CALL :4.
+PLEASE CALL :4.; UserName
+PLEASE EXIT :6.`,
+      level: "beginner" as const,
+    },
+    {
+      title: "Simple Calculator",
+      description: "A basic calculator that adds two numbers from user input",
+      code: `// Simple addition calculator
+PLEASE ADD :9. Num1
+PLEASE ADD :9. Num2
+PLEASE ADD :9. Result
+
+// Create characters for first prompt
+PLEASE DO :1.
+69
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+102
+PLEASE DO :1.
+105
+PLEASE DO :1.
+114
+PLEASE DO :1.
+115
+PLEASE DO :1.
+116
+PLEASE DO :1.
+32
+PLEASE DO :1.
+110
+PLEASE DO :1.
+117
+PLEASE DO :1.
+109
+PLEASE DO :1.
+98
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+
+// Display first prompt
+PLEASE CALL :4.
+
+// Get first number input
+PLEASE LISTEN :8. Num1
+
+// Clear the output before next prompt
+PLEASE CLEAR :7.
+
+// Create characters for second prompt
+PLEASE DO :1.
+69
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+115
+PLEASE DO :1.
+101
+PLEASE DO :1.
+99
+PLEASE DO :1.
+111
+PLEASE DO :1.
+110
+PLEASE DO :1.
+100
+PLEASE DO :1.
+32
+PLEASE DO :1.
+110
+PLEASE DO :1.
+117
+PLEASE DO :1.
+109
+PLEASE DO :1.
+98
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+
+// Display second prompt
+PLEASE CALL :4.
+
+// Get second number input
+PLEASE LISTEN :8. Num2
+
+// Clear the output before showing result
+PLEASE CLEAR :7.
+
+// Calculate result
+PLEASE CALC :10. Result
+Num1 + Num2
+
+// Create characters for "Result"
+PLEASE DO :1.
+82
+PLEASE DO :1.
+101
+PLEASE DO :1.
+115
+PLEASE DO :1.
+117
+PLEASE DO :1.
+108
+PLEASE DO :1.
+116
 PLEASE DO :1.
 58
+PLEASE DO :1.
+32
+
+// Display result
+PLEASE CALL :4.
+PLEASE CALL :4.; Result
+PLEASE EXIT :6.`,
+      level: "beginner" as const,
+    },
+    {
+      title: "Four Function Calculator",
+      description: "Advanced calculator supporting addition, subtraction, multiplication, and division",
+      code: `// Four function calculator
+PLEASE ADD :9. Num1
+PLEASE ADD :9. Num2
+PLEASE ADD :9. Operation
+PLEASE ADD :9. Result
+
+// Create characters for first prompt
+PLEASE DO :1.
+69
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+102
+PLEASE DO :1.
+105
+PLEASE DO :1.
+114
+PLEASE DO :1.
+115
+PLEASE DO :1.
+116
+PLEASE DO :1.
+32
+PLEASE DO :1.
+110
+PLEASE DO :1.
+117
+PLEASE DO :1.
+109
+PLEASE DO :1.
+98
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+
+// Display first prompt
+PLEASE CALL :4.
+
+// Get first number
+PLEASE LISTEN :8. Num1
+
+// Clear the output before next prompt
+PLEASE CLEAR :7.
+
+// Create characters for second prompt
+PLEASE DO :1.
+69
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+115
+PLEASE DO :1.
+101
+PLEASE DO :1.
+99
+PLEASE DO :1.
+111
+PLEASE DO :1.
+110
+PLEASE DO :1.
+100
+PLEASE DO :1.
+32
+PLEASE DO :1.
+110
+PLEASE DO :1.
+117
+PLEASE DO :1.
+109
+PLEASE DO :1.
+98
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+
+// Display second prompt
+PLEASE CALL :4.
+
+// Get second number
+PLEASE LISTEN :8. Num2
+
+// Clear the output before operation prompt
+PLEASE CLEAR :7.
+
+// Create characters for operation prompt
+PLEASE DO :1.
+69
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+111
+PLEASE DO :1.
+112
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+97
+PLEASE DO :1.
+116
+PLEASE DO :1.
+105
+PLEASE DO :1.
+111
+PLEASE DO :1.
+110
+PLEASE DO :1.
+32
+PLEASE DO :1.
+40
+PLEASE DO :1.
+43
+PLEASE DO :1.
+44
+PLEASE DO :1.
+45
+PLEASE DO :1.
+44
+PLEASE DO :1.
+42
+PLEASE DO :1.
+44
+PLEASE DO :1.
+47
+PLEASE DO :1.
+41
+
+// Display operation prompt
+PLEASE CALL :4.
+
+// Get operation
+PLEASE LISTEN :8. Operation
+
+// Clear the output before showing result
+PLEASE CLEAR :7.
+
+// Calculate result
+PLEASE CALC :10. Result
+Num1 Operation Num2
+
+// Create characters for "Result"
+PLEASE DO :1.
+82
+PLEASE DO :1.
+101
+PLEASE DO :1.
+115
+PLEASE DO :1.
+117
+PLEASE DO :1.
+108
+PLEASE DO :1.
+116
+PLEASE DO :1.
+58
+PLEASE DO :1.
+32
+
+// Display result
+PLEASE CALL :4.
+PLEASE CALL :4.; Result
+PLEASE EXIT :6.`,
+      level: "intermediate" as const,
+    },
+    {
+      title: "Temperature Converter",
+      description: "Converts temperatures between Celsius and Fahrenheit",
+      code: `// Temperature converter Celsius to Fahrenheit
+PLEASE ADD :9. Celsius
+PLEASE ADD :9. Fahrenheit
+
+// Create characters for temperature prompt
+PLEASE DO :1.
+69
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+109
+PLEASE DO :1.
+112
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+97
+PLEASE DO :1.
+116
+PLEASE DO :1.
+117
+PLEASE DO :1.
+114
+PLEASE DO :1.
+101
+PLEASE DO :1.
+32
+PLEASE DO :1.
+105
+PLEASE DO :1.
+110
+PLEASE DO :1.
+32
+PLEASE DO :1.
+67
+PLEASE DO :1.
+101
+PLEASE DO :1.
+108
+PLEASE DO :1.
+115
+PLEASE DO :1.
+105
+PLEASE DO :1.
+117
+PLEASE DO :1.
+115
+
+// Display prompt
+PLEASE CALL :4.
+
+// Get Celsius input
+PLEASE LISTEN :8. Celsius
+
+// Clear the output before showing result
+PLEASE CLEAR :7.
+
+// Convert to Fahrenheit
+PLEASE CALC :10. Fahrenheit
+Celsius * 9 / 5 + 32
+
+// Create characters for result message
+PLEASE DO :1.
+84
+PLEASE DO :1.
+101
+PLEASE DO :1.
+109
+PLEASE DO :1.
+112
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+97
+PLEASE DO :1.
+116
+PLEASE DO :1.
+117
+PLEASE DO :1.
+114
+PLEASE DO :1.
+101
+PLEASE DO :1.
+32
+PLEASE DO :1.
+105
+PLEASE DO :1.
+110
+PLEASE DO :1.
+32
+PLEASE DO :1.
+70
+PLEASE DO :1.
+97
+PLEASE DO :1.
+104
+PLEASE DO :1.
+114
+PLEASE DO :1.
+101
+PLEASE DO :1.
+110
+PLEASE DO :1.
+104
+PLEASE DO :1.
+101
+PLEASE DO :1.
+105
+PLEASE DO :1.
+116
+PLEASE DO :1.
+58
+PLEASE DO :1.
+32
+
+// Display result
+PLEASE CALL :4.
+PLEASE CALL :4.; Fahrenheit
+PLEASE EXIT :6.`,
+      level: "intermediate" as const,
+    },
+    {
+      title: "Area Calculator",
+      description: "Calculates the area of a rectangle from user input",
+      code: `// Area calculator for rectangles
+PLEASE ADD :9. Length
+PLEASE ADD :9. Width
+PLEASE ADD :9. Area
+
+// Create characters for length prompt
+PLEASE DO :1.
+69
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+114
+PLEASE DO :1.
+101
+PLEASE DO :1.
+99
+PLEASE DO :1.
+116
+PLEASE DO :1.
+97
+PLEASE DO :1.
+110
+PLEASE DO :1.
+103
+PLEASE DO :1.
+108
+PLEASE DO :1.
+101
+PLEASE DO :1.
+32
+PLEASE DO :1.
+108
+PLEASE DO :1.
+101
+PLEASE DO :1.
+110
+PLEASE DO :1.
+103
+PLEASE DO :1.
+116
+PLEASE DO :1.
+104
+
+// Display length prompt
+PLEASE CALL :4.
+
+// Get length input
+PLEASE LISTEN :8. Length
+
+// Clear the output before width prompt
+PLEASE CLEAR :7.
+
+// Create characters for width prompt
+PLEASE DO :1.
+69
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+114
+PLEASE DO :1.
+101
+PLEASE DO :1.
+99
+PLEASE DO :1.
+116
+PLEASE DO :1.
+97
+PLEASE DO :1.
+110
+PLEASE DO :1.
+103
+PLEASE DO :1.
+108
+PLEASE DO :1.
+101
+PLEASE DO :1.
+32
+PLEASE DO :1.
+119
+PLEASE DO :1.
+105
+PLEASE DO :1.
+100
+PLEASE DO :1.
+116
+PLEASE DO :1.
+104
+
+// Display width prompt
+PLEASE CALL :4.
+
+// Get width input
+PLEASE LISTEN :8. Width
+
+// Clear the output before showing result
+PLEASE CLEAR :7.
+
+// Calculate area
+PLEASE CALC :10. Area
+Length * Width
+
+// Create characters for area result
+PLEASE DO :1.
+82
+PLEASE DO :1.
+101
+PLEASE DO :1.
+99
+PLEASE DO :1.
+116
+PLEASE DO :1.
+97
+PLEASE DO :1.
+110
+PLEASE DO :1.
+103
+PLEASE DO :1.
+108
+PLEASE DO :1.
+101
+PLEASE DO :1.
+32
+PLEASE DO :1.
+97
+PLEASE DO :1.
+114
+PLEASE DO :1.
+101
+PLEASE DO :1.
+97
+PLEASE DO :1.
+58
+PLEASE DO :1.
+32
+
+// Display result
+PLEASE CALL :4.
+PLEASE CALL :4.; Area
+PLEASE EXIT :6.`,
+      level: "intermediate" as const,
+    },
+    {
+      title: "Text Art Generator",
+      description: "Creates a simple text banner with user input",
+      code: `// Text art generator
+PLEASE ADD :9. UserText
+
+// Create characters for prompt
+PLEASE DO :1.
+69
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+120
+PLEASE DO :1.
+116
+PLEASE DO :1.
+32
+PLEASE DO :1.
+116
+PLEASE DO :1.
+111
+PLEASE DO :1.
+32
+PLEASE DO :1.
+100
+PLEASE DO :1.
+105
+PLEASE DO :1.
+115
+PLEASE DO :1.
+112
+PLEASE DO :1.
+108
+PLEASE DO :1.
+97
+PLEASE DO :1.
+121
+
+// Display prompt
+PLEASE CALL :4.
+
+// Get user text
+PLEASE LISTEN :8. UserText
+
+// Clear the output before displaying art
+PLEASE CLEAR :7.
+
+// Create top border
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+
+// Display top border
+PLEASE CALL :4.
+
+// Create left side of frame
+PLEASE DO :1.
+42
+PLEASE DO :1.
+32
+PLEASE DO :1.
+32
+
+// Display left side
+PLEASE CALL :4.
+
+// Display user text
+PLEASE CALL :4.; UserText
+
+// Create right side of frame
+PLEASE DO :1.
+32
+PLEASE DO :1.
+32
+PLEASE DO :1.
+42
+
+// Display right side
+PLEASE CALL :4.
+
+// Create bottom border (same as top)
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+PLEASE DO :1.
+42
+
+// Display bottom border
 PLEASE CALL :4.
 PLEASE EXIT :6.`,
       level: "beginner" as const,
     },
     {
-      title: "Value Updates",
-      description: "Shows how to update existing values",
-      code: `PLEASE DO :1.
-16
-PLEASE DO :1.
-15
-PLEASE DO :1.
-6
-PLEASE CALL :4.
-PLEASE LET :3. 0
-21
-PLEASE LET :3. 1
-24
-PLEASE LET :3. 2
-16
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "intermediate" as const,
-    },
-    {
-      title: "Delete Specific Values",
-      description: "Demonstrates deleting specific datalings from a sequence",
-      code: `PLEASE DO :1.
-2
-PLEASE DO :1.
-3
-PLEASE DO :1.
-4
-PLEASE DO :1.
+      title: "Number Guessing Game",
+      description: "A simple guessing game where the user tries to guess a number",
+      code: `// Number guessing game
+PLEASE ADD :9. Secret
+PLEASE ADD :9. Guess
+PLEASE ADD :9. Attempts
+PLEASE ADD :9. MaxAttempts
+
+// Set the secret number and max attempts
+PLEASE CALC :10. Secret
+42
+PLEASE CALC :10. MaxAttempts
 5
+PLEASE CALC :10. Attempts
+0
+
+// Create welcome message
 PLEASE DO :1.
-6
+71
+PLEASE DO :1.
+117
+PLEASE DO :1.
+101
+PLEASE DO :1.
+115
+PLEASE DO :1.
+115
+PLEASE DO :1.
+32
+PLEASE DO :1.
+116
+PLEASE DO :1.
+104
+PLEASE DO :1.
+101
+PLEASE DO :1.
+32
+PLEASE DO :1.
+110
+PLEASE DO :1.
+117
+PLEASE DO :1.
+109
+PLEASE DO :1.
+98
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+40
+PLEASE DO :1.
+49
+PLEASE DO :1.
+45
+PLEASE DO :1.
+49
+PLEASE DO :1.
+48
+PLEASE DO :1.
+48
+PLEASE DO :1.
+41
+
+// Display welcome message
 PLEASE CALL :4.
-PLEASE DONT :2. 2
+
+// Game loop start
+LOOP_START:
+
+// Increment attempts
+PLEASE CALC :10. Attempts
+Attempts + 1
+
+// Clear the output before guess prompt
+PLEASE CLEAR :7.
+
+// Create guess prompt with attempts info
+PLEASE DO :1.
+65
+PLEASE DO :1.
+116
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+109
+PLEASE DO :1.
+112
+PLEASE DO :1.
+116
+PLEASE DO :1.
+32
+
+// Display attempts counter
 PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "intermediate" as const,
-    },
-    {
-      title: "Word Transformation",
-      description: "Demonstrates creating a word and transforming it to another by removing a character",
-      code: `PLEASE DO :1.
-7
+PLEASE CALL :4.; Attempts
+PLEASE CALL :4.; MaxAttempts
+
+// Create remainder of prompt
 PLEASE DO :1.
-19
+47
 PLEASE DO :1.
-16
+32
 PLEASE DO :1.
-8
+45
+PLEASE DO :1.
+32
+PLEASE DO :1.
+69
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+121
+PLEASE DO :1.
+111
+PLEASE DO :1.
+117
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+103
+PLEASE DO :1.
+117
+PLEASE DO :1.
+101
+PLEASE DO :1.
+115
+PLEASE DO :1.
+115
+PLEASE DO :1.
+58
+PLEASE DO :1.
+32
+
+// Display remainder of prompt
 PLEASE CALL :4.
-PLEASE DONT :2. 1
+
+// Get user's guess
+PLEASE LISTEN :8. Guess
+
+// Check if guess is correct
+PLEASE IF :11. Guess = Secret
+CORRECT_GUESS
+PLEASE IF :11. Guess < Secret
+TOO_LOW
+PLEASE IF :11. Guess > Secret
+TOO_HIGH
+
+// Too low message
+TOO_LOW:
+PLEASE DO :1.
+84
+PLEASE DO :1.
+111
+PLEASE DO :1.
+111
+PLEASE DO :1.
+32
+PLEASE DO :1.
+108
+PLEASE DO :1.
+111
+PLEASE DO :1.
+119
+PLEASE DO :1.
+33
 PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "intermediate" as const,
-    },
-    {
-      title: "Datasubs in Order",
-      description: "Shows how datasubs appear in the output in the order they are created in the code",
-      code: `PLEASE DO :1.
-54  // Character '0'
-PLEASE ADD :9. First
-PLEASE LISTEN :8. First
+PLEASE GOTO :12. CHECK_CONTINUE
+
+// Too high message
+TOO_HIGH:
 PLEASE DO :1.
-55  // Character '1'
-PLEASE ADD :9. Second
-PLEASE LISTEN :8. Second
+84
+PLEASE DO :1.
+111
+PLEASE DO :1.
+111
+PLEASE DO :1.
+32
+PLEASE DO :1.
+104
+PLEASE DO :1.
+105
+PLEASE DO :1.
+103
+PLEASE DO :1.
+104
+PLEASE DO :1.
+33
 PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "intermediate" as const,
-    },
-    {
-      title: "Remove Datasub",
-      description: "Demonstrates how to create and then remove a datasub",
-      code: `PLEASE ADD :9. TempData
-PLEASE LISTEN :8. TempData
-PLEASE DO :1.
-20  // 's'
-PLEASE DO :1.
-21  // 't'
-PLEASE DO :1.
-2   // 'a'
-PLEASE DO :1.
-19  // 'r'
-PLEASE DO :1.
-21  // 't'
-PLEASE CALL :4.
-PLEASE SUB GO :7. TempData
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "intermediate" as const,
-    },
-    {
-      title: "Punctuated Sentence",
-      description: "Creates a sentence with punctuation marks ending with a question mark",
-      code: `PLEASE DO :1.
-36
-PLEASE DO :1.
-20
-PLEASE DO :1.
-1
-PLEASE DO :1.
-21
-PLEASE DO :1.
-9
-PLEASE DO :1.
-10
-PLEASE DO :1.
-20
-PLEASE DO :1.
-1
-PLEASE DO :1.
-7
-PLEASE DO :1.
-22
-PLEASE DO :1.
-15
+PLEASE GOTO :12. CHECK_CONTINUE
+
+// Correct guess message
+CORRECT_GUESS:
 PLEASE DO :1.
 67
+PLEASE DO :1.
+111
+PLEASE DO :1.
+110
+PLEASE DO :1.
+103
+PLEASE DO :1.
+114
+PLEASE DO :1.
+97
+PLEASE DO :1.
+116
+PLEASE DO :1.
+117
+PLEASE DO :1.
+108
+PLEASE DO :1.
+97
+PLEASE DO :1.
+116
+PLEASE DO :1.
+105
+PLEASE DO :1.
+111
+PLEASE DO :1.
+110
+PLEASE DO :1.
+115
+PLEASE DO :1.
+33
+PLEASE DO :1.
+32
+PLEASE DO :1.
+89
+PLEASE DO :1.
+111
+PLEASE DO :1.
+117
+PLEASE DO :1.
+32
+PLEASE DO :1.
+103
+PLEASE DO :1.
+117
+PLEASE DO :1.
+101
+PLEASE DO :1.
+115
+PLEASE DO :1.
+115
+PLEASE DO :1.
+101
+PLEASE DO :1.
+100
+PLEASE DO :1.
+32
+PLEASE DO :1.
+116
+PLEASE DO :1.
+104
+PLEASE DO :1.
+101
+PLEASE DO :1.
+32
+PLEASE DO :1.
+110
+PLEASE DO :1.
+117
+PLEASE DO :1.
+109
+PLEASE DO :1.
+98
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+33
 PLEASE CALL :4.
+PLEASE EXIT :6.
+
+// Check if attempts are maxed out
+CHECK_CONTINUE:
+PLEASE IF :11. Attempts >= MaxAttempts
+GAME_OVER
+PLEASE GOTO :12. LOOP_START
+
+// Game over message
+GAME_OVER:
+PLEASE DO :1.
+71
+PLEASE DO :1.
+97
+PLEASE DO :1.
+109
+PLEASE DO :1.
+101
+PLEASE DO :1.
+32
+PLEASE DO :1.
+111
+PLEASE DO :1.
+118
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+33
+PLEASE DO :1.
+32
+PLEASE DO :1.
+84
+PLEASE DO :1.
+104
+PLEASE DO :1.
+101
+PLEASE DO :1.
+32
+PLEASE DO :1.
+110
+PLEASE DO :1.
+117
+PLEASE DO :1.
+109
+PLEASE DO :1.
+98
+PLEASE DO :1.
+101
+PLEASE DO :1.
+114
+PLEASE DO :1.
+32
+PLEASE DO :1.
+119
+PLEASE DO :1.
+97
+PLEASE DO :1.
+115
+PLEASE DO :1.
+32
+PLEASE CALL :4.
+PLEASE CALL :4.; Secret
 PLEASE EXIT :6.`,
-      level: "intermediate" as const,
+      level: "advanced" as const,
     },
     {
-      title: "Question Generator",
-      description: "Creates a question using datasubs in sequence for customization",
-      code: `PLEASE DO :1.
-50
-PLEASE DO :1.
-9
-PLEASE DO :1.
-2
-PLEASE DO :1.
-21
-PLEASE DO :1.
-1
-PLEASE DO :1.
+      title: "Countdown Timer",
+      description: "Simple countdown timer visualization with text output",
+      code: `// Countdown timer visualization
+PLEASE ADD :9. Counter
+PLEASE ADD :9. StartValue
+
+// Set initial values
+PLEASE CALC :10. StartValue
 10
-PLEASE DO :1.
-20
-PLEASE DO :1.
-1
-PLEASE ADD :9. Topic
-PLEASE LISTEN :8. Topic
+PLEASE CALC :10. Counter
+StartValue
+
+// Create beginning message
 PLEASE DO :1.
 67
+PLEASE DO :1.
+111
+PLEASE DO :1.
+117
+PLEASE DO :1.
+110
+PLEASE DO :1.
+116
+PLEASE DO :1.
+100
+PLEASE DO :1.
+111
+PLEASE DO :1.
+119
+PLEASE DO :1.
+110
+PLEASE DO :1.
+32
+PLEASE DO :1.
+115
+PLEASE DO :1.
+116
+PLEASE DO :1.
+97
+PLEASE DO :1.
+114
+PLEASE DO :1.
+116
+PLEASE DO :1.
+105
+PLEASE DO :1.
+110
+PLEASE DO :1.
+103
+PLEASE DO :1.
+46
+PLEASE DO :1.
+46
+PLEASE DO :1.
+46
+
+// Display start message
+PLEASE CALL :4.
+
+// Start the countdown loop
+COUNTDOWN_LOOP:
+
+// Clear screen for clean display
+PLEASE CLEAR :7.
+
+// Display current count
+PLEASE CALL :4.; Counter
+
+// Check if we've reached zero
+PLEASE IF :11. Counter <= 0
+COUNTDOWN_DONE
+
+// Decrement the counter
+PLEASE CALC :10. Counter
+Counter - 1
+
+// Continue the loop
+PLEASE GOTO :12. COUNTDOWN_LOOP
+
+// Countdown completion message
+COUNTDOWN_DONE:
+PLEASE CLEAR :7.
+
+// Create blast off message
+PLEASE DO :1.
+66
+PLEASE DO :1.
+108
+PLEASE DO :1.
+97
+PLEASE DO :1.
+115
+PLEASE DO :1.
+116
+PLEASE DO :1.
+32
+PLEASE DO :1.
+111
+PLEASE DO :1.
+102
+PLEASE DO :1.
+102
+PLEASE DO :1.
+33
+
+// Display completion message
 PLEASE CALL :4.
 PLEASE EXIT :6.`,
       level: "intermediate" as const,
-    },
-    {
-      title: "Complex Sequence",
-      description: "Creates and manipulates a more complex sequence of values",
-      code: `PLEASE DO :1.
-9
-PLEASE DO :1.
-6
-PLEASE DO :1.
-13
-PLEASE DO :1.
-13
-PLEASE DO :1.
-16
-PLEASE CALL :4.
-PLEASE BREACH :5.
-PLEASE DO :1.
-24
-PLEASE DO :1.
-16
-PLEASE DO :1.
-19
-PLEASE DO :1.
-13
-PLEASE DO :1.
-5
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "advanced" as const,
-    },
-    {
-      title: "Datalings with Datasubs",
-      description: "Combines datalings and datasubs in sequence for precise output ordering",
-      code: `PLEASE DO :1.
-52  // 'Y'
-PLEASE DO :1.
-16  // 'o'
-PLEASE DO :1.
-22  // 'u'
-PLEASE DO :1.
-19  // 'r'
-PLEASE DO :1.
-1   // ' '
-PLEASE ADD :9. Message
-PLEASE LISTEN :8. Message
-PLEASE DO :1.
-1   // ' '
-PLEASE DO :1.
-10  // 'i'
-PLEASE DO :1.
-20  // 's'
-PLEASE DO :1.
-1   // ' '
-PLEASE DO :1.
-9   // 'h'
-PLEASE DO :1.
-6   // 'e'
-PLEASE DO :1.
-19  // 'r'
-PLEASE DO :1.
-6   // 'e'
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "advanced" as const,
-    },
-    {
-      title: "Message Concatenation",
-      description: "Combines multiple datasubs with datalings in specific order",
-      code: `PLEASE ADD :9. FirstName
-PLEASE ADD :9. LastName
-PLEASE LISTEN :8. FirstName
-PLEASE LISTEN :8. LastName
-PLEASE DO :1.
-35  // 'H'
-PLEASE DO :1.
-6   // 'e'
-PLEASE DO :1.
-13  // 'l'
-PLEASE DO :1.
-13  // 'l'
-PLEASE DO :1.
-16  // 'o'
-PLEASE DO :1.
-44  // ',' 
-PLEASE DO :1.
-1   // ' '
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "advanced" as const,
-    },
-    {
-      title: "Datasub Management",
-      description: "Creates, uses, and removes datasubs to control output flow",
-      code: `PLEASE ADD :9. Temp
-PLEASE LISTEN :8. Temp
-PLEASE DO :1.
-47  // 'T'
-PLEASE DO :1.
-6   // 'e'
-PLEASE DO :1.
-14  // 'm'
-PLEASE DO :1.
-17  // 'p'
-PLEASE DO :1.
-58  // ':'
-PLEASE DO :1.
-1   // ' '
-PLEASE CALL :4.
-PLEASE SUB GO :7. Temp
-PLEASE DO :1.
-45  // 'R'
-PLEASE DO :1.
-6   // 'e'
-PLEASE DO :1.
-14  // 'm'
-PLEASE DO :1.
-16  // 'o'
-PLEASE DO :1.
-23  // 'v'
-PLEASE DO :1.
-6   // 'e'
-PLEASE DO :1.
-5   // 'd'
-PLEASE CALL :4.
-PLEASE EXIT :6.`,
-      level: "advanced" as const,
     },
   ];
 
@@ -493,7 +1436,7 @@ PLEASE EXIT :6.`,
       <div className="text-center max-w-2xl mx-auto">
         <h2 className="text-2xl font-bold tracking-tight">Example Programs</h2>
         <p className="text-muted-foreground mt-2">
-          Explore these sample programs to understand Interfuck capabilities and
+          Explore these sample programs to understand CBPL capabilities and
           learn programming patterns
         </p>
       </div>

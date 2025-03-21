@@ -1,3 +1,4 @@
+
 // Interpreter for the Callback Programming Language (CBPL)
 
 // Function to convert number to character
@@ -94,6 +95,7 @@ export class Databer {
   private datalings: number[] = [];
   private datasubs: Map<string, string> = new Map(); // New storage for datasubs
   private dataOrder: Array<{type: 'dataling' | 'datasub', name?: string, index?: number}> = []; // Track order of data elements
+  private calculationDatasubs: Set<string> = new Set(); // Track datasubs used for calculation results
 
   // Dodaje nowy Dataling z podaną wartością
   addDataling(value: number): number {
@@ -135,6 +137,16 @@ export class Databer {
     this.datasubs.set(name, value);
   }
 
+  // Mark a datasub as being used for calculation results
+  markAsCalculationDatasub(name: string): void {
+    this.calculationDatasubs.add(name);
+  }
+
+  // Check if a datasub is used for calculation results
+  isCalculationDatasub(name: string): boolean {
+    return this.calculationDatasubs.has(name);
+  }
+
   // Sprawdza czy Datasub o określonej nazwie istnieje
   hasDatasub(name: string): boolean {
     return this.datasubs.has(name);
@@ -171,6 +183,7 @@ export class Databer {
       throw new Error(`Stupid error: Datasub '${name}' does not exist`);
     }
     this.datasubs.delete(name);
+    this.calculationDatasubs.delete(name); // Also remove from calculation tracking
     // Update data order
     this.dataOrder = this.dataOrder.filter(item => 
       !(item.type === 'datasub' && item.name === name)
@@ -235,12 +248,14 @@ export class Databer {
   clear(): void {
     this.datalings = [];
     this.datasubs.clear();
+    this.calculationDatasubs.clear(); // Clear calculation tracking too
     this.dataOrder = [];
   }
 
   // Usuwa wszystkie Datasubs
   clearDatasubs(): void {
     this.datasubs.clear();
+    this.calculationDatasubs.clear(); // Clear calculation tracking too
     this.dataOrder = this.dataOrder.filter(item => item.type !== 'datasub');
   }
 
@@ -248,6 +263,7 @@ export class Databer {
   clearAll(): void {
     this.datalings = [];
     this.datasubs.clear();
+    this.calculationDatasubs.clear(); // Clear calculation tracking too
     this.dataOrder = [];
   }
 
@@ -270,7 +286,15 @@ export class Databer {
         
         // Only replace if the datasub name is a whole word
         const regex = new RegExp(`\\b${subName}\\b`, 'g');
-        processedExpression = processedExpression.replace(regex, value);
+        
+        // Convert datasub values to numbers explicitly to prevent string concatenation
+        const numericValue = parseFloat(value);
+        if (isNaN(numericValue)) {
+          throw new Error(`Datasub '${subName}' contains non-numeric value: '${value}'`);
+        }
+        
+        // Replace with the numeric value wrapped in parentheses for safety
+        processedExpression = processedExpression.replace(regex, `(${numericValue})`);
       }
       
       // Check for division by zero before evaluation
@@ -433,6 +457,11 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
             throw new Error(`Stupid error: Datasub '${subName}' does not exist`);
           }
           
+          // NEW: Check if the datasub is used for calculation results
+          if (databer.isCalculationDatasub(subName)) {
+            throw new Error(`Math error: Cannot listen to calculation datasub '${subName}'`);
+          }
+          
           if (onUserInput) {
             try {
               const userInput = await onUserInput(subName);
@@ -520,9 +549,6 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
         }
       }
       // MODIFIED: Enhanced CALL command with three variants
-      // PLEASE CALL :4. - Displays all Databer values (original behavior)
-      // PLEASE CALL :4.: [index] - Displays a specific Dataling
-      // PLEASE CALL :4.; [name] - Displays a specific Datasub
       else if (line.startsWith('PLEASE CALL :4.')) {
         // Check for specific Dataling display (with colon)
         if (line.includes(':4.:')) {
@@ -583,6 +609,9 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
           if (!databer.hasDatasub(resultSubName)) {
             throw new Error(`Stupid error: Result Datasub '${resultSubName}' does not exist`);
           }
+          
+          // Mark this datasub as being used for calculation results
+          databer.markAsCalculationDatasub(resultSubName);
           
           // Get expression from next line
           if (i + 1 < lines.length) {
@@ -693,4 +722,3 @@ export async function interpretInterfuck(input: InterfuckInput): Promise<Interfu
     datasubs: databer.getAllDatasubs()
   };
 }
-
